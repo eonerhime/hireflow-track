@@ -432,9 +432,9 @@ Track sprint status here. Update at each sprint close.
 | Sprint 1 | 18–20 Apr 2026     | Foundation + Auth                      | 11        | ✅ Closed      | 20 Apr 2026 | Completed ahead of schedule |
 | Sprint 2 | 21–27 Apr 2026     | Core Pipeline                          | 9         | ✅ Closed      | 22 Apr 2026 | Completed ahead of schedule |     |
 | Sprint 3 | 28 Apr–04 May 2026 | Contacts + Reminders + Dashboard (MVP) | 9         | ✅ Closed      | 24 Apr 2026 | Completed ahead of schedule |
-| Sprint 4 | 05–11 May 2026     | Notes + Metrics + API Hardening        | 7         | 🔲 Not started | —           | —                           |
-| Sprint 5 | 12–18 May 2026     | Resume Management + Email Reminders    | 5         | 🔲 Not started | —           | —                           |
-| Sprint 6 | 19–25 May 2026     | Analytics + Export + OAuth + E2E       | 4         | 🔲 Not started | —           | —                           |
+| Sprint 4 | 05–11 May 2026     | Notes + Metrics + API Hardening        | 7         | ✅ Closed      | 03 May 2026 |
+| Sprint 5 | 12–18 May 2026     | Resume Management + Email Reminders    | 5         | 🔄 In progress | —           |
+| Sprint 6 | 19–25 May 2026     | Analytics + Export + OAuth + E2E       | 4         | 🔲 Not started | —           |
 
 **Status markers:** 🔲 Not started | 🔄 In progress | ✅ Closed | ⚠️ Overflow
 
@@ -460,17 +460,19 @@ Phase gates are hard checkpoints. The next phase does not begin until the gate i
 
 ---
 
-### Phase 2 Gate — Enhanced (Sprint 5 Close: 18 May 2026)
+### Phase 2 Gate — Enhanced (Sprint 5 Close)
 
 | Gate Criterion                                                 | Status |
 | -------------------------------------------------------------- | ------ |
-| All 7 Should Have PBIs complete and marked `[x]` in product.md | [ ]    |
-| Integration tests passing for all critical API routes          | [ ]    |
-| API documentation committed                                    | [ ]    |
+| All 7 Should Have PBIs complete and marked `[x]` in product.md | [~]    |
+| Integration tests passing for all critical API routes          | [x]    |
+| API documentation committed                                    | [x]    |
 | Notion workspace updated                                       | [ ]    |
 | Sprint 5 retro completed and documented                        | [ ]    |
 
-**Gate cleared:** _(date to be recorded)_
+**Sprint 4 progress:** 6 of 7 Should Have PBIs complete (PBI-022 — Reminder list view — remains; scheduled for Sprint 5). Integration tests and API docs delivered in Sprint 4.
+
+**Gate cleared:** _(date to be recorded at Sprint 5 close)_
 
 ---
 
@@ -504,5 +506,5 @@ Phase gates are hard checkpoints. The next phase does not begin until the gate i
 
 ---
 
-_plan.md v2.0 — 20 April 2026 — HireTrace_
-_Revised: sprint duration compressed from 2 weeks to 1 week. Capacity 8hrs/day. MVP target: 04 May 2026. Full release: 25 May 2026. LinkedIn post calendar remapped in linkedin.md v3.0._
+_plan.md v2.1 — 03 May 2026 — HireTrace_
+_Sprint 4 closed 03 May 2026 ahead of schedule. Sprint Summary Table and Phase 2 gate updated._

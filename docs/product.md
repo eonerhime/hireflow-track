@@ -323,9 +323,9 @@ Items are ordered by priority within each epic. Status reflects current state at
 | ------- | ----------------------------------------------------- | ---- | -------- | ------ |
 | PBI-024 | Summary stats bar (total, active, interviews, offers) | M    | 🔴       | [x]    |
 | PBI-025 | Pipeline stage distribution (visual)                  | M    | 🟠       | [x]    |
-| PBI-026 | Conversion rate metric (applied → interview → offer)  | M    | 🟡       | [ ]    |
-| PBI-027 | Time-in-stage metric per application                  | L    | 🟡       | [ ]    |
-| PBI-028 | Source effectiveness metric                           | M    | 🔵       | [ ]    |
+| PBI-026 | Conversion rate metric (applied → interview → offer)  | M    | 🟡       | [x]    |
+| PBI-027 | Time-in-stage metric per application                  | L    | 🟡       | [x]    |
+| PBI-028 | Source effectiveness metric                           | M    | 🔵       | [x]    |
 
 ---
 
@@ -334,8 +334,8 @@ Items are ordered by priority within each epic. Status reflects current state at
 | ID      | Item                                | Size | Priority | Status |
 | ------- | ----------------------------------- | ---- | -------- | ------ |
 | PBI-029 | General notes field per application | S    | 🟠       | [x]    |
-| PBI-030 | Interview notes per stage           | M    | 🟠       | [ ]    |
-| PBI-031 | Notes history / timeline view       | M    | 🟡       | [ ]    |
+| PBI-030 | Interview notes per stage           | M    | 🟠       | [x]    |
+| PBI-031 | Notes history / timeline view       | M    | 🟡       | [x]    |
 
 ---
 
@@ -363,10 +363,10 @@ Items are ordered by priority within each epic. Status reflects current state at
 | ID      | Item                                         | Size | Priority | Status |
 | ------- | -------------------------------------------- | ---- | -------- | ------ |
 | PBI-037 | Input validation (Zod — server and client)   | M    | 🔴       | [x]    |
-| PBI-038 | API rate limiting                            | M    | 🟠       | [ ]    |
+| PBI-038 | API rate limiting                            | M    | 🟠       | [x]    |
 | PBI-039 | HTTPS + security headers (Next.js config)    | S    | 🔴       | [x]    |
 | PBI-040 | React Testing Library — core component suite | L    | 🔴       | [ ]    |
-| PBI-041 | Integration tests — API routes               | L    | 🟠       | [ ]    |
+| PBI-041 | Integration tests — API routes               | L    | 🟠       | [x]    |
 | PBI-042 | E2E tests — critical user journeys           | L    | 🟡       | [ ]    |
 
 ---
@@ -376,7 +376,7 @@ Items are ordered by priority within each epic. Status reflects current state at
 | ID      | Item                                              | Size | Priority | Status |
 | ------- | ------------------------------------------------- | ---- | -------- | ------ |
 | PBI-043 | README.md (project overview, setup, architecture) | M    | 🔴       | [x]    |
-| PBI-044 | API documentation (OpenAPI / inline comments)     | M    | 🟠       | [ ]    |
+| PBI-044 | API documentation (OpenAPI / inline comments)     | M    | 🟠       | [x]    |
 | PBI-045 | LinkedIn post per sprint (see linkedin.md)        | S    | 🔴       | [ ]    |
 | PBI-046 | Notion workspace setup and public share           | S    | 🔴       | [x]    |
 
@@ -438,5 +438,5 @@ Items are ordered by priority within each epic. Status reflects current state at
 
 ---
 
-_product.md v1.1 — 24 April 2026 — HireTrace_
+_product.md v1.2 — 03 May 2026 — HireTrace_
 _This document is the upstream source for all downstream SDD artefacts. Changes here must be reflected in plan.md and communicated to sprint-XX.md at the next sprint planning session._
