@@ -207,8 +207,8 @@ Writing a schema transform feels like a small decision — until TypeScript remi
 - [x] Sprint Review section completed
 - [x] Sprint Retrospective section completed
 - [x] LinkedIn retro insight captured above
-- [ ] Notion Sprint Board updated — Sprint 4 marked ✅ Closed, Sprint 5 🔄 In progress
-- [ ] Notion Changelog entry added for Sprint 4
+- [x] Notion Sprint Board updated — Sprint 4 marked ✅ Closed, Sprint 5 🔄 In progress
+- [x] Notion Changelog entry added for Sprint 4
 - [x] `sprint-04.md` committed to `/docs/sprints/`
 - [x] `plan.md` Sprint Summary Table updated with close date
 - [x] Phase 2 gate progress recorded in `plan.md`

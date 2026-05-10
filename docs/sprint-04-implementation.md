@@ -1860,15 +1860,15 @@ Merge to `develop`. Verify the Vercel preview. Then proceed to Sprint 5.
 
 After the PR is merged to `develop`:
 
-- [ ] Mark all 8 PBIs `[x]` in `sprint-04.md`
-- [ ] Mark all 8 PBIs `[x]` in `product.md`
-- [ ] Complete `sprint-04.md` Sprint Review and Retrospective sections
-- [ ] Fill retro insight in `sprint-04.md` for LinkedIn
-- [ ] Commit updated docs directly to `develop`: `git commit -m "[DOCS] Sprint 4 close — update sprint-04.md, product.md"`
-- [ ] Update Notion Sprint Board: Sprint 4 → ✅ Closed, Sprint 5 → 🔄 In progress
-- [ ] Add Sprint 4 Changelog entry to Notion
-- [ ] `plan.md` Sprint Summary Table updated with close date
-- [ ] Phase 2 gate progress recorded in `plan.md`
+- [x] Mark all 8 PBIs `[x]` in `sprint-04.md`
+- [x] Mark all 8 PBIs `[x]` in `product.md`
+- [x] Complete `sprint-04.md` Sprint Review and Retrospective sections
+- [x] Fill retro insight in `sprint-04.md` for LinkedIn
+- [x] Commit updated docs directly to `develop`: `git commit -m "[DOCS] Sprint 4 close — update sprint-04.md, product.md"`
+- [x] Update Notion Sprint Board: Sprint 4 → ✅ Closed, Sprint 5 → 🔄 In progress
+- [x] Add Sprint 4 Changelog entry to Notion
+- [x] `plan.md` Sprint Summary Table updated with close date
+- [x] Phase 2 gate progress recorded in `plan.md`
 
 ---
 

@@ -347,7 +347,7 @@ Sprint 1 ran 20–21 April 2026 (compressed). Screenshots are already captured. 
 
 **05 May 2026 · Tuesday · Text + Screenshot**
 **Asset:** Screenshot of Notion Sprint Board showing Sprint 1 → HireTrace Screenshot Frame
-**Status:** `[ ]` Not posted
+**Status:** `[x]` Posted
 
 ```
 Sprint 1 starts today.
@@ -387,7 +387,7 @@ Tell me what works for you 👇
 
 **07 May 2026 · Thursday · Text + Screenshot**
 **Asset:** Screenshot of GitHub commit history showing first meaningful feature commit → HireTrace Screenshot Frame
-**Status:** `[ ]` Not posted
+**Status:** `[x]` Posted
 
 ```
 First commit is in.
@@ -430,7 +430,7 @@ Share your war stories below 👇
 
 **09 May 2026 · Saturday · Text + Screenshot**
 **Asset:** Screenshot of HireTrace login page on Vercel → HireTrace Screenshot Frame
-**Status:** `[ ]` Not posted
+**Status:** `[x]` Posted
 
 ```
 Authentication is live on HireTrace.
