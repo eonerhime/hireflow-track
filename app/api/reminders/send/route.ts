@@ -1,3 +1,4 @@
+// app/api/reminders/send/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Resend } from "resend";
@@ -62,7 +63,15 @@ export async function POST(request: NextRequest) {
     type UserMap = Record<string, AppRow[]>;
 
     const byUser = applications.reduce<UserMap>((acc, app) => {
-      const email = app.user.email;
+      // const email = app.user.email;
+      const email = "emo.onerhime@gmail.com";
+      console.log(
+        "Processing app for",
+        email,
+        "with follow-up at",
+        app.followUpAt,
+      );
+
       if (!acc[email]) acc[email] = [];
       acc[email].push(app);
       return acc;
@@ -74,7 +83,7 @@ export async function POST(request: NextRequest) {
       const count = userApps.length;
       try {
         await resend.emails.send({
-          from: "HireTrace <reminders@yourdomain.com>",
+          from: "HireTrace <onboarding@resend.dev>",
           to: email,
           subject: `You have ${count} follow-up${count === 1 ? "" : "s"} due today — HireTrace`,
           text: buildEmailBody(
