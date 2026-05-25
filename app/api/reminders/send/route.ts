@@ -34,7 +34,20 @@ function buildEmailBody(
   ].join("\n");
 }
 
-// Unified core processing function to accept execution context seamlessly
+/**
+ * POST /api/reminders/send
+ * Auth: Vercel Cron — Authorization: Bearer <CRON_SECRET>
+ *
+ * Sends reminder emails to users with applications where followUpAt <= today
+ * and stage is not CLOSED. Groups reminders per user — one email per user.
+ * Email send failures per user are logged but do not abort the batch.
+ * Added to PUBLIC_API_ROUTES in middleware.ts — JWT check bypassed.
+ *
+ * Responses:
+ * 200 — { sent: number } count of users successfully emailed
+ * 401 — Unauthorized { error }
+ * 500 — Internal server error { error }
+ */
 async function handleReminderProcessing(request: NextRequest) {
   try {
     // Validate Vercel cron Authorization header

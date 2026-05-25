@@ -4,6 +4,20 @@ import { cloudinary } from "@/lib/cloudinary";
 import { getUserFromRequest } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 
+/**
+ * DELETE /api/resumes/[id]
+ * Auth: Required (JWT cookie)
+ *
+ * Deletes a resume. Cloudinary deletion runs first — if it fails the DB
+ * record is NOT deleted and 500 is returned. Any applications linked to
+ * this resume have resumeId set to null before the record is deleted.
+ *
+ * Responses:
+ *   200 — { message: "Resume deleted" }
+ *   401 — Unauthorized { error }
+ *   404 — Resume not found or not owned by user { error }
+ *   500 — Internal server error { error }
+ */
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },

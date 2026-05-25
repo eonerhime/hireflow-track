@@ -5,6 +5,21 @@ import { getUserFromRequest } from "@/lib/auth";
 import { createResumeSchema } from "@/lib/schemas/resume";
 import { revalidatePath } from "next/cache";
 
+/**
+ * GET /api/resumes
+ * Auth: Required (JWT cookie)
+ *
+ * Returns all resumes uploaded by the authenticated user,
+ * ordered by uploadedAt descending.
+ *
+ * Response shape:
+ *   { id, label, fileUrl, uploadedAt }[]
+ *
+ * Responses:
+ *   200 — Array of resume objects (empty array if none)
+ *   401 — Unauthorized { error }
+ *   500 — Internal server error { error }
+ */
 export async function GET(request: NextRequest) {
   try {
     const user = await getUserFromRequest(request);
@@ -32,6 +47,24 @@ export async function GET(request: NextRequest) {
   }
 }
 
+/**
+ * POST /api/resumes
+ * Auth: Required (JWT cookie)
+ *
+ * Accepts multipart/form-data. Validates PDF type and 5 MB size limit before
+ * uploading to Cloudinary server-side. Stores metadata in the Resume table.
+ * The Cloudinary API secret is never exposed to the client.
+ *
+ * Request body (multipart/form-data):
+ *   file:  File   — PDF only, max 5 MB
+ *   label: string — required
+ *
+ * Responses:
+ *   201 — { id, label, fileUrl }
+ *   400 — Validation failed, wrong file type, or file too large { error }
+ *   401 — Unauthorized { error }
+ *   500 — Internal server error { error }
+ */
 export async function POST(request: NextRequest) {
   try {
     const user = await getUserFromRequest(request);
