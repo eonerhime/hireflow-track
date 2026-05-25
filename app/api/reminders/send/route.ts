@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Resend } from "resend";
 
+// Force Next.js to bypass compilation caching completely
 export const dynamic = "force-dynamic";
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
@@ -33,7 +34,8 @@ function buildEmailBody(
   ].join("\n");
 }
 
-export async function POST(request: NextRequest) {
+// Unified core processing function to accept execution context seamlessly
+async function handleReminderProcessing(request: NextRequest) {
   try {
     // Validate Vercel cron Authorization header
     const authHeader = request.headers.get("authorization");
@@ -109,10 +111,19 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ sent });
   } catch (error) {
-    console.error("[POST /api/reminders/send]", error);
+    console.error("[CRON /api/reminders/send]", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 },
     );
   }
+}
+
+// Explicitly export both handlers to safely accept Vercel's multi-method environment triggers
+export async function GET(request: NextRequest) {
+  return handleReminderProcessing(request);
+}
+
+export async function POST(request: NextRequest) {
+  return handleReminderProcessing(request);
 }
