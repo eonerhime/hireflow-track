@@ -2,13 +2,13 @@
 import ContactForm from "@/components/ContactForm";
 import ContactList from "@/components/ContactList";
 import DeleteButton from "@/components/DeleteButton";
+import ResumePicker from "@/components/ResumePicker"; // ← ADD
 import { prisma } from "@/lib/prisma";
 import { ApplicationStage } from "@prisma/client";
 import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-// ADD to imports
 import NoteViewToggle from "@/components/NoteViewToggle";
 
 const stageLabels: Record<ApplicationStage, string> = {
@@ -41,12 +41,26 @@ export default async function ApplicationDetailPage({
   const { id } = await params;
   const { from } = await searchParams;
 
-  const backHref = from === "kanban" ? "/dashboard?from=kanban" : "/dashboard";
-  const backLabel = from === "kanban" ? "← Back to Kanban" : "← Back to list";
+  const backHref =
+    from === "kanban"
+      ? "/dashboard?from=kanban"
+      : from === "reminders"
+        ? "/dashboard/reminders"
+        : "/dashboard";
+
+  const backLabel =
+    from === "kanban"
+      ? "← Back to Kanban"
+      : from === "reminders"
+        ? "← Back to Reminders"
+        : "← Back to list";
+
   const editHref =
     from === "kanban"
       ? `/dashboard/applications/${id}/edit?from=kanban`
-      : `/dashboard/applications/${id}/edit`;
+      : from === "reminders"
+        ? `/dashboard/applications/${id}/edit?from=reminders`
+        : `/dashboard/applications/${id}/edit`;
 
   const cookieStore = await cookies();
   const token = cookieStore.get("hiretrace-token")?.value;
@@ -61,15 +75,25 @@ export default async function ApplicationDetailPage({
     redirect("/login");
   }
 
+  // Fetch application with resume relation included        // ← UPDATED
   const application = await prisma.application.findFirst({
     where: { id, userId, deletedAt: null },
     include: {
       contacts: { orderBy: { createdAt: "asc" } },
       interviewNotes: { orderBy: { createdAt: "desc" } },
+      resume: {
+        select: { id: true, label: true, fileUrl: true },
+      },
     },
   });
 
   if (!application) notFound();
+
+  const resumes = await prisma.resume.findMany({
+    where: { userId },
+    orderBy: { uploadedAt: "desc" },
+    select: { id: true, label: true, fileUrl: true },
+  });
 
   const isOverdue =
     application.followUpAt &&
@@ -154,7 +178,6 @@ export default async function ApplicationDetailPage({
               </div>
             ))}
         </dl>
-
         {isOverdue && (
           <div className="mt-4 rounded-md bg-red-50 px-4 py-3">
             <p className="text-sm font-medium text-red-700">
@@ -162,7 +185,6 @@ export default async function ApplicationDetailPage({
             </p>
           </div>
         )}
-
         {application.notes && (
           <div className="mt-4 border-t border-gray-100 pt-4">
             <p className="mb-1 text-sm font-medium text-gray-500">Notes</p>
@@ -171,6 +193,42 @@ export default async function ApplicationDetailPage({
             </p>
           </div>
         )}
+        {application.resumeVersionLabel && (
+          <div className="mt-4 border-t border-gray-100 pt-4">
+            <dt className="text-sm font-medium text-gray-500">
+              Resume version
+            </dt>
+            <dd className="text-sm text-gray-900">
+              {application.resumeVersionLabel}
+            </dd>
+          </div>
+        )}
+        {/* Linked resume — display when set */} {/* ← ADD */}
+        {application.resume && (
+          <div className="mt-4 border-t border-gray-100 pt-4">
+            <dt className="text-sm font-medium text-gray-500">Linked resume</dt>
+            <dd className="text-sm text-gray-900">
+              {application.resume.label}{" "}
+              <a
+                href={application.resume.fileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                Download
+              </a>
+            </dd>
+          </div>
+        )}
+        {/* Resume picker — always rendered so user can link/unlink */}{" "}
+        {/* ← ADD */}
+        <div className="mt-4 border-t border-gray-100 pt-4">
+          <ResumePicker
+            applicationId={application.id}
+            currentResumeId={application.resumeId}
+            resumes={resumes}
+          />
+        </div>
       </div>
 
       {/* Interview Notes section */}

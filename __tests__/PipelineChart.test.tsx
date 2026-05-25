@@ -18,6 +18,8 @@ const mockApp = (stage: ApplicationStage): Application => ({
   createdAt: new Date(),
   updatedAt: new Date(),
   source: null,
+  resumeVersionLabel: null,
+  resumeId: null,
   stageEnteredAt: new Date(),
 });
 

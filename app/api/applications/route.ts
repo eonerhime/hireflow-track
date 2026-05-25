@@ -41,8 +41,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { company, role, location, salary, jobUrl, followUpAt, notes } =
-      result.data;
+    const {
+      company,
+      role,
+      location,
+      salary,
+      jobUrl,
+      followUpAt,
+      notes,
+      resumeVersionLabel,
+    } = result.data;
 
     const application = await prisma.application.create({
       data: {
@@ -54,6 +62,7 @@ export async function POST(request: NextRequest) {
         jobUrl: jobUrl || null,
         followUpAt: followUpAt ? new Date(followUpAt) : null,
         notes: notes || null,
+        resumeVersionLabel: resumeVersionLabel || null,
       },
     });
     revalidatePath("/dashboard");

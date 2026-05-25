@@ -15,6 +15,7 @@ model User {
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   applications Application[]
+  resumes      Resume[]
 }
 
 model Application {
@@ -33,11 +34,14 @@ model Application {
   stage       ApplicationStage  @default(APPLIED)
   
   // Tracking
-  appliedAt   DateTime          @default(now())
-  followUpAt  DateTime?
-  notes       String?
-  source      String?
-  stageEnteredAt DateTime          @default(now())
+  appliedAt           DateTime          @default(now())
+  followUpAt          DateTime?
+  notes               String?
+  source              String?
+  stageEnteredAt      DateTime          @default(now())
+  resumeVersionLabel  String?
+  resumeId            String?
+  resume              Resume?           @relation(fields: [resumeId], references: [id])
 
   // Soft delete
   deletedAt   DateTime?
@@ -89,4 +93,17 @@ model InterviewNote {
   updatedAt     DateTime         @updatedAt
 
   @@index([applicationId])
+}
+
+model Resume {
+  id           String        @id @default(cuid())
+  userId       String
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  label        String
+  fileUrl      String
+  fileKey      String
+  uploadedAt   DateTime      @default(now())
+  applications Application[]
+
+  @@index([userId])
 }

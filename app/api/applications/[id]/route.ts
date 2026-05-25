@@ -36,7 +36,16 @@ export async function GET(
   if (!user)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const application = await getOwnedApplication(user.userId, id);
+  const application = await prisma.application.findFirst({
+    where: { id, userId: user.userId, deletedAt: null },
+    include: {
+      contacts: true,
+      interviewNotes: { orderBy: { createdAt: "desc" } },
+      resume: {
+        select: { id: true, label: true, fileUrl: true },
+      },
+    },
+  });
   if (!application) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
@@ -119,6 +128,18 @@ export async function PATCH(
       );
     }
 
+    // After result.success check, before prisma.application.update:
+    if (result.data.resumeId) {
+      const resume = await prisma.resume.findFirst({
+        where: { id: result.data.resumeId, userId: user.userId },
+      });
+      if (!resume) {
+        return NextResponse.json(
+          { error: "Resume not found or not owned by user" },
+          { status: 403 },
+        );
+      }
+    }
     const {
       company,
       role,
@@ -129,19 +150,27 @@ export async function PATCH(
       notes,
       stage,
       source,
+      resumeVersionLabel,
+      resumeId,
     } = result.data;
 
     const updated = await prisma.application.update({
       where: { id },
       data: {
-        company,
-        role,
-        location: location ?? null,
-        salary: salary ?? null,
-        jobUrl: jobUrl ?? null,
-        followUpAt: followUpAt ? new Date(followUpAt) : null,
-        notes: notes ?? null,
-        source: source ?? null,
+        ...(company !== undefined && { company }),
+        ...(role !== undefined && { role }),
+        ...(location !== undefined && { location: location ?? null }),
+        ...(salary !== undefined && { salary: salary ?? null }),
+        ...(jobUrl !== undefined && { jobUrl: jobUrl ?? null }),
+        ...(followUpAt !== undefined && {
+          followUpAt: followUpAt ? new Date(followUpAt) : null,
+        }),
+        ...(notes !== undefined && { notes: notes ?? null }),
+        ...(source !== undefined && { source: source ?? null }),
+        ...(resumeVersionLabel !== undefined && {
+          resumeVersionLabel: resumeVersionLabel ?? null,
+        }),
+        ...(resumeId !== undefined && { resumeId: resumeId ?? null }),
         ...(stage ? { stage, stageEnteredAt: new Date() } : {}),
       },
     });

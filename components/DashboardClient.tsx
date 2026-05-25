@@ -74,6 +74,20 @@ export default function DashboardClient({
             </button>
           </div>
           <Link
+            href="/dashboard/reminders"
+            className="rounded-md border border-gray-300 bg-white px-4 py-2
+                       text-sm font-medium text-gray-600 hover:bg-gray-50"
+          >
+            Reminders
+          </Link>
+          <Link
+            href="/dashboard/resumes"
+            className="rounded-md border border-gray-300 bg-white px-4 py-2
+                       text-sm font-medium text-gray-600 hover:bg-gray-50"
+          >
+            Resumes
+          </Link>
+          <Link
             href="/dashboard/applications/new"
             className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium
                        text-white hover:bg-indigo-700"

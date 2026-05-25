@@ -18,10 +18,15 @@ export const createApplicationSchema = z.object({
     .enum(["LINKEDIN", "REFERRAL", "COLD_APPLY", "JOB_BOARD", "OTHER", ""])
     .optional()
     .transform((val) => (val === "" ? undefined : val)),
+  resumeVersionLabel: z.string().optional(),
 });
 
 export const updateApplicationSchema = createApplicationSchema.extend({
+  company: z.string().min(1, "Company name is required").optional(),
+  role: z.string().min(1, "Role is required").optional(),
   stage: z.nativeEnum(ApplicationStage).optional(),
+  resumeVersionLabel: z.string().optional(),
+  resumeId: z.string().nullable().optional(),
 });
 
 export const updateStageSchema = z.object({
