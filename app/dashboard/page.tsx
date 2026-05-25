@@ -31,7 +31,6 @@ export default async function DashboardPage({
     where: { userId, deletedAt: null },
     orderBy: { updatedAt: "desc" },
   });
-  console.log("Fetched applications for dashboard:", applications); // ← ADD
 
   return (
     <DashboardClient
