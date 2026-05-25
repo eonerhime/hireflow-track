@@ -3,6 +3,22 @@ import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { registerSchema } from "@/lib/schemas/auth";
 
+/**
+ * POST /api/auth/register
+ * Auth: None (public endpoint)
+ *
+ * Creates a new user account. Passwords are hashed with bcrypt (cost 10).
+ * The password field is never returned in any response.
+ *
+ * Request body:
+ *   { email: string, password: string }
+ *
+ * Responses:
+ *   201 — { message: "Account created successfully" }
+ *   400 — Validation failed { error, details }
+ *   409 — Email already registered { error }
+ *   500 — Internal server error { error }
+ */
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();

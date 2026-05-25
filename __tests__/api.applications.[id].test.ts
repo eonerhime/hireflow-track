@@ -3,9 +3,7 @@
  */
 import { PATCH } from "@/app/api/applications/[id]/route";
 import { NextRequest } from "next/server";
-// ... rest of file unchanged
 
-// Mock Prisma
 jest.mock("@/lib/prisma", () => ({
   prisma: {
     application: {
@@ -15,9 +13,12 @@ jest.mock("@/lib/prisma", () => ({
   },
 }));
 
-// Mock auth
 jest.mock("@/lib/auth", () => ({
   getUserFromRequest: jest.fn(),
+}));
+
+jest.mock("next/cache", () => ({
+  revalidatePath: jest.fn(),
 }));
 
 import { prisma } from "@/lib/prisma";

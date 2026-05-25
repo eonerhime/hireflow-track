@@ -3,20 +3,24 @@ import StatsBar from "@/components/StatsBar";
 import { Application, ApplicationStage } from "@prisma/client";
 
 const mockApp = (stage: ApplicationStage): Application => ({
-  id:         `app-${stage}`,
-  userId:     "user-1",
-  company:    "Acme",
-  role:       "Engineer",
-  location:   null,
-  salary:     null,
-  jobUrl:     null,
+  id: `app-${stage}`,
+  userId: "user-1",
+  company: "Acme",
+  role: "Engineer",
+  location: null,
+  salary: null,
+  jobUrl: null,
   stage,
-  appliedAt:  new Date(),
+  appliedAt: new Date(),
   followUpAt: null,
-  notes:      null,
-  deletedAt:  null,
-  createdAt:  new Date(),
-  updatedAt:  new Date(),
+  notes: null,
+  deletedAt: null,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  source: null,
+  resumeVersionLabel: null,
+  resumeId: null,
+  stageEnteredAt: new Date(),
 });
 
 describe("StatsBar", () => {

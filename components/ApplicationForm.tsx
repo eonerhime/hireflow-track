@@ -7,12 +7,13 @@ import { useRouter } from "next/navigation";
 import {
   createApplicationSchema,
   CreateApplicationInput,
+  CreateApplicationFormInput,
 } from "@/lib/schemas/application";
 
 interface ApplicationFormProps {
   mode: "create" | "edit";
   applicationId?: string;
-  defaultValues?: Partial<CreateApplicationInput>;
+  defaultValues?: Partial<CreateApplicationFormInput>;
   onSuccess?: () => void;
 }
 
@@ -28,12 +29,12 @@ export default function ApplicationForm({
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<CreateApplicationInput>({
+  } = useForm<CreateApplicationFormInput>({
     resolver: zodResolver(createApplicationSchema),
     defaultValues,
   });
 
-  const onSubmit = async (data: CreateApplicationInput) => {
+  const onSubmit = async (data: CreateApplicationFormInput) => {
     const url =
       mode === "create"
         ? "/api/applications"
@@ -188,6 +189,29 @@ export default function ApplicationForm({
         />
       </div>
 
+      {/* Source */}
+      <div>
+        <label
+          htmlFor="source"
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
+          Source
+        </label>
+        <select
+          id="source"
+          {...register("source")}
+          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm
+               focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        >
+          <option value="">— Select source —</option>
+          <option value="LINKEDIN">LinkedIn</option>
+          <option value="REFERRAL">Referral</option>
+          <option value="COLD_APPLY">Cold Apply</option>
+          <option value="JOB_BOARD">Job Board</option>
+          <option value="OTHER">Other</option>
+        </select>
+      </div>
+
       {/* Actions */}
       <div className="flex gap-3 pt-2">
         <button
@@ -212,6 +236,25 @@ export default function ApplicationForm({
         >
           Cancel
         </button>
+      </div>
+
+      {/* Resume Version */}
+      <div>
+        <label
+          htmlFor="resumeVersionLabel"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Resume version
+        </label>
+        <input
+          id="resumeVersionLabel"
+          type="text"
+          placeholder="e.g. Product Manager v3"
+          {...register("resumeVersionLabel")}
+          className="mt-1 block w-full rounded-md border border-gray-300 px-3
+                    py-2 text-sm shadow-sm focus:border-blue-500
+                    focus:outline-none focus:ring-1 focus:ring-blue-500"
+        />
       </div>
     </form>
   );

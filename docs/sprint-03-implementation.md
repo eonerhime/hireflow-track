@@ -1151,11 +1151,11 @@ _Built in public. Documented with Spec-Driven Development._
 
 | Confirmed | How                                                                                                                           | Item                                |
 | --------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
-| [ ]       | File tree — confirm `README.md` exists at project root                                                                        | README.md committed at project root |
-| [ ]       | Browser — open `https://github.com/eonerhime/hiretrace` on GitHub, confirm README renders correctly with all sections visible | README renders correctly on GitHub  |
-| [ ]       | Read-through — confirm tech stack table matches actual installed versions                                                     | Tech stack versions are accurate    |
-| [ ]       | Read-through — confirm setup steps work end-to-end on a clean clone                                                           | Setup instructions are accurate     |
-| [ ]       | `npx tsc --noEmit` passes clean in terminal                                                                                   | TypeScript clean                    |
+| [x]       | File tree — confirm `README.md` exists at project root                                                                        | README.md committed at project root |
+| [x]       | Browser — open `https://github.com/eonerhime/hiretrace` on GitHub, confirm README renders correctly with all sections visible | README renders correctly on GitHub  |
+| [x]       | Read-through — confirm tech stack table matches actual installed versions                                                     | Tech stack versions are accurate    |
+| [x]       | Read-through — confirm setup steps work end-to-end on a clean clone                                                           | Setup instructions are accurate     |
+| [x]       | `npx tsc --noEmit` passes clean in terminal                                                                                   | TypeScript clean                    |
 
 ---
 

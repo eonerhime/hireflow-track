@@ -4,6 +4,23 @@ import { prisma } from "@/lib/prisma";
 import { getUserFromRequest } from "@/lib/auth";
 import { createContactSchema } from "@/lib/schemas/contact";
 
+/**
+ * POST /api/contacts
+ * Auth: Required (JWT cookie)
+ *
+ * Creates a contact associated with an application owned by the authenticated user.
+ * The applicationId in the request body must belong to the authenticated user.
+ *
+ * Request body:
+ *   { applicationId: string, name: string, role?: string,
+ *     email?: string, phone?: string, notes?: string }
+ *
+ * Responses:
+ *   201 — Contact object created
+ *   400 — Validation failed { error }
+ *   401 — Unauthorized { error }
+ *   404 — Application not found or not owned by user { error }
+ */
 export async function POST(request: NextRequest) {
   const user = await getUserFromRequest(request);
   if (!user)

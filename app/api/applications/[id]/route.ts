@@ -15,6 +15,17 @@ async function getOwnedApplication(userId: string, id: string) {
   });
 }
 
+/**
+ * GET /api/applications/[id]
+ * Auth: Required (JWT cookie)
+ *
+ * Returns a single application by ID, scoped to the authenticated user.
+ *
+ * Responses:
+ *   200 — Application object
+ *   401 — Unauthorized { error }
+ *   404 — Not found { error }
+ */
 // GET single application
 export async function GET(
   request: NextRequest,
@@ -25,13 +36,44 @@ export async function GET(
   if (!user)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const application = await getOwnedApplication(user.userId, id);
+  const application = await prisma.application.findFirst({
+    where: { id, userId: user.userId, deletedAt: null },
+    include: {
+      contacts: true,
+      interviewNotes: { orderBy: { createdAt: "desc" } },
+      resume: {
+        select: { id: true, label: true, fileUrl: true },
+      },
+    },
+  });
   if (!application) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
   return NextResponse.json(application);
 }
 
+/**
+ * PATCH /api/applications/[id]
+ * Auth: Required (JWT cookie)
+ *
+ * Updates an application. Accepts either a stage-only update (from Kanban
+ * drag-and-drop) or a full field update from the edit form.
+ *
+ * Stage-only request body:
+ *   { stage: ApplicationStage }
+ *
+ * Full update request body:
+ *   { company?: string, role?: string, location?: string, salary?: string,
+ *     jobUrl?: string, followUpAt?: string, notes?: string,
+ *     stage?: ApplicationStage, source?: string }
+ *
+ * Responses:
+ *   200 — Updated Application object
+ *   400 — Validation failed { error, details }
+ *   401 — Unauthorized { error }
+ *   404 — Not found { error }
+ *   500 — Internal server error { error }
+ */
 // PATCH — edit application details or stage
 export async function PATCH(
   request: NextRequest,
@@ -64,8 +106,13 @@ export async function PATCH(
       }
       const updated = await prisma.application.update({
         where: { id },
-        data: { stage: result.data.stage },
+        data: {
+          stage: result.data.stage,
+          stageEnteredAt: new Date(),
+        },
       });
+      revalidatePath("/dashboard");
+      revalidatePath(`/dashboard/applications/${id}`);
       return NextResponse.json(updated);
     }
 
@@ -81,6 +128,18 @@ export async function PATCH(
       );
     }
 
+    // After result.success check, before prisma.application.update:
+    if (result.data.resumeId) {
+      const resume = await prisma.resume.findFirst({
+        where: { id: result.data.resumeId, userId: user.userId },
+      });
+      if (!resume) {
+        return NextResponse.json(
+          { error: "Resume not found or not owned by user" },
+          { status: 403 },
+        );
+      }
+    }
     const {
       company,
       role,
@@ -90,22 +149,34 @@ export async function PATCH(
       followUpAt,
       notes,
       stage,
+      source,
+      resumeVersionLabel,
+      resumeId,
     } = result.data;
 
     const updated = await prisma.application.update({
       where: { id },
       data: {
-        company,
-        role,
-        location: location ?? null,
-        salary: salary ?? null,
-        jobUrl: jobUrl ?? null,
-        followUpAt: followUpAt ? new Date(followUpAt) : null,
-        notes: notes ?? null,
-        ...(stage ? { stage } : {}),
+        ...(company !== undefined && { company }),
+        ...(role !== undefined && { role }),
+        ...(location !== undefined && { location: location ?? null }),
+        ...(salary !== undefined && { salary: salary ?? null }),
+        ...(jobUrl !== undefined && { jobUrl: jobUrl ?? null }),
+        ...(followUpAt !== undefined && {
+          followUpAt: followUpAt ? new Date(followUpAt) : null,
+        }),
+        ...(notes !== undefined && { notes: notes ?? null }),
+        ...(source !== undefined && { source: source ?? null }),
+        ...(resumeVersionLabel !== undefined && {
+          resumeVersionLabel: resumeVersionLabel ?? null,
+        }),
+        ...(resumeId !== undefined && { resumeId: resumeId ?? null }),
+        ...(stage ? { stage, stageEnteredAt: new Date() } : {}),
       },
     });
 
+    revalidatePath("/dashboard");
+    revalidatePath(`/dashboard/applications/${id}`);
     return NextResponse.json(updated);
   } catch (error) {
     console.error("[PATCH /api/applications/[id]]", error);
@@ -116,6 +187,19 @@ export async function PATCH(
   }
 }
 
+/**
+ * DELETE /api/applications/[id]
+ * Auth: Required (JWT cookie)
+ *
+ * Soft-deletes an application by setting deletedAt to the current timestamp.
+ * The record is retained in the database but excluded from all queries.
+ *
+ * Responses:
+ *   200 — { message: "Application deleted" }
+ *   401 — Unauthorized { error }
+ *   404 — Not found { error }
+ *   500 — Internal server error { error }
+ */
 // DELETE — soft delete
 export async function DELETE(
   request: NextRequest,

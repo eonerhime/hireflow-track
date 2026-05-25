@@ -8,6 +8,22 @@ interface Params {
   params: Promise<{ id: string }>;
 }
 
+/**
+ * PATCH /api/contacts/[id]
+ * Auth: Required (JWT cookie)
+ *
+ * Updates a contact. Ownership is verified via the parent application.
+ *
+ * Request body (all fields optional, at least one required):
+ *   { name?: string, role?: string, email?: string,
+ *     phone?: string, notes?: string }
+ *
+ * Responses:
+ *   200 — Updated Contact object
+ *   400 — Validation failed { error }
+ *   401 — Unauthorized { error }
+ *   404 — Contact not found or not owned by user { error }
+ */
 export async function PATCH(request: NextRequest, { params }: Params) {
   const user = await getUserFromRequest(request);
   if (!user)
@@ -36,6 +52,17 @@ export async function PATCH(request: NextRequest, { params }: Params) {
   return NextResponse.json(updated);
 }
 
+/**
+ * DELETE /api/contacts/[id]
+ * Auth: Required (JWT cookie)
+ *
+ * Hard-deletes a contact. Ownership is verified via the parent application.
+ *
+ * Responses:
+ *   200 — { message: "Contact deleted" }
+ *   401 — Unauthorized { error }
+ *   404 — Contact not found or not owned by user { error }
+ */
 export async function DELETE(request: NextRequest, { params }: Params) {
   const user = await getUserFromRequest(request);
   if (!user)

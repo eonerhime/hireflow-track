@@ -7,6 +7,23 @@ import { signJWT } from "@/lib/jwt";
 const COOKIE_NAME = "hiretrace-token";
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days in seconds
 
+/**
+ * POST /api/auth/login
+ * Auth: None (public endpoint)
+ *
+ * Authenticates a user and sets an HTTP-only JWT cookie on success.
+ * Returns a generic error for both "user not found" and "wrong password"
+ * to prevent user enumeration.
+ *
+ * Request body:
+ *   { email: string, password: string }
+ *
+ * Responses:
+ *   200 — { message: "Login successful" } + sets hiretrace-token cookie
+ *   400 — Validation failed { error, details }
+ *   401 — Invalid credentials { error }
+ *   500 — Internal server error { error }
+ */
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();

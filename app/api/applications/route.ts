@@ -3,7 +3,24 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { createApplicationSchema } from "@/lib/schemas/application";
 import { getUserFromRequest } from "@/lib/auth";
+import { revalidatePath } from "next/cache";
 
+/**
+ * POST /api/applications
+ * Auth: Required (JWT cookie)
+ *
+ * Creates a new job application for the authenticated user.
+ *
+ * Request body:
+ *   { company: string, role: string, location?: string, salary?: string,
+ *     jobUrl?: string, followUpAt?: string, notes?: string, source?: string }
+ *
+ * Responses:
+ *   201 — Application object created
+ *   400 — Validation failed { error, details }
+ *   401 — Unauthorized { error }
+ *   500 — Internal server error { error }
+ */
 export async function POST(request: NextRequest) {
   try {
     const user = await getUserFromRequest(request);
@@ -24,8 +41,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { company, role, location, salary, jobUrl, followUpAt, notes } =
-      result.data;
+    const {
+      company,
+      role,
+      location,
+      salary,
+      jobUrl,
+      followUpAt,
+      notes,
+      resumeVersionLabel,
+    } = result.data;
 
     const application = await prisma.application.create({
       data: {
@@ -37,8 +62,10 @@ export async function POST(request: NextRequest) {
         jobUrl: jobUrl || null,
         followUpAt: followUpAt ? new Date(followUpAt) : null,
         notes: notes || null,
+        resumeVersionLabel: resumeVersionLabel || null,
       },
     });
+    revalidatePath("/dashboard");
 
     return NextResponse.json(application, { status: 201 });
   } catch (error) {
@@ -50,6 +77,18 @@ export async function POST(request: NextRequest) {
   }
 }
 
+/**
+ * GET /api/applications
+ * Auth: Required (JWT cookie)
+ *
+ * Returns all non-deleted applications for the authenticated user,
+ * ordered by updatedAt descending.
+ *
+ * Responses:
+ *   200 — Application[] (may be empty)
+ *   401 — Unauthorized { error }
+ *   500 — Internal server error { error }
+ */
 export async function GET(request: NextRequest) {
   try {
     const user = await getUserFromRequest(request);
