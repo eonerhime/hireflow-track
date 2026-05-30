@@ -2,8 +2,20 @@
  * @jest-environment node
  */
 // __tests__/api.contacts.[id].test.ts
-import { PATCH, DELETE } from "@/app/api/contacts/[id]/route";
-import { NextRequest } from "next/server";
+
+jest.mock("next-auth", () => ({
+  __esModule: true,
+  default: jest.fn(),
+  getServerSession: jest.fn(),
+}));
+
+jest.mock("@/app/api/auth/[...nextauth]/route", () => ({
+  authOptions: {},
+}));
+
+jest.mock("next/cache", () => ({
+  revalidatePath: jest.fn(),
+}));
 
 jest.mock("@/lib/prisma", () => ({
   prisma: {
@@ -15,14 +27,12 @@ jest.mock("@/lib/prisma", () => ({
   },
 }));
 
-jest.mock("@/lib/auth", () => ({
-  getUserFromRequest: jest.fn(),
-}));
-
+import { PATCH, DELETE } from "@/app/api/contacts/[id]/route";
+import { NextRequest } from "next/server";
+import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/prisma";
-import { getUserFromRequest } from "@/lib/auth";
 
-const mockGetUser = getUserFromRequest as jest.Mock;
+const mockGetSession = getServerSession as jest.Mock;
 const mockFindFirst = prisma.contact.findFirst as jest.Mock;
 const mockUpdate = prisma.contact.update as jest.Mock;
 const mockDelete = prisma.contact.delete as jest.Mock;
@@ -52,20 +62,20 @@ beforeEach(() => jest.clearAllMocks());
 
 describe("PATCH /api/contacts/[id]", () => {
   it("returns 401 when no session", async () => {
-    mockGetUser.mockResolvedValue(null);
+    mockGetSession.mockResolvedValue(null);
     const res = await PATCH(makeRequest({ name: "Updated" }), { params });
     expect(res.status).toBe(401);
   });
 
   it("returns 404 when contact not found", async () => {
-    mockGetUser.mockResolvedValue({ userId: "user-1", email: "a@b.com" });
+    mockGetSession.mockResolvedValue({ user: { id: "user-1" } });
     mockFindFirst.mockResolvedValue(null);
     const res = await PATCH(makeRequest({ name: "Updated" }), { params });
     expect(res.status).toBe(404);
   });
 
   it("returns 200 with updated contact", async () => {
-    mockGetUser.mockResolvedValue({ userId: "user-1", email: "a@b.com" });
+    mockGetSession.mockResolvedValue({ user: { id: "user-1" } });
     mockFindFirst.mockResolvedValue(existingContact);
     mockUpdate.mockResolvedValue({ ...existingContact, name: "Updated" });
     const res = await PATCH(makeRequest({ name: "Updated" }), { params });
@@ -77,20 +87,20 @@ describe("PATCH /api/contacts/[id]", () => {
 
 describe("DELETE /api/contacts/[id]", () => {
   it("returns 401 when no session", async () => {
-    mockGetUser.mockResolvedValue(null);
+    mockGetSession.mockResolvedValue(null);
     const res = await DELETE(makeRequest({}), { params });
     expect(res.status).toBe(401);
   });
 
   it("returns 404 when contact not found", async () => {
-    mockGetUser.mockResolvedValue({ userId: "user-1", email: "a@b.com" });
+    mockGetSession.mockResolvedValue({ user: { id: "user-1" } });
     mockFindFirst.mockResolvedValue(null);
     const res = await DELETE(makeRequest({}), { params });
     expect(res.status).toBe(404);
   });
 
   it("returns 200 on successful delete", async () => {
-    mockGetUser.mockResolvedValue({ userId: "user-1", email: "a@b.com" });
+    mockGetSession.mockResolvedValue({ user: { id: "user-1" } });
     mockFindFirst.mockResolvedValue(existingContact);
     mockDelete.mockResolvedValue(existingContact);
     const res = await DELETE(makeRequest({}), { params });

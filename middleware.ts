@@ -1,9 +1,10 @@
+// middleware.ts
 import { NextRequest, NextResponse } from "next/server";
-
-const COOKIE_NAME = "hiretrace-token";
+import { getToken } from "next-auth/jwt";
 
 const PUBLIC_ROUTES = ["/", "/login", "/register"];
 const PUBLIC_API_ROUTES = [
+  "/api/auth",
   "/api/auth/login",
   "/api/auth/register",
   "/api/reminders/send",
@@ -38,57 +39,14 @@ function checkRateLimit(ip: string): boolean {
   return true;
 }
 
-async function verifyToken(token: string): Promise<boolean> {
-  try {
-    const [headerB64, payloadB64, signatureB64] = token.split(".");
-    if (!headerB64 || !payloadB64 || !signatureB64) return false;
-
-    const secret = process.env.JWT_SECRET;
-    if (!secret) return false;
-
-    const encoder = new TextEncoder();
-    const keyData = encoder.encode(secret);
-    const cryptoKey = await crypto.subtle.importKey(
-      "raw",
-      keyData,
-      { name: "HMAC", hash: "SHA-256" },
-      false,
-      ["verify"],
-    );
-
-    const signatureBytes = Uint8Array.from(
-      atob(signatureB64.replace(/-/g, "+").replace(/_/g, "/")),
-      (c) => c.charCodeAt(0),
-    );
-
-    const data = encoder.encode(`${headerB64}.${payloadB64}`);
-    const valid = await crypto.subtle.verify(
-      "HMAC",
-      cryptoKey,
-      signatureBytes,
-      data,
-    );
-    if (!valid) return false;
-
-    const payload = JSON.parse(
-      atob(payloadB64.replace(/-/g, "+").replace(/_/g, "/")),
-    );
-    if (payload.exp && payload.exp < Math.floor(Date.now() / 1000))
-      return false;
-
-    return true;
-  } catch {
-    return false;
-  }
-}
-
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const token = request.cookies.get(COOKIE_NAME)?.value;
 
   const isApiRoute = pathname.startsWith("/api");
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
-  const isPublicApiRoute = PUBLIC_API_ROUTES.includes(pathname);
+  const isPublicApiRoute = PUBLIC_API_ROUTES.some((route) =>
+    pathname.startsWith(route),
+  );
 
   // 1. CRITICAL: Immediately grant exit execution for public cron paths
   if (isPublicRoute || isPublicApiRoute) {
@@ -111,6 +69,11 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  const token = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET!,
+  });
+
   if (!token) {
     if (isApiRoute) {
       return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
@@ -118,21 +81,9 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  const valid = await verifyToken(token);
-
-  if (!valid) {
-    if (isApiRoute) {
-      return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
-    }
-    const response = NextResponse.redirect(new URL("/login", request.url));
-    response.cookies.set(COOKIE_NAME, "", { maxAge: 0 });
-    return response;
-  }
-
   return NextResponse.next();
 }
 
 export const config = {
-  // Catch dashboard pages and all internal API routes safely
   matcher: ["/dashboard/:path*", "/api/:path*"],
 };

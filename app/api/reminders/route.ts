@@ -1,6 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { authOptions } from "@/lib/auth-options";
 import { prisma } from "@/lib/prisma";
-import { getUserFromRequest } from "@/lib/auth";
+import { getServerSession } from "next-auth";
+import { NextResponse } from "next/server";
 
 /**
  * GET /api/reminders
@@ -18,15 +19,18 @@ import { getUserFromRequest } from "@/lib/auth";
  *   401 — Unauthorized { error }
  *   500 — Internal server error { error }
  */
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const user = await getUserFromRequest(request);
-    if (!user)
+    // Inside your API route handler:
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const userId = session.user.id;
 
     const reminders = await prisma.application.findMany({
       where: {
-        userId: user.userId,
+        userId: userId,
         deletedAt: null,
         followUpAt: { not: null },
       },

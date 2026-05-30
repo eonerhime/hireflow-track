@@ -1,8 +1,10 @@
 // app/api/dashboard/metrics/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { authOptions } from "@/lib/auth-options";
+
 import { prisma } from "@/lib/prisma";
-import { getUserFromRequest } from "@/lib/auth";
 import { ApplicationStage } from "@prisma/client";
+import { getServerSession } from "next-auth";
+import { NextResponse } from "next/server";
 
 const INTERVIEW_OR_BEYOND = ["INTERVIEW", "ASSESSMENT", "OFFER", "CLOSED"];
 const OFFER_OR_BEYOND = ["OFFER", "CLOSED"];
@@ -48,14 +50,16 @@ type SourceTotals = Record<
  *   401 — Unauthorized { error }
  *   500 — Internal server error { error }
  */
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const user = await getUserFromRequest(request);
-    if (!user)
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const userId = session.user.id;
 
     const applications = await prisma.application.findMany({
-      where: { userId: user.userId, deletedAt: null },
+      where: { userId: userId, deletedAt: null },
       select: { stage: true, stageEnteredAt: true, source: true },
     });
 

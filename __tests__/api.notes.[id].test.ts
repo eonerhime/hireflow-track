@@ -2,8 +2,18 @@
  * @jest-environment node
  */
 // __tests__/api.notes.[id].test.ts
-import { PATCH, DELETE } from "@/app/api/notes/[id]/route";
-import { NextRequest } from "next/server";
+
+jest.mock("next-auth", () => ({
+  __esModule: true,
+  default: jest.fn(),
+  getServerSession: jest.fn(),
+}));
+
+jest.mock("@/app/api/auth/[...nextauth]/route", () => ({
+  authOptions: {},
+}));
+
+jest.mock("next/cache", () => ({ revalidatePath: jest.fn() }));
 
 jest.mock("@/lib/prisma", () => ({
   prisma: {
@@ -15,13 +25,12 @@ jest.mock("@/lib/prisma", () => ({
   },
 }));
 
-jest.mock("@/lib/auth", () => ({ getUserFromRequest: jest.fn() }));
-jest.mock("next/cache", () => ({ revalidatePath: jest.fn() }));
-
+import { PATCH, DELETE } from "@/app/api/notes/[id]/route";
+import { NextRequest } from "next/server";
+import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/prisma";
-import { getUserFromRequest } from "@/lib/auth";
 
-const mockGetUser = getUserFromRequest as jest.Mock;
+const mockGetSession = getServerSession as jest.Mock;
 const mockFindFirst = prisma.interviewNote.findFirst as jest.Mock;
 const mockUpdate = prisma.interviewNote.update as jest.Mock;
 const mockDelete = prisma.interviewNote.delete as jest.Mock;
@@ -50,7 +59,7 @@ beforeEach(() => jest.clearAllMocks());
 
 describe("PATCH /api/notes/[id]", () => {
   it("returns 401 when unauthenticated", async () => {
-    mockGetUser.mockResolvedValue(null);
+    mockGetSession.mockResolvedValue(null);
     const res = await PATCH(makeRequest("PATCH", { content: "Updated" }), {
       params: validParams,
     });
@@ -58,7 +67,7 @@ describe("PATCH /api/notes/[id]", () => {
   });
 
   it("returns 404 when note not found or not owned", async () => {
-    mockGetUser.mockResolvedValue({ userId: "user-1" });
+    mockGetSession.mockResolvedValue({ user: { id: "user-1" } });
     mockFindFirst.mockResolvedValue(null);
     const res = await PATCH(makeRequest("PATCH", { content: "Updated" }), {
       params: validParams,
@@ -67,7 +76,7 @@ describe("PATCH /api/notes/[id]", () => {
   });
 
   it("returns 200 and updates the note", async () => {
-    mockGetUser.mockResolvedValue({ userId: "user-1" });
+    mockGetSession.mockResolvedValue({ user: { id: "user-1" } });
     mockFindFirst.mockResolvedValue(existingNote);
     mockUpdate.mockResolvedValue({ ...existingNote, content: "Updated" });
     const res = await PATCH(makeRequest("PATCH", { content: "Updated" }), {
@@ -81,20 +90,20 @@ describe("PATCH /api/notes/[id]", () => {
 
 describe("DELETE /api/notes/[id]", () => {
   it("returns 401 when unauthenticated", async () => {
-    mockGetUser.mockResolvedValue(null);
+    mockGetSession.mockResolvedValue(null);
     const res = await DELETE(makeRequest("DELETE"), { params: validParams });
     expect(res.status).toBe(401);
   });
 
   it("returns 404 when note not found or not owned", async () => {
-    mockGetUser.mockResolvedValue({ userId: "user-1" });
+    mockGetSession.mockResolvedValue({ user: { id: "user-1" } });
     mockFindFirst.mockResolvedValue(null);
     const res = await DELETE(makeRequest("DELETE"), { params: validParams });
     expect(res.status).toBe(404);
   });
 
   it("returns 200 and deletes the note", async () => {
-    mockGetUser.mockResolvedValue({ userId: "user-1" });
+    mockGetSession.mockResolvedValue({ user: { id: "user-1" } });
     mockFindFirst.mockResolvedValue(existingNote);
     mockDelete.mockResolvedValue(existingNote);
     const res = await DELETE(makeRequest("DELETE"), { params: validParams });

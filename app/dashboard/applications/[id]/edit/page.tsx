@@ -1,11 +1,12 @@
 // app/dashboard/applications/[id]/edit/page.tsx
-import { notFound } from "next/navigation";
-import { cookies } from "next/headers";
-import { jwtVerify } from "jose";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth-options";
 import { prisma } from "@/lib/prisma";
 import ApplicationForm from "@/components/ApplicationForm";
 import Link from "next/link";
+
+export const dynamic = "force-dynamic";
 
 interface EditPageProps {
   params: Promise<{ id: string }>;
@@ -19,28 +20,16 @@ export default async function EditApplicationPage({
   const { id } = await params;
   const { from } = await searchParams;
 
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) redirect("/login");
+  const userId = session.user.id;
+
   const backHref =
     from === "kanban"
       ? `/dashboard/applications/${id}?from=kanban`
       : from === "reminders"
         ? `/dashboard/applications/${id}?from=reminders`
         : `/dashboard/applications/${id}`;
-
-  const backLabel = "← Back to application";
-
-  // Get userId from cookie
-  const cookieStore = await cookies();
-  const token = cookieStore.get("hiretrace-token")?.value;
-  if (!token) redirect("/login");
-
-  let userId: string;
-  try {
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-    const { payload } = await jwtVerify(token, secret);
-    userId = payload.userId as string;
-  } catch {
-    redirect("/login");
-  }
 
   const application = await prisma.application.findFirst({
     where: { id, userId, deletedAt: null },
@@ -67,6 +56,7 @@ export default async function EditApplicationPage({
         | "OTHER") ?? undefined,
     resumeVersionLabel: application.resumeVersionLabel ?? undefined,
   };
+
   return (
     <main className="mx-auto max-w-2xl px-4 py-8">
       <Link
@@ -74,13 +64,12 @@ export default async function EditApplicationPage({
         className="mb-6 inline-flex items-center text-sm text-gray-500
                hover:text-gray-700"
       >
-        {backLabel}
+        ← Back to application
       </Link>
       <div className="mb-6">
         <h1 className="text-2xl font-semibold text-gray-900">
           Edit Application
         </h1>
-        ...
         <p className="mt-1 text-sm text-gray-500">
           {application.role} at {application.company}
         </p>

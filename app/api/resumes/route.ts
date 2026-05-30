@@ -1,9 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { authOptions } from "@/lib/auth-options";
 import { cloudinary } from "@/lib/cloudinary";
-import { getUserFromRequest } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 import { createResumeSchema } from "@/lib/schemas/resume";
+import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
+import { NextRequest, NextResponse } from "next/server";
 
 /**
  * GET /api/resumes
@@ -20,14 +21,17 @@ import { revalidatePath } from "next/cache";
  *   401 — Unauthorized { error }
  *   500 — Internal server error { error }
  */
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const user = await getUserFromRequest(request);
-    if (!user)
+    // Inside your API route handler:
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const userId = session.user.id;
 
     const resumes = await prisma.resume.findMany({
-      where: { userId: user.userId },
+      where: { userId: userId },
       orderBy: { uploadedAt: "desc" },
       select: {
         id: true,
@@ -67,9 +71,11 @@ export async function GET(request: NextRequest) {
  */
 export async function POST(request: NextRequest) {
   try {
-    const user = await getUserFromRequest(request);
-    if (!user)
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const userId = session.user.id;
 
     const formData = await request.formData();
     const file = formData.get("file") as File | null;
@@ -131,7 +137,7 @@ export async function POST(request: NextRequest) {
 
     const resume = await prisma.resume.create({
       data: {
-        userId: user.userId,
+        userId: userId,
         label: labelResult.data.label,
         fileUrl: uploadResult.secure_url,
         fileKey: uploadResult.public_id,

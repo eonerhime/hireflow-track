@@ -1,8 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { authOptions } from "@/lib/auth-options";
 import { prisma } from "@/lib/prisma";
 import { updateNoteSchema } from "@/lib/schemas/note";
-import { getUserFromRequest } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
+import { NextRequest, NextResponse } from "next/server";
 
 async function getOwnedNote(userId: string, noteId: string) {
   return prisma.interviewNote.findFirst({
@@ -34,11 +35,14 @@ export async function PATCH(
 ) {
   const { id } = await params;
   try {
-    const user = await getUserFromRequest(request);
-    if (!user)
+    // Inside your API route handler:
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const userId = session.user.id;
 
-    const note = await getOwnedNote(user.userId, id);
+    const note = await getOwnedNote(userId, id);
     if (!note)
       return NextResponse.json({ error: "Not found" }, { status: 404 });
 
@@ -89,11 +93,13 @@ export async function DELETE(
 ) {
   const { id } = await params;
   try {
-    const user = await getUserFromRequest(request);
-    if (!user)
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const userId = session.user.id;
 
-    const note = await getOwnedNote(user.userId, id);
+    const note = await getOwnedNote(userId, id);
     if (!note)
       return NextResponse.json({ error: "Not found" }, { status: 404 });
 

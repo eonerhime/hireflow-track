@@ -1,4 +1,6 @@
 // lib/auth.ts
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth-options";
 import { jwtVerify } from "jose";
 import { NextRequest } from "next/server";
 
@@ -8,9 +10,16 @@ interface JWTPayload {
 }
 
 export async function getUserFromRequest(
-  request: NextRequest,
+  _request: NextRequest,
 ): Promise<JWTPayload | null> {
-  const token = request.cookies.get("hiretrace-token")?.value;
+  // Try NextAuth session first (current auth system)
+  const session = await getServerSession(authOptions);
+  if (session?.user?.id) {
+    return { userId: session.user.id, email: session.user.email ?? "" };
+  }
+
+  // Fall back to legacy jose cookie (transition period)
+  const token = _request.cookies.get("hiretrace-token")?.value;
   if (!token) return null;
 
   try {

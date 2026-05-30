@@ -1,8 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { authOptions } from "@/lib/auth-options";
 import { cloudinary } from "@/lib/cloudinary";
-import { getUserFromRequest } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
+import { NextRequest, NextResponse } from "next/server";
 
 /**
  * DELETE /api/resumes/[id]
@@ -24,12 +25,14 @@ export async function DELETE(
 ) {
   const { id } = await params;
   try {
-    const user = await getUserFromRequest(request);
-    if (!user)
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const userId = session.user.id;
 
     const resume = await prisma.resume.findFirst({
-      where: { id, userId: user.userId },
+      where: { id, userId: userId },
     });
 
     if (!resume)

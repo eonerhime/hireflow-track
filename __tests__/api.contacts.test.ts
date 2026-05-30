@@ -2,8 +2,20 @@
  * @jest-environment node
  */
 // __tests__/api.contacts.test.ts
-import { POST } from "@/app/api/contacts/route";
-import { NextRequest } from "next/server";
+
+jest.mock("next-auth", () => ({
+  __esModule: true,
+  default: jest.fn(),
+  getServerSession: jest.fn(),
+}));
+
+jest.mock("@/app/api/auth/[...nextauth]/route", () => ({
+  authOptions: {},
+}));
+
+jest.mock("next/cache", () => ({
+  revalidatePath: jest.fn(),
+}));
 
 jest.mock("@/lib/prisma", () => ({
   prisma: {
@@ -12,14 +24,12 @@ jest.mock("@/lib/prisma", () => ({
   },
 }));
 
-jest.mock("@/lib/auth", () => ({
-  getUserFromRequest: jest.fn(),
-}));
-
+import { POST } from "@/app/api/contacts/route";
+import { NextRequest } from "next/server";
+import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/prisma";
-import { getUserFromRequest } from "@/lib/auth";
 
-const mockGetUser = getUserFromRequest as jest.Mock;
+const mockGetSession = getServerSession as jest.Mock;
 const mockFindFirst = prisma.application.findFirst as jest.Mock;
 const mockCreate = prisma.contact.create as jest.Mock;
 
@@ -36,26 +46,26 @@ beforeEach(() => jest.clearAllMocks());
 
 describe("POST /api/contacts", () => {
   it("returns 401 when no session", async () => {
-    mockGetUser.mockResolvedValue(null);
+    mockGetSession.mockResolvedValue(null);
     const res = await POST(makeRequest(validBody));
     expect(res.status).toBe(401);
   });
 
   it("returns 400 on validation failure", async () => {
-    mockGetUser.mockResolvedValue({ userId: "user-1", email: "a@b.com" });
+    mockGetSession.mockResolvedValue({ user: { id: "user-1" } });
     const res = await POST(makeRequest({ applicationId: "app-1" }));
     expect(res.status).toBe(400);
   });
 
   it("returns 404 when application not found or belongs to another user", async () => {
-    mockGetUser.mockResolvedValue({ userId: "user-1", email: "a@b.com" });
+    mockGetSession.mockResolvedValue({ user: { id: "user-1" } });
     mockFindFirst.mockResolvedValue(null);
     const res = await POST(makeRequest(validBody));
     expect(res.status).toBe(404);
   });
 
   it("returns 201 with created contact on valid request", async () => {
-    mockGetUser.mockResolvedValue({ userId: "user-1", email: "a@b.com" });
+    mockGetSession.mockResolvedValue({ user: { id: "user-1" } });
     mockFindFirst.mockResolvedValue({ id: "app-1", userId: "user-1" });
     mockCreate.mockResolvedValue({ id: "contact-1", ...validBody });
     const res = await POST(makeRequest(validBody));

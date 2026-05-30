@@ -777,7 +777,7 @@ Retros are only useful if they change something.
 
 **28 May 2026 · Thursday · Carousel PDF**
 **Asset:** Build in Canva using HireTrace Carousel Template. Export as PDF.
-**Status:** `[ ]` Not posted
+**Status:** `[x]` Posted
 
 **Slide content:**
 
@@ -790,7 +790,7 @@ SLIDE 2 — Context
 HireTrace | Sprint 2
 Goal: Core application pipeline — CRUD + Kanban board
 Duration: 1 week
-Items committed: [fill] | Completed: [fill]
+Items committed: [5] | Completed: [5]
 
 SLIDE 3 — What shipped
 ✓ Application data model + Prisma migration
@@ -852,7 +852,7 @@ the spec template, and what's next.
 
 **30 May 2026 · Saturday · Text + Screenshot**
 **Asset:** Screenshot of spec.md showing AC for the application pipeline → HireTrace Screenshot Frame
-**Status:** `[ ]` Not posted
+**Status:** `[x]` Posted
 
 ```
 Here's what a feature spec looks like before the code exists.

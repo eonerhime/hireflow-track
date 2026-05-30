@@ -11,6 +11,8 @@ import PipelineChart from "./PipelineChart";
 import ConversionChart from "./ConversionChart";
 import TimeInStageChart from "./TimeInStageChart";
 import SourceChart from "./SourceChart";
+import ExportButton from "@/components/ExportButton";
+import LogoutButton from "@/components/LogoutButton";
 
 interface DashboardClientProps {
   initialApplications: Application[];
@@ -37,9 +39,8 @@ export default function DashboardClient({
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900 mr-6">
-            Applications
-          </h1>
+          <h1 className="text-2xl font-bold text-gray-900">Applications</h1>
+
           <p className="mt-1 text-sm text-gray-500">
             {applications.length === 0
               ? "No applications yet"
@@ -48,6 +49,7 @@ export default function DashboardClient({
                 }`}
           </p>
         </div>
+        {/* View Toggle and Export Button */}
         <div className="flex items-center gap-3">
           <div className="flex rounded-md border border-gray-300 bg-white">
             <button
@@ -73,6 +75,8 @@ export default function DashboardClient({
               Kanban
             </button>
           </div>
+
+          {/* view Reminders */}
           <Link
             href="/dashboard/reminders"
             className="rounded-md border border-gray-300 bg-white px-4 py-2
@@ -80,6 +84,8 @@ export default function DashboardClient({
           >
             Reminders
           </Link>
+
+          {/* Add Resume */}
           <Link
             href="/dashboard/resumes"
             className="rounded-md border border-gray-300 bg-white px-4 py-2
@@ -87,6 +93,13 @@ export default function DashboardClient({
           >
             Resumes
           </Link>
+
+          {/* Export Button */}
+          <div className="flex items-center justify-between">
+            <ExportButton />
+          </div>
+
+          {/* Add Application */}
           <Link
             href="/dashboard/applications/new"
             className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium
@@ -94,6 +107,10 @@ export default function DashboardClient({
           >
             + Add Application
           </Link>
+
+          <div>
+            <LogoutButton />
+          </div>
         </div>
       </div>
 

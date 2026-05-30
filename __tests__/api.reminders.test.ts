@@ -2,36 +2,40 @@
  * @jest-environment node
  */
 
+jest.mock("next-auth", () => ({
+  __esModule: true,
+  default: jest.fn(),
+  getServerSession: jest.fn(),
+}));
+
+jest.mock("@/app/api/auth/[...nextauth]/route", () => ({
+  authOptions: {},
+}));
+
 jest.mock("@/lib/prisma", () => ({
   prisma: {
     application: { findMany: jest.fn() },
   },
 }));
-jest.mock("@/lib/auth", () => ({ getUserFromRequest: jest.fn() }));
 
 import { GET } from "@/app/api/reminders/route";
-import { NextRequest } from "next/server";
+import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/prisma";
-import { getUserFromRequest } from "@/lib/auth";
 
-const mockGetUser = getUserFromRequest as jest.Mock;
+const mockGetSession = getServerSession as jest.Mock;
 const mockFindMany = prisma.application.findMany as jest.Mock;
-
-function makeRequest() {
-  return new NextRequest("http://localhost/api/reminders", { method: "GET" });
-}
 
 beforeEach(() => jest.clearAllMocks());
 
 describe("GET /api/reminders", () => {
   it("returns 401 when unauthenticated", async () => {
-    mockGetUser.mockResolvedValue(null);
-    const res = await GET(makeRequest());
+    mockGetSession.mockResolvedValue(null);
+    const res = await GET();
     expect(res.status).toBe(401);
   });
 
   it("returns sorted reminders for authenticated user", async () => {
-    mockGetUser.mockResolvedValue({ userId: "user-1" });
+    mockGetSession.mockResolvedValue({ user: { id: "user-1" } });
     mockFindMany.mockResolvedValue([
       {
         id: "app-1",
@@ -41,7 +45,7 @@ describe("GET /api/reminders", () => {
         followUpAt: new Date(Date.now() + 86400000),
       },
     ]);
-    const res = await GET(makeRequest());
+    const res = await GET();
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data).toHaveLength(1);

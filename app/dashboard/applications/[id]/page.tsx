@@ -2,14 +2,16 @@
 import ContactForm from "@/components/ContactForm";
 import ContactList from "@/components/ContactList";
 import DeleteButton from "@/components/DeleteButton";
-import ResumePicker from "@/components/ResumePicker"; // ← ADD
+import ResumePicker from "@/components/ResumePicker";
 import { prisma } from "@/lib/prisma";
+import { authOptions } from "@/lib/auth-options";
 import { ApplicationStage } from "@prisma/client";
-import { jwtVerify } from "jose";
-import { cookies } from "next/headers";
+import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import NoteViewToggle from "@/components/NoteViewToggle";
+
+export const dynamic = "force-dynamic";
 
 const stageLabels: Record<ApplicationStage, string> = {
   APPLIED: "Applied",
@@ -41,6 +43,10 @@ export default async function ApplicationDetailPage({
   const { id } = await params;
   const { from } = await searchParams;
 
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) redirect("/login");
+  const userId = session.user.id;
+
   const backHref =
     from === "kanban"
       ? "/dashboard?from=kanban"
@@ -62,20 +68,6 @@ export default async function ApplicationDetailPage({
         ? `/dashboard/applications/${id}/edit?from=reminders`
         : `/dashboard/applications/${id}/edit`;
 
-  const cookieStore = await cookies();
-  const token = cookieStore.get("hiretrace-token")?.value;
-  if (!token) redirect("/login");
-
-  let userId: string;
-  try {
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-    const { payload } = await jwtVerify(token, secret);
-    userId = payload.userId as string;
-  } catch {
-    redirect("/login");
-  }
-
-  // Fetch application with resume relation included        // ← UPDATED
   const application = await prisma.application.findFirst({
     where: { id, userId, deletedAt: null },
     include: {
@@ -203,7 +195,6 @@ export default async function ApplicationDetailPage({
             </dd>
           </div>
         )}
-        {/* Linked resume — display when set */} {/* ← ADD */}
         {application.resume && (
           <div className="mt-4 border-t border-gray-100 pt-4">
             <dt className="text-sm font-medium text-gray-500">Linked resume</dt>
@@ -220,8 +211,6 @@ export default async function ApplicationDetailPage({
             </dd>
           </div>
         )}
-        {/* Resume picker — always rendered so user can link/unlink */}{" "}
-        {/* ← ADD */}
         <div className="mt-4 border-t border-gray-100 pt-4">
           <ResumePicker
             applicationId={application.id}

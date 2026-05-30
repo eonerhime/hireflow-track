@@ -2,12 +2,24 @@
  * @jest-environment node
  */
 
+jest.mock("next-auth", () => ({
+  __esModule: true,
+  default: jest.fn(),
+  getServerSession: jest.fn(),
+}));
+
+jest.mock("@/app/api/auth/[...nextauth]/route", () => ({
+  authOptions: {},
+}));
+
+jest.mock("next/cache", () => ({ revalidatePath: jest.fn() }));
+
 jest.mock("@/lib/prisma", () => ({
   prisma: {
     resume: { findMany: jest.fn(), create: jest.fn() },
   },
 }));
-jest.mock("@/lib/auth", () => ({ getUserFromRequest: jest.fn() }));
+
 jest.mock("@/lib/cloudinary", () => ({
   cloudinary: {
     uploader: {
@@ -24,20 +36,15 @@ jest.mock("@/lib/cloudinary", () => ({
     },
   },
 }));
-jest.mock("next/cache", () => ({ revalidatePath: jest.fn() }));
 
 import { GET, POST } from "@/app/api/resumes/route";
 import { NextRequest } from "next/server";
+import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/prisma";
-import { getUserFromRequest } from "@/lib/auth";
 
-const mockGetUser = getUserFromRequest as jest.Mock;
+const mockGetSession = getServerSession as jest.Mock;
 const mockFindMany = prisma.resume.findMany as jest.Mock;
 const mockCreate = prisma.resume.create as jest.Mock;
-
-function makeGetRequest() {
-  return new NextRequest("http://localhost/api/resumes", { method: "GET" });
-}
 
 function makePostRequest(
   label = "CV v1",
@@ -58,13 +65,13 @@ beforeEach(() => jest.clearAllMocks());
 
 describe("GET /api/resumes", () => {
   it("returns 401 when unauthenticated", async () => {
-    mockGetUser.mockResolvedValue(null);
-    const res = await GET(makeGetRequest());
+    mockGetSession.mockResolvedValue(null);
+    const res = await GET();
     expect(res.status).toBe(401);
   });
 
   it("returns list of resumes for authenticated user", async () => {
-    mockGetUser.mockResolvedValue({ userId: "user-1" });
+    mockGetSession.mockResolvedValue({ user: { id: "user-1" } });
     mockFindMany.mockResolvedValue([
       {
         id: "r-1",
@@ -73,7 +80,7 @@ describe("GET /api/resumes", () => {
         uploadedAt: new Date(),
       },
     ]);
-    const res = await GET(makeGetRequest());
+    const res = await GET();
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data).toHaveLength(1);
@@ -82,13 +89,13 @@ describe("GET /api/resumes", () => {
 
 describe("POST /api/resumes", () => {
   it("returns 401 when unauthenticated", async () => {
-    mockGetUser.mockResolvedValue(null);
+    mockGetSession.mockResolvedValue(null);
     const res = await POST(makePostRequest());
     expect(res.status).toBe(401);
   });
 
   it("returns 400 for non-PDF file type", async () => {
-    mockGetUser.mockResolvedValue({ userId: "user-1" });
+    mockGetSession.mockResolvedValue({ user: { id: "user-1" } });
     const res = await POST(makePostRequest("CV v1", "image/png"));
     expect(res.status).toBe(400);
     const data = await res.json();
@@ -96,7 +103,7 @@ describe("POST /api/resumes", () => {
   });
 
   it("returns 201 on successful upload", async () => {
-    mockGetUser.mockResolvedValue({ userId: "user-1" });
+    mockGetSession.mockResolvedValue({ user: { id: "user-1" } });
     mockCreate.mockResolvedValue({
       id: "r-1",
       label: "CV v1",

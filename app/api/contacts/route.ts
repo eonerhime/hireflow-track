@@ -1,8 +1,9 @@
 // app/api/contacts/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { authOptions } from "@/lib/auth-options";
 import { prisma } from "@/lib/prisma";
-import { getUserFromRequest } from "@/lib/auth";
 import { createContactSchema } from "@/lib/schemas/contact";
+import { getServerSession } from "next-auth";
+import { NextRequest, NextResponse } from "next/server";
 
 /**
  * POST /api/contacts
@@ -22,9 +23,12 @@ import { createContactSchema } from "@/lib/schemas/contact";
  *   404 — Application not found or not owned by user { error }
  */
 export async function POST(request: NextRequest) {
-  const user = await getUserFromRequest(request);
-  if (!user)
+  // Inside your API route handler:
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const userId = session.user.id;
 
   const body = await request.json();
   const result = createContactSchema.safeParse(body);
@@ -38,7 +42,7 @@ export async function POST(request: NextRequest) {
   const application = await prisma.application.findFirst({
     where: {
       id: result.data.applicationId,
-      userId: user.userId,
+      userId: userId,
       deletedAt: null,
     },
   });

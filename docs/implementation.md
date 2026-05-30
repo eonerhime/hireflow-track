@@ -604,7 +604,61 @@ Project is on React 19.2.4. npm install fails with ERESOLVE.
 - `fileKey` stores the Cloudinary `public_id` — required for deletion
 - Cloudinary deletion must succeed before the DB record is deleted — if it fails, abort and return 500
 
-## **Rule:** Do not downgrade to 16.6.0 or use --legacy-peer-deps.
+---
+
+#### **Rule:** Do not downgrade to 16.6.0 or use --legacy-peer-deps.
+
+### ADR-016 — Google OAuth Provider
+
+**Date:** 26 May 2026
+**Status:** Accepted
+**PBI:** PBI-036
+
+#### Context
+
+HireTrace uses a custom JWT implementation with `jose` for session management.
+PBI-036 requires adding Google OAuth login alongside the existing email/password
+flow. A decision is needed on which OAuth library to adopt.
+
+#### Options Considered
+
+| Criterion             | NextAuth.js v4          | Auth.js v5 (beta)        |
+| --------------------- | ----------------------- | ------------------------ |
+| Next.js 15 support    | ✅ App Router via shim  | ✅ Native App Router     |
+| Stability             | Stable — v4.24.x        | Beta — API may change    |
+| Existing auth coexist | Credentials provider    | Same concern             |
+| Prisma adapter        | @auth/prisma-adapter v4 | @auth/prisma-adapter v5  |
+| Session strategy      | JWT — aligns with jose  | JWT or database sessions |
+| Google provider       | ✅ Built-in             | ✅ Built-in              |
+| Migration complexity  | Medium                  | Higher — beta churn risk |
+
+#### Decision
+
+Use **NextAuth.js v4** with Google + Credentials providers.
+
+#### Rationale
+
+- Stable release — no beta churn risk in the final sprint
+- JWT session strategy aligns with the existing jose-based approach
+- Credentials provider preserves email/password login with no separate system
+- Auth.js v5 rejected — beta API risk unacceptable at project close
+
+#### Consequences
+
+- `jose` session helpers replaced by `getToken` (middleware) and
+  `getServerSession` (API routes)
+- All API routes migrated from custom `getUserFromRequest` to
+  `getServerSession(authOptions)` — one route at a time
+- `session.user.id` must be explicitly set in the JWT callback —
+  all user-scoped queries depend on it
+- No `Account` model needed — JWT session strategy stores data in
+  the token, not the database
+- `JWT_SECRET` retained in env until NextAuth migration confirmed
+  working, then removed
+- OAuth users created via `signIn` callback on first login —
+  duplicate accounts prevented by email lookup before creation
+
+---
 
 ## 8. Known Trade-offs & Constraints
 

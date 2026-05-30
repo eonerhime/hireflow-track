@@ -1,9 +1,10 @@
 // app/api/applications/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { authOptions } from "@/lib/auth-options";
 import { prisma } from "@/lib/prisma";
 import { createApplicationSchema } from "@/lib/schemas/application";
-import { getUserFromRequest } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
+import { NextRequest, NextResponse } from "next/server";
 
 /**
  * POST /api/applications
@@ -23,10 +24,12 @@ import { revalidatePath } from "next/cache";
  */
 export async function POST(request: NextRequest) {
   try {
-    const user = await getUserFromRequest(request);
-    if (!user) {
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+    const userId = session.user.id;
 
     const body = await request.json();
     const result = createApplicationSchema.safeParse(body);
@@ -54,7 +57,7 @@ export async function POST(request: NextRequest) {
 
     const application = await prisma.application.create({
       data: {
-        userId: user.userId,
+        userId: userId,
         company,
         role,
         location: location || null,
@@ -89,16 +92,17 @@ export async function POST(request: NextRequest) {
  *   401 — Unauthorized { error }
  *   500 — Internal server error { error }
  */
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const user = await getUserFromRequest(request);
-    if (!user) {
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+    const userId = session.user.id;
 
     const applications = await prisma.application.findMany({
       where: {
-        userId: user.userId,
+        userId: userId,
         deletedAt: null, // exclude soft-deleted
       },
       orderBy: { updatedAt: "desc" },

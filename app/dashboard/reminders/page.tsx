@@ -1,22 +1,35 @@
+// app/dashboard/reminders/page.tsx
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth-options";
+import { prisma } from "@/lib/prisma";
+import { redirect } from "next/navigation";
 import Link from "next/link";
-import { cookies } from "next/headers";
 import ReminderList from "@/components/ReminderList";
 
-async function getReminders() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("hiretrace-token")?.value;
+export const dynamic = "force-dynamic";
 
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/reminders`, {
-    headers: { Cookie: `hiretrace-token=${token}` },
-    cache: "no-store",
+async function getReminders(userId: string) {
+  return prisma.application.findMany({
+    where: { userId, deletedAt: null, followUpAt: { not: null } },
+    select: {
+      id: true,
+      company: true,
+      role: true,
+      stage: true,
+      followUpAt: true,
+    },
+    orderBy: { followUpAt: "asc" },
   });
-
-  if (!res.ok) return [];
-  return res.json();
 }
 
 export default async function RemindersPage() {
-  const reminders = await getReminders();
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) redirect("/login");
+
+  const reminders = (await getReminders(session.user.id)).map((r) => ({
+    ...r,
+    followUpAt: r.followUpAt?.toISOString() ?? "",
+  }));
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">

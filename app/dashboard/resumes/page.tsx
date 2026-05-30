@@ -1,24 +1,30 @@
 // app/dashboard/resumes/page.tsx
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth-options";
+import { prisma } from "@/lib/prisma";
+import { redirect } from "next/navigation";
 import ResumeList from "@/components/ResumeList";
 import ResumeUploadForm from "@/components/ResumeUploadForm";
-import { cookies } from "next/headers";
 import Link from "next/link";
 
-async function getResumes() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("hiretrace-token")?.value;
+export const dynamic = "force-dynamic";
 
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/resumes`, {
-    headers: { Cookie: `hiretrace-token=${token}` },
-    cache: "no-store",
+async function getResumes(userId: string) {
+  return prisma.resume.findMany({
+    where: { userId },
+    orderBy: { uploadedAt: "desc" },
+    select: { id: true, label: true, fileUrl: true, uploadedAt: true },
   });
-
-  if (!res.ok) return [];
-  return res.json();
 }
 
 export default async function ResumesPage() {
-  const resumes = await getResumes();
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) redirect("/login");
+
+  const resumes = (await getResumes(session.user.id)).map((r) => ({
+    ...r,
+    uploadedAt: r.uploadedAt.toISOString(),
+  }));
 
   return (
     <div className="mx-auto max-w-2xl space-y-8 px-4 py-8">

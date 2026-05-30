@@ -1,14 +1,13 @@
 // components/ApplicationForm.tsx
 "use client";
 
-import { useForm } from "react-hook-form";
+import {
+  CreateApplicationFormInput,
+  createApplicationSchema,
+} from "@/lib/schemas/application";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import {
-  createApplicationSchema,
-  CreateApplicationInput,
-  CreateApplicationFormInput,
-} from "@/lib/schemas/application";
+import { useForm } from "react-hook-form";
 
 interface ApplicationFormProps {
   mode: "create" | "edit";
@@ -24,6 +23,7 @@ export default function ApplicationForm({
   onSuccess,
 }: ApplicationFormProps) {
   const router = useRouter();
+
 
   const {
     register,
@@ -51,8 +51,14 @@ export default function ApplicationForm({
       if (onSuccess) {
         onSuccess();
       } else {
-        router.push("/dashboard");
-        router.refresh();
+        if (mode === "create") {
+          router.push("/dashboard");
+        } else {
+          // Refresh first to bust the RSC cache, then navigate to the detail page
+          router.refresh();
+          await new Promise((r) => setTimeout(r, 100));
+          router.push(`/dashboard/applications/${applicationId}`);
+        }
       }
     }
   };

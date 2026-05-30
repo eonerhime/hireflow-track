@@ -1,8 +1,9 @@
 // app/api/contacts/[id]/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { authOptions } from "@/lib/auth-options";
 import { prisma } from "@/lib/prisma";
-import { getUserFromRequest } from "@/lib/auth";
 import { updateContactSchema } from "@/lib/schemas/contact";
+import { getServerSession } from "next-auth";
+import { NextRequest, NextResponse } from "next/server";
 
 interface Params {
   params: Promise<{ id: string }>;
@@ -25,9 +26,11 @@ interface Params {
  *   404 — Contact not found or not owned by user { error }
  */
 export async function PATCH(request: NextRequest, { params }: Params) {
-  const user = await getUserFromRequest(request);
-  if (!user)
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const userId = session.user.id;
 
   const { id } = await params;
   const body = await request.json();
@@ -40,7 +43,7 @@ export async function PATCH(request: NextRequest, { params }: Params) {
 
   // Verify contact belongs to the user via application
   const contact = await prisma.contact.findFirst({
-    where: { id, application: { userId: user.userId } },
+    where: { id, application: { userId: userId } },
   });
   if (!contact)
     return NextResponse.json({ error: "Contact not found" }, { status: 404 });
@@ -64,14 +67,16 @@ export async function PATCH(request: NextRequest, { params }: Params) {
  *   404 — Contact not found or not owned by user { error }
  */
 export async function DELETE(request: NextRequest, { params }: Params) {
-  const user = await getUserFromRequest(request);
-  if (!user)
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const userId = session.user.id;
 
   const { id } = await params;
 
   const contact = await prisma.contact.findFirst({
-    where: { id, application: { userId: user.userId } },
+    where: { id, application: { userId: userId } },
   });
   if (!contact)
     return NextResponse.json({ error: "Contact not found" }, { status: 404 });
