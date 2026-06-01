@@ -12,10 +12,14 @@ model User {
   id           String        @id @default(cuid())
   email        String        @unique
   password     String
+  avatarUrl    String?                      
+  firstName    String?   
+  lastName     String?       
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   applications Application[]
   resumes      Resume[]
+  activityLogs  ActivityLog[]
 }
 
 model Application {
@@ -107,3 +111,27 @@ model Resume {
 
   @@index([userId])
 }
+
+enum ActivityAction {
+  APPLICATION_CREATED
+  APPLICATION_DELETED
+  STAGE_CHANGED
+  RESUME_LINKED
+  NOTE_ADDED
+}
+
+model ActivityLog {
+  id            String         @id @default(cuid())
+  userId        String
+  applicationId String?
+  action        ActivityAction
+  metadata      Json?
+  createdAt     DateTime       @default(now())
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, createdAt])
+}
+
+
+

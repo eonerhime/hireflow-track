@@ -32,7 +32,7 @@ export default function ResumePicker({
     setError(null);
 
     const payload = { resumeId: value === "" ? null : value };
-    console.log("PATCH payload:", payload); // ← ADD
+    console.log("PATCH payload:", payload);
 
     const res = await fetch(`/api/applications/${applicationId}`, {
       method: "PATCH",
@@ -57,7 +57,7 @@ export default function ResumePicker({
     <div className="space-y-2">
       <label
         htmlFor="resume-picker"
-        className="block text-sm font-medium text-gray-700"
+        className="block text-sm font-medium text-gray-700 dark:text-gray-300"
       >
         Linked resume
       </label>
@@ -67,9 +67,11 @@ export default function ResumePicker({
         onChange={(e) => handleChange(e.target.value)}
         disabled={saving}
         className="block w-full rounded-md border border-gray-300 px-3
-                   py-2 text-sm shadow-sm focus:border-blue-500
-                   focus:outline-none focus:ring-1 focus:ring-blue-500
-                   disabled:opacity-50"
+                   py-2 text-sm shadow-sm bg-white text-gray-900
+                   focus:border-blue-500 focus:outline-none focus:ring-1
+                   focus:ring-blue-500 disabled:opacity-50
+                   dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100
+                   dark:focus:border-blue-400 dark:focus:ring-blue-400"
       >
         <option value="">— None —</option>
         {resumes.map((r) => (
@@ -78,7 +80,9 @@ export default function ResumePicker({
           </option>
         ))}
       </select>
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && (
+        <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+      )}
     </div>
   );
 }

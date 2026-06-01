@@ -23,14 +23,28 @@ const securityHeaders = [
       "default-src 'self'",
       "script-src 'self' 'unsafe-eval' 'unsafe-inline'",
       "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob:",
+      // Added res.cloudinary.com and lh3.googleusercontent.com for avatars
+      "img-src 'self' data: blob: https://res.cloudinary.com https://lh3.googleusercontent.com",
       "font-src 'self'",
-      "connect-src 'self'",
+      // Added api.cloudinary.com for the upload POST request
+      "connect-src 'self' https://api.cloudinary.com",
     ].join("; "),
   },
 ];
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
+    ],
+  },
   async headers() {
     return [
       {

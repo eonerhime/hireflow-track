@@ -51,12 +51,18 @@ export default function InterviewNoteForm({
     setLoading(false);
   };
 
+  const inputClass = `w-full rounded-md border border-gray-300 px-3 py-2 text-sm
+    bg-white text-gray-900 placeholder-gray-400
+    focus:outline-none focus:ring-2 focus:ring-indigo-500
+    dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100
+    dark:placeholder-gray-500 dark:focus:ring-indigo-400`;
+
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label
           htmlFor="note-stage"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
         >
           Stage
         </label>
@@ -64,9 +70,7 @@ export default function InterviewNoteForm({
           id="note-stage"
           value={stage}
           onChange={(e) => setStage(e.target.value as ApplicationStage)}
-          className="mt-1 block w-full rounded-md border border-gray-300 px-3
-                     py-2 text-sm shadow-sm focus:border-blue-500
-                     focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className={inputClass}
         >
           {Object.entries(STAGE_LABELS).map(([value, label]) => (
             <option key={value} value={value}>
@@ -79,7 +83,7 @@ export default function InterviewNoteForm({
       <div>
         <label
           htmlFor="note-content"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
         >
           Note
         </label>
@@ -89,19 +93,20 @@ export default function InterviewNoteForm({
           onChange={(e) => setContent(e.target.value)}
           rows={4}
           placeholder="Add a note for this stage..."
-          className="mt-1 block w-full rounded-md border border-gray-300 px-3
-                     py-2 text-sm shadow-sm focus:border-blue-500
-                     focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className={inputClass}
         />
       </div>
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && (
+        <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+      )}
 
       <button
         type="submit"
         disabled={loading || !content.trim()}
         className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium
-                   text-white hover:bg-blue-700 disabled:opacity-50"
+                   text-white hover:bg-blue-700 disabled:opacity-50
+                   dark:bg-blue-500 dark:hover:bg-blue-600"
       >
         {loading ? "Saving…" : "Save Note"}
       </button>

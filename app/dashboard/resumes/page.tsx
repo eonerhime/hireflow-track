@@ -30,24 +30,38 @@ export default async function ResumesPage() {
     <div className="mx-auto max-w-2xl space-y-8 px-4 py-8">
       <Link
         href="/dashboard"
-        className="mb-6 inline-flex items-center text-sm text-gray-500 hover:text-gray-700"
+        className="mb-6 inline-flex items-center text-sm text-gray-500
+                   hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
       >
         ← Back to Dashboard
       </Link>
-      <h1 className="text-2xl font-bold text-gray-900">Resumes</h1>
+
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+        Resumes
+      </h1>
 
       <section>
-        <h2 className="mb-4 text-lg font-semibold text-gray-700">
+        <h2 className="mb-4 text-lg font-semibold text-gray-700 dark:text-gray-300">
           Upload a resume
         </h2>
-        <ResumeUploadForm />
+        <div
+          className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm
+                        dark:border-gray-700 dark:bg-gray-800"
+        >
+          <ResumeUploadForm />
+        </div>
       </section>
 
       <section>
-        <h2 className="mb-4 text-lg font-semibold text-gray-700">
+        <h2 className="mb-4 text-lg font-semibold text-gray-700 dark:text-gray-300">
           Uploaded resumes
         </h2>
-        <ResumeList resumes={resumes} />
+        <div
+          className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm
+                        dark:border-gray-700 dark:bg-gray-800"
+        >
+          <ResumeList resumes={resumes} />
+        </div>
       </section>
     </div>
   );

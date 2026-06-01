@@ -23,10 +23,15 @@ export default function StatsBar({ applications }: StatsBarProps) {
       {stats.map((stat) => (
         <div
           key={stat.label}
-          className="rounded-lg border border-gray-200 bg-white px-4 py-3 shadow-sm"
+          className="rounded-lg border border-gray-200 bg-white px-4 py-3 shadow-sm
+                     dark:border-gray-700 dark:bg-gray-800"
         >
-          <p className="text-2xl font-semibold text-gray-900">{stat.value}</p>
-          <p className="text-xs text-gray-500">{stat.label}</p>
+          <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+            {stat.value}
+          </p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            {stat.label}
+          </p>
         </div>
       ))}
     </div>

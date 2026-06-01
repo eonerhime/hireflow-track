@@ -5,6 +5,7 @@ import { createApplicationSchema } from "@/lib/schemas/application";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
+import { logActivity } from "@/lib/activity";
 
 /**
  * POST /api/applications
@@ -68,6 +69,18 @@ export async function POST(request: NextRequest) {
         resumeVersionLabel: resumeVersionLabel || null,
       },
     });
+
+    void logActivity({
+      userId: userId,
+      applicationId: application.id,
+      action: "APPLICATION_CREATED",
+      metadata: {
+        company: application.company,
+        role: application.role,
+        stage: application.stage,
+      },
+    });
+
     revalidatePath("/dashboard");
 
     return NextResponse.json(application, { status: 201 });

@@ -7,6 +7,7 @@ import {
 } from "@/lib/schemas/application";
 import { getUserFromRequest } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
+import { logActivity } from "@/lib/activity";
 
 // Shared ownership check
 async function getOwnedApplication(userId: string, id: string) {
@@ -111,6 +112,21 @@ export async function PATCH(
           stageEnteredAt: new Date(),
         },
       });
+
+      if (body.stage !== application.stage) {
+        void logActivity({
+          userId: user.userId,
+          applicationId: id,
+          action: "STAGE_CHANGED",
+          metadata: {
+            company: updated.company,
+            role: updated.role,
+            fromStage: application.stage,
+            toStage: updated.stage,
+          },
+        });
+      }
+
       revalidatePath("/dashboard");
       revalidatePath(`/dashboard/applications/${id}`);
       return NextResponse.json(updated);
@@ -128,7 +144,6 @@ export async function PATCH(
       );
     }
 
-    // After result.success check, before prisma.application.update:
     if (result.data.resumeId) {
       const resume = await prisma.resume.findFirst({
         where: { id: result.data.resumeId, userId: user.userId },
@@ -140,6 +155,7 @@ export async function PATCH(
         );
       }
     }
+
     const {
       company,
       role,
@@ -174,6 +190,32 @@ export async function PATCH(
         ...(stage ? { stage, stageEnteredAt: new Date() } : {}),
       },
     });
+
+    if (body.stage !== undefined && body.stage !== application.stage) {
+      void logActivity({
+        userId: user.userId,
+        applicationId: id,
+        action: "STAGE_CHANGED",
+        metadata: {
+          company: updated.company,
+          role: updated.role,
+          fromStage: application.stage,
+          toStage: updated.stage,
+        },
+      });
+    }
+
+    if (body.resumeId !== undefined && body.resumeId !== null) {
+      void logActivity({
+        userId: user.userId,
+        applicationId: id,
+        action: "RESUME_LINKED",
+        metadata: {
+          company: updated.company,
+          role: updated.role,
+        },
+      });
+    }
 
     revalidatePath("/dashboard");
     revalidatePath(`/dashboard/applications/${id}`);
@@ -219,6 +261,16 @@ export async function DELETE(
     await prisma.application.update({
       where: { id },
       data: { deletedAt: new Date() },
+    });
+
+    void logActivity({
+      userId: user.userId,
+      applicationId: id,
+      action: "APPLICATION_DELETED",
+      metadata: {
+        company: application.company,
+        role: application.role,
+      },
     });
 
     // Revalidate the dashboard page to reflect the deletion immediately

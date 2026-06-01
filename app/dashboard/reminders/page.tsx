@@ -35,13 +35,22 @@ export default async function RemindersPage() {
     <div className="mx-auto max-w-2xl px-4 py-8">
       <Link
         href="/dashboard"
-        className="mb-6 inline-flex items-center text-sm text-gray-500 hover:text-gray-700"
+        className="mb-6 inline-flex items-center text-sm text-gray-500
+                   hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
       >
         ← Back to Dashboard
       </Link>
 
-      <h1 className="mb-6 text-2xl font-bold text-gray-900">Reminders</h1>
-      <ReminderList reminders={reminders} />
+      <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+        Reminders
+      </h1>
+
+      <div
+        className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm
+                      dark:border-gray-700 dark:bg-gray-800"
+      >
+        <ReminderList reminders={reminders} />
+      </div>
     </div>
   );
 }

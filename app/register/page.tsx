@@ -1,3 +1,4 @@
+// app/register/page.tsx
 "use client";
 
 import { useState } from "react";
@@ -53,10 +54,22 @@ export default function RegisterPage() {
     }
   };
 
+  const inputClass = `mt-1 block w-full rounded-md border border-gray-300 px-3 py-2
+    text-sm shadow-sm bg-white text-gray-900
+    focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500
+    dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100
+    dark:focus:border-blue-400 dark:focus:ring-blue-400`;
+
   return (
-    <main className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-sm">
-        <h1 className="mb-6 text-2xl font-bold text-gray-900">
+    <main
+      className="flex min-h-screen items-center justify-center
+                     bg-gray-50 dark:bg-gray-950 px-4"
+    >
+      <div
+        className="w-full max-w-md rounded-lg bg-white p-8 shadow-sm
+                      dark:bg-gray-800 dark:border dark:border-gray-700"
+      >
+        <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
           Create your account
         </h1>
 
@@ -69,7 +82,7 @@ export default function RegisterPage() {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
               Email address
             </label>
@@ -78,10 +91,10 @@ export default function RegisterPage() {
               type="email"
               autoComplete="email"
               {...register("email")}
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className={inputClass}
             />
             {errors.email && (
-              <p className="mt-1 text-sm text-red-600">
+              <p className="mt-1 text-sm text-red-600 dark:text-red-400">
                 {errors.email.message}
               </p>
             )}
@@ -91,7 +104,7 @@ export default function RegisterPage() {
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
               Password
             </label>
@@ -100,10 +113,10 @@ export default function RegisterPage() {
               type="password"
               autoComplete="new-password"
               {...register("password")}
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className={inputClass}
             />
             {errors.password && (
-              <p className="mt-1 text-sm text-red-600">
+              <p className="mt-1 text-sm text-red-600 dark:text-red-400">
                 {errors.password.message}
               </p>
             )}
@@ -113,7 +126,7 @@ export default function RegisterPage() {
           <div>
             <label
               htmlFor="confirmPassword"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
               Confirm password
             </label>
@@ -122,10 +135,10 @@ export default function RegisterPage() {
               type="password"
               autoComplete="new-password"
               {...register("confirmPassword")}
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className={inputClass}
             />
             {errors.confirmPassword && (
-              <p className="mt-1 text-sm text-red-600">
+              <p className="mt-1 text-sm text-red-600 dark:text-red-400">
                 {errors.confirmPassword.message}
               </p>
             )}
@@ -133,7 +146,10 @@ export default function RegisterPage() {
 
           {/* Server error */}
           {serverError && (
-            <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600">
+            <p
+              className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600
+                          dark:bg-red-900/30 dark:text-red-400"
+            >
               {serverError}
             </p>
           )}
@@ -142,27 +158,40 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+            className="w-full rounded-md bg-blue-600 px-4 py-2 text-sm font-medium
+                       text-white hover:bg-blue-700 disabled:opacity-50
+                       focus:outline-none focus:ring-2 focus:ring-blue-500
+                       focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600
+                       dark:focus:ring-offset-gray-800"
           >
             {isLoading ? "Creating account..." : "Create account"}
           </button>
 
-          <p className="text-center text-sm text-gray-600">
+          <p className="text-center text-sm text-gray-600 dark:text-gray-400">
             Already have an account?{" "}
-            <a href="/login" className="text-blue-600 hover:underline">
+            <a
+              href="/login"
+              className="text-blue-600 hover:underline
+                                        dark:text-blue-400 dark:hover:text-blue-300"
+            >
               Log in
             </a>
           </p>
         </form>
 
-        {/* Divider + Google OAuth — outside form */}
+        {/* Divider + Google OAuth */}
         <div className="mt-4">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300" />
+              <div className="w-full border-t border-gray-300 dark:border-gray-600" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="bg-white px-2 text-gray-500">or</span>
+              <span
+                className="bg-white px-2 text-gray-500
+                               dark:bg-gray-800 dark:text-gray-400"
+              >
+                or
+              </span>
             </div>
           </div>
 
@@ -170,9 +199,12 @@ export default function RegisterPage() {
             type="button"
             onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
             className="mt-4 flex w-full items-center justify-center gap-3 rounded-md
-               border border-gray-300 bg-white px-4 py-2 text-sm font-medium
-               text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none
-               focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                       border border-gray-300 bg-white px-4 py-2 text-sm font-medium
+                       text-gray-700 shadow-sm hover:bg-gray-50
+                       focus:outline-none focus:ring-2 focus:ring-blue-500
+                       focus:ring-offset-2
+                       dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300
+                       dark:hover:bg-gray-600 dark:focus:ring-offset-gray-800"
           >
             <svg
               className="h-5 w-5"

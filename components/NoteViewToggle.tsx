@@ -54,8 +54,13 @@ export default function NoteViewToggle({
     <>
       {/* Toggle */}
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-sm font-semibold text-gray-900">Interview Notes</h2>
-        <div className="flex gap-1 rounded-md border border-gray-200 p-0.5">
+        <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+          Interview Notes
+        </h2>
+        <div
+          className="flex gap-1 rounded-md border border-gray-200 p-0.5
+                        dark:border-gray-700"
+        >
           {(["list", "timeline"] as const).map((v) => (
             <button
               key={v}
@@ -63,8 +68,8 @@ export default function NoteViewToggle({
               className={`rounded px-3 py-1 text-xs font-medium transition-colors
                 ${
                   view === v
-                    ? "bg-indigo-600 text-white"
-                    : "text-gray-500 hover:text-gray-700"
+                    ? "bg-indigo-600 text-white dark:bg-indigo-500"
+                    : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                 }`}
             >
               {v === "list" ? "List" : "Timeline"}
@@ -81,9 +86,10 @@ export default function NoteViewToggle({
               {sorted.map((note) => (
                 <li
                   key={note.id}
-                  className="rounded-md border border-gray-100 bg-gray-50 p-3"
+                  className="rounded-md border border-gray-100 bg-gray-50 p-3
+                             dark:border-gray-700 dark:bg-gray-700/50"
                 >
-                  <p className="mb-1 text-xs font-medium text-gray-500">
+                  <p className="mb-1 text-xs font-medium text-gray-500 dark:text-gray-400">
                     {stageLabels[note.stage]} ·{" "}
                     {new Date(note.createdAt).toLocaleDateString("en-GB", {
                       day: "numeric",
@@ -91,7 +97,7 @@ export default function NoteViewToggle({
                       year: "numeric",
                     })}
                   </p>
-                  <p className="whitespace-pre-wrap text-sm text-gray-900">
+                  <p className="whitespace-pre-wrap text-sm text-gray-900 dark:text-gray-100">
                     {note.content}
                   </p>
                   <InterviewNoteActions
@@ -104,7 +110,7 @@ export default function NoteViewToggle({
               ))}
             </ul>
           ) : (
-            <p className="mb-4 text-sm text-gray-500">
+            <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
               No interview notes yet.
             </p>
           )}
@@ -123,8 +129,10 @@ export default function NoteViewToggle({
       )}
 
       {/* Add note form */}
-      <div className="border-t border-gray-100 pt-4">
-        <h3 className="mb-3 text-sm font-medium text-gray-700">Add Note</h3>
+      <div className="border-t border-gray-100 pt-4 dark:border-gray-700">
+        <h3 className="mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">
+          Add Note
+        </h3>
         <InterviewNoteForm
           applicationId={applicationId}
           currentStage={currentStage}

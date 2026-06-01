@@ -28,37 +28,83 @@ export const authOptions: AuthOptions = {
         const valid = await bcrypt.compare(credentials.password, user.password);
         if (!valid) return null;
 
-        return { id: user.id, email: user.email, name: user.email };
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.email,
+          avatarUrl: user.avatarUrl ?? null,
+          firstName: user.firstName ?? null,
+          lastName: user.lastName ?? null,
+        };
       },
     }),
   ],
   session: { strategy: "jwt" },
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) token.userId = user.id;
-      return token;
-    },
-    async session({ session, token }) {
-      if (session.user && token.userId) {
-        session.user.id = token.userId as string;
-      }
-      return session;
-    },
     async signIn({ user, account }) {
       if (account?.provider === "google" && user.email) {
         const existing = await prisma.user.findUnique({
           where: { email: user.email },
         });
+
         if (!existing) {
           const created = await prisma.user.create({
-            data: { email: user.email, password: "" },
+            data: {
+              email: user.email,
+              password: "",
+              avatarUrl: user.image ?? null,
+            },
           });
           user.id = created.id;
+          // carry avatarUrl forward into jwt
+          user.avatarUrl = created.avatarUrl;
         } else {
           user.id = existing.id;
+          // update avatarUrl if Google provides a newer image
+          if (user.image && user.image !== existing.avatarUrl) {
+            await prisma.user.update({
+              where: { id: existing.id },
+              data: { avatarUrl: user.image },
+            });
+          }
+          user.avatarUrl = user.image ?? existing.avatarUrl ?? null;
         }
       }
       return true;
+    },
+
+    async jwt({ token, user, trigger }) {
+      if (user) {
+        token.userId = user.id;
+        token.avatarUrl = user.avatarUrl ?? null;
+        token.firstName = user.firstName ?? null;
+        token.lastName = user.lastName ?? null;
+      }
+
+      // Re-read from DB whenever the client calls updateSession()
+      if (trigger === "update" && token.userId) {
+        const fresh = await prisma.user.findUnique({
+          where: { id: token.userId as string },
+          select: { avatarUrl: true, firstName: true, lastName: true },
+        });
+        if (fresh) {
+          token.avatarUrl = fresh.avatarUrl ?? null;
+          token.firstName = fresh.firstName ?? null;
+          token.lastName = fresh.lastName ?? null;
+        }
+      }
+
+      return token;
+    },
+
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.userId as string;
+        session.user.avatarUrl = token.avatarUrl ?? null;
+        session.user.firstName = token.firstName ?? null;
+        session.user.lastName = token.lastName ?? null;
+      }
+      return session;
     },
   },
   pages: { signIn: "/login", error: "/login" },

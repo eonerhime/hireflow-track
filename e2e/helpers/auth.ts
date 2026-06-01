@@ -1,7 +1,5 @@
 import { Page } from "@playwright/test";
 
-// Registers a new test user and returns credentials
-// e2e/helpers/auth.ts
 export async function registerTestUser(
   page: Page,
   suffix: string | number = Date.now(),
@@ -10,27 +8,31 @@ export async function registerTestUser(
   const password = "TestPassword123!";
 
   await page.goto("/register");
-  await page.getByLabel(/email/i).fill(email);
+  // Wait for the form to be fully hydrated — not just loaded
+  await page.getByLabel("Email address").waitFor({ state: "visible" });
+
+  await page.getByLabel("Email address").fill(email);
   await page.getByLabel("Password", { exact: true }).fill(password);
   await page.getByLabel("Confirm password", { exact: true }).fill(password);
-  await page.getByRole("button", { name: /register|sign up|create/i }).click();
+  await page.getByRole("button", { name: /create account/i }).click();
 
-  // Register redirects to /login — complete the login step
   await page.waitForURL("**/login**");
   await loginTestUser(page, email, password);
 
   return { email, password };
 }
 
-// Logs in an existing user
 export async function loginTestUser(
   page: Page,
   email: string,
   password: string,
 ) {
   await page.goto("/login");
-  await page.getByLabel(/email/i).fill(email);
-  await page.getByLabel(/password/i).fill(password);
-  await page.getByRole("button", { name: /sign in|log in/i }).click();
+  // Wait for the Suspense boundary to resolve and LoginForm to mount
+  await page.getByLabel("Email address").waitFor({ state: "visible" });
+
+  await page.getByLabel("Email address").fill(email);
+  await page.getByLabel("Password", { exact: true }).fill(password);
+  await page.getByRole("button", { name: /log in/i }).click();
   await page.waitForURL("**/dashboard**");
 }

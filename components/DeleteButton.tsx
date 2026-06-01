@@ -25,7 +25,7 @@ export default function DeleteButton({
 
     if (res.ok) {
       router.refresh();
-      setTimeout(() => router.push("/dashboard"), 100); // Redirect after a short delay to show the updated state
+      setTimeout(() => router.push("/dashboard"), 100);
     } else {
       setLoading(false);
       setConfirming(false);
@@ -35,19 +35,23 @@ export default function DeleteButton({
   if (confirming) {
     return (
       <div className="flex items-center gap-2">
-        <span className="text-sm text-gray-600">Are you sure?</span>
+        <span className="text-sm text-gray-600 dark:text-gray-400">
+          Are you sure?
+        </span>
         <button
           onClick={handleDelete}
           disabled={loading}
           className="rounded-md bg-red-600 px-3 py-1.5 text-sm font-medium
-                     text-white hover:bg-red-700 disabled:opacity-50"
+                     text-white hover:bg-red-700 disabled:opacity-50
+                     dark:bg-red-500 dark:hover:bg-red-600"
         >
           {loading ? "Deleting…" : "Yes, delete"}
         </button>
         <button
           onClick={() => setConfirming(false)}
           className="rounded-md border border-gray-300 px-3 py-1.5 text-sm
-                     font-medium text-gray-700 hover:bg-gray-50"
+                     font-medium text-gray-700 hover:bg-gray-50
+                     dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
         >
           Cancel
         </button>
@@ -59,7 +63,8 @@ export default function DeleteButton({
     <button
       onClick={() => setConfirming(true)}
       className="rounded-md border border-red-300 px-3 py-1.5 text-sm
-                 font-medium text-red-600 hover:bg-red-50"
+                 font-medium text-red-600 hover:bg-red-50
+                 dark:border-red-500/50 dark:text-red-400 dark:hover:bg-red-900/20"
     >
       {label}
     </button>

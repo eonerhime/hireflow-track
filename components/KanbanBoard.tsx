@@ -1,3 +1,4 @@
+// components/KanbanBoard.tsx
 "use client";
 
 import { useState, useCallback } from "react";
@@ -43,7 +44,6 @@ export default function KanbanBoard({
       const newStage = destination.droppableId as ApplicationStage;
       const oldStage = source.droppableId as ApplicationStage;
 
-      // Optimistic update
       setLocalApps((prev) =>
         prev.map((app) =>
           app.id === draggableId ? { ...app, stage: newStage } : app,
@@ -60,7 +60,6 @@ export default function KanbanBoard({
         if (res.ok) {
           onStageChange(draggableId, newStage);
         } else {
-          // Revert on failure
           setLocalApps((prev) =>
             prev.map((app) =>
               app.id === draggableId ? { ...app, stage: oldStage } : app,
@@ -68,7 +67,6 @@ export default function KanbanBoard({
           );
         }
       } catch {
-        // Revert on network error
         setLocalApps((prev) =>
           prev.map((app) =>
             app.id === draggableId ? { ...app, stage: oldStage } : app,

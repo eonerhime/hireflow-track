@@ -1,10 +1,9 @@
 // app/api/dashboard/metrics/route.ts
 import { authOptions } from "@/lib/auth-options";
-
 import { prisma } from "@/lib/prisma";
 import { ApplicationStage } from "@prisma/client";
 import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const INTERVIEW_OR_BEYOND = ["INTERVIEW", "ASSESSMENT", "OFFER", "CLOSED"];
 const OFFER_OR_BEYOND = ["OFFER", "CLOSED"];
@@ -30,6 +29,11 @@ type SourceTotals = Record<
  *
  * Returns aggregated pipeline metrics for the authenticated user's applications.
  *
+ * Query params (optional):
+ *   from — ISO date string (e.g. 2026-01-01) — filter appliedAt >= from
+ *   to   — ISO date string (e.g. 2026-03-31) — filter appliedAt <= to
+ *   Both must be provided together; if either is missing the filter is ignored.
+ *
  * Response shape:
  *   {
  *     conversionRates: { appliedToInterview: number, interviewToOffer: number },
@@ -37,12 +41,14 @@ type SourceTotals = Record<
  *     sourceEffectiveness: {
  *       source: string, total: number, interviews: number, offers: number,
  *       interviewRate: number, offerRate: number
- *     }[]
+ *     }[],
+ *     stageCounts: { stage: ApplicationStage, count: number }[]
  *   }
  *
  * Notes:
  *   - conversionRates values are whole-number percentages (0–100)
  *   - timeInStage is ordered by STAGE_ORDER; stages with no applications are omitted
+ *   - stageCounts is ordered by STAGE_ORDER; stages with no applications are omitted
  *   - Applications with no source are grouped under "UNTAGGED"
  *
  * Responses:
@@ -50,7 +56,7 @@ type SourceTotals = Record<
  *   401 — Unauthorized { error }
  *   500 — Internal server error { error }
  */
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
@@ -58,8 +64,17 @@ export async function GET() {
     }
     const userId = session.user.id;
 
+    const { searchParams } = new URL(request.url);
+    const from = searchParams.get("from");
+    const to = searchParams.get("to");
+
+    const dateFilter =
+      from && to
+        ? { appliedAt: { gte: new Date(from), lte: new Date(to) } }
+        : {};
+
     const applications = await prisma.application.findMany({
-      where: { userId: userId, deletedAt: null },
+      where: { userId, deletedAt: null, ...dateFilter },
       select: { stage: true, stageEnteredAt: true, source: true },
     });
 
@@ -77,6 +92,15 @@ export async function GET() {
       atInterviewOrBeyond === 0
         ? 0
         : Math.round((atOfferOrBeyond / atInterviewOrBeyond) * 100);
+
+    // Stage counts (for PipelineChart)
+    const stageCountMap: Partial<Record<ApplicationStage, number>> = {};
+    for (const app of applications) {
+      stageCountMap[app.stage] = (stageCountMap[app.stage] ?? 0) + 1;
+    }
+    const stageCounts = STAGE_ORDER.filter((s) => stageCountMap[s]).map(
+      (s) => ({ stage: s, count: stageCountMap[s]! }),
+    );
 
     // Time-in-stage
     const now = Date.now();
@@ -127,6 +151,7 @@ export async function GET() {
       conversionRates: { appliedToInterview, interviewToOffer },
       timeInStage,
       sourceEffectiveness,
+      stageCounts,
     });
   } catch (error) {
     console.error("[GET /api/dashboard/metrics]", error);

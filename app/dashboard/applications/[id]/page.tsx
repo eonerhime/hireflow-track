@@ -23,12 +23,18 @@ const stageLabels: Record<ApplicationStage, string> = {
 };
 
 const stageColours: Record<ApplicationStage, string> = {
-  APPLIED: "bg-blue-100   text-blue-800",
-  SCREENING: "bg-yellow-100 text-yellow-800",
-  INTERVIEW: "bg-purple-100 text-purple-800",
-  ASSESSMENT: "bg-orange-100 text-orange-800",
-  OFFER: "bg-green-100  text-green-800",
-  CLOSED: "bg-gray-100   text-gray-600",
+  APPLIED:
+    "bg-blue-100   text-blue-800   dark:bg-blue-900/40  dark:text-blue-300",
+  SCREENING:
+    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300",
+  INTERVIEW:
+    "bg-purple-100 text-purple-800 dark:bg-purple-900/40 dark:text-purple-300",
+  ASSESSMENT:
+    "bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-300",
+  OFFER:
+    "bg-green-100  text-green-800  dark:bg-green-900/40  dark:text-green-300",
+  CLOSED:
+    "bg-gray-100   text-gray-600   dark:bg-gray-700      dark:text-gray-400",
 };
 
 interface DetailPageProps {
@@ -98,7 +104,7 @@ export default async function ApplicationDetailPage({
       <Link
         href={backHref}
         className="mb-6 inline-flex items-center text-sm text-gray-500
-             hover:text-gray-700"
+                   hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
       >
         {backLabel}
       </Link>
@@ -106,10 +112,12 @@ export default async function ApplicationDetailPage({
       {/* Header */}
       <div className="mb-6 flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">
+          <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
             {application.role}
           </h1>
-          <p className="mt-1 text-gray-500">{application.company}</p>
+          <p className="mt-1 text-gray-500 dark:text-gray-400">
+            {application.company}
+          </p>
         </div>
         <span
           className={`shrink-0 rounded-full px-3 py-1 text-sm font-medium
@@ -120,8 +128,11 @@ export default async function ApplicationDetailPage({
       </div>
 
       {/* Details card */}
-      <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-        <dl className="divide-y divide-gray-100">
+      <div
+        className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm
+                      dark:border-gray-700 dark:bg-gray-800"
+      >
+        <dl className="divide-y divide-gray-100 dark:divide-gray-700">
           {[
             { label: "Location", value: application.location },
             { label: "Salary", value: application.salary },
@@ -132,7 +143,8 @@ export default async function ApplicationDetailPage({
                   href={application.jobUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-indigo-600 underline hover:text-indigo-500"
+                  className="text-indigo-600 underline hover:text-indigo-500
+                             dark:text-indigo-400 dark:hover:text-indigo-300"
                 >
                   View posting
                 </a>
@@ -152,66 +164,77 @@ export default async function ApplicationDetailPage({
               label: "Applied",
               value: new Date(application.appliedAt).toLocaleDateString(
                 "en-GB",
-                {
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                },
+                { day: "numeric", month: "short", year: "numeric" },
               ),
             },
           ]
             .filter((row) => row.value)
             .map((row) => (
               <div key={row.label} className="flex py-3 text-sm">
-                <dt className="w-32 shrink-0 font-medium text-gray-500">
+                <dt className="w-32 shrink-0 font-medium text-gray-500 dark:text-gray-400">
                   {row.label}
                 </dt>
-                <dd className="text-gray-900">{row.value}</dd>
+                <dd className="text-gray-900 dark:text-gray-100">
+                  {row.value}
+                </dd>
               </div>
             ))}
         </dl>
+
         {isOverdue && (
-          <div className="mt-4 rounded-md bg-red-50 px-4 py-3">
-            <p className="text-sm font-medium text-red-700">
+          <div
+            className="mt-4 rounded-md bg-red-50 px-4 py-3
+                          dark:bg-red-900/20 dark:border dark:border-red-800/40"
+          >
+            <p className="text-sm font-medium text-red-700 dark:text-red-400">
               ⚠ Follow-up is overdue. Consider reaching out.
             </p>
           </div>
         )}
+
         {application.notes && (
-          <div className="mt-4 border-t border-gray-100 pt-4">
-            <p className="mb-1 text-sm font-medium text-gray-500">Notes</p>
-            <p className="whitespace-pre-wrap text-sm text-gray-900">
+          <div className="mt-4 border-t border-gray-100 pt-4 dark:border-gray-700">
+            <p className="mb-1 text-sm font-medium text-gray-500 dark:text-gray-400">
+              Notes
+            </p>
+            <p className="whitespace-pre-wrap text-sm text-gray-900 dark:text-gray-100">
               {application.notes}
             </p>
           </div>
         )}
+
         {application.resumeVersionLabel && (
-          <div className="mt-4 border-t border-gray-100 pt-4">
-            <dt className="text-sm font-medium text-gray-500">
+          <div className="mt-4 border-t border-gray-100 pt-4 dark:border-gray-700">
+            <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
               Resume version
             </dt>
-            <dd className="text-sm text-gray-900">
+            <dd className="text-sm text-gray-900 dark:text-gray-100">
               {application.resumeVersionLabel}
             </dd>
           </div>
         )}
+
         {application.resume && (
-          <div className="mt-4 border-t border-gray-100 pt-4">
-            <dt className="text-sm font-medium text-gray-500">Linked resume</dt>
-            <dd className="text-sm text-gray-900">
+          <div className="mt-4 border-t border-gray-100 pt-4 dark:border-gray-700">
+            <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
+              Linked resume
+            </dt>
+            <dd className="text-sm text-gray-900 dark:text-gray-100">
               {application.resume.label}{" "}
               <a
                 href={application.resume.fileUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
+                className="text-blue-600 hover:underline
+                           dark:text-blue-400 dark:hover:text-blue-300"
               >
                 Download
               </a>
             </dd>
           </div>
         )}
-        <div className="mt-4 border-t border-gray-100 pt-4">
+
+        <div className="mt-4 border-t border-gray-100 pt-4 dark:border-gray-700">
           <ResumePicker
             applicationId={application.id}
             currentResumeId={application.resumeId}
@@ -221,7 +244,10 @@ export default async function ApplicationDetailPage({
       </div>
 
       {/* Interview Notes section */}
-      <div className="mt-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+      <div
+        className="mt-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm
+                      dark:border-gray-700 dark:bg-gray-800"
+      >
         <NoteViewToggle
           notes={application.interviewNotes}
           applicationId={id}
@@ -232,11 +258,16 @@ export default async function ApplicationDetailPage({
       </div>
 
       {/* Contacts section */}
-      <div className="mt-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-        <h2 className="mb-4 text-sm font-semibold text-gray-900">Contacts</h2>
+      <div
+        className="mt-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm
+                      dark:border-gray-700 dark:bg-gray-800"
+      >
+        <h2 className="mb-4 text-sm font-semibold text-gray-900 dark:text-gray-100">
+          Contacts
+        </h2>
         <ContactList contacts={application.contacts} />
-        <div className="mt-4 border-t border-gray-100 pt-4">
-          <h3 className="mb-3 text-sm font-medium text-gray-700">
+        <div className="mt-4 border-t border-gray-100 pt-4 dark:border-gray-700">
+          <h3 className="mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">
             Add Contact
           </h3>
           <ContactForm applicationId={id} />
@@ -248,7 +279,8 @@ export default async function ApplicationDetailPage({
         <Link
           href={editHref}
           className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium
-                     text-white hover:bg-indigo-700"
+                     text-white hover:bg-indigo-700
+                     dark:bg-indigo-500 dark:hover:bg-indigo-600"
         >
           Edit
         </Link>

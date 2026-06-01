@@ -9,9 +9,15 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   reporter: "list",
   use: {
-    baseURL: "http://localhost:3000",
+    baseURL: "http://localhost:3002",
     trace: "on-first-retry",
     actionTimeout: 15_000, // per-action timeout — fills, clicks, etc.
+  },
+  webServer: {
+    command: "npm run dev",
+    url: "http://localhost:3002",
+    reuseExistingServer: true,
+    timeout: 120_000,
   },
   projects: [
     {
