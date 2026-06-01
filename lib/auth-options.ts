@@ -33,8 +33,8 @@ export const authOptions: AuthOptions = {
           email: user.email,
           name: user.email,
           avatarUrl: user.avatarUrl ?? null,
-          firstName: user.firstName ?? null,
-          lastName: user.lastName ?? null,
+          firstName: user.firstName ?? null, // Pulls updated profile data on login
+          lastName: user.lastName ?? null, // Pulls updated profile data on login
         };
       },
     }),
@@ -53,14 +53,19 @@ export const authOptions: AuthOptions = {
               email: user.email,
               password: "",
               avatarUrl: user.image ?? null,
+              // firstName and lastName naturally default to null/empty here
             },
           });
           user.id = created.id;
-          // carry avatarUrl forward into jwt
           user.avatarUrl = created.avatarUrl;
         } else {
           user.id = existing.id;
-          // update avatarUrl if Google provides a newer image
+
+          // 🔥 FIX: Pull the user's updated profile details from the DB
+          // and attach them to the 'user' object so the 'jwt' callback can see them!
+          (user as any).firstName = existing.firstName ?? null;
+          (user as any).lastName = existing.lastName ?? null;
+
           if (user.image && user.image !== existing.avatarUrl) {
             await prisma.user.update({
               where: { id: existing.id },
@@ -74,14 +79,15 @@ export const authOptions: AuthOptions = {
     },
 
     async jwt({ token, user, trigger }) {
+      // Runs on initial sign in
       if (user) {
         token.userId = user.id;
         token.avatarUrl = user.avatarUrl ?? null;
-        token.firstName = user.firstName ?? null;
-        token.lastName = user.lastName ?? null;
+        token.firstName = (user as any).firstName ?? null;
+        token.lastName = (user as any).lastName ?? null;
       }
 
-      // Re-read from DB whenever the client calls updateSession()
+      // Automatically updates the client side session without requiring a logout/login!
       if (trigger === "update" && token.userId) {
         const fresh = await prisma.user.findUnique({
           where: { id: token.userId as string },
