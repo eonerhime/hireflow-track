@@ -220,6 +220,8 @@ function SidebarContent({
   const pathname = usePathname();
   const { data: session } = useSession();
 
+  console.log("Session in SidebarContent:", session);
+
   // Derive display name
   const displayName =
     session?.user?.firstName && session?.user?.lastName
@@ -228,26 +230,33 @@ function SidebarContent({
         ? session.user.firstName
         : (session?.user?.email ?? "");
 
+  console.log("Display name:", displayName);
+  console.log("first name:", session?.user?.firstName);
+
   return (
     <div className="flex h-full flex-col">
       {/* Logo */}
       <div className="flex items-center border-b border-gray-200 dark:border-gray-700 px-6 h-16 ">
-        <Image
-          src="/hiretrace-horizontal.png"
-          alt="HireTrace"
-          width={140}
-          height={40}
-          quality={75}
-          className="h-auth w-auto dark:hidden"
-        />
-        <Image
-          src="/hiretrace-horizontal-dark.png"
-          alt="HireTrace"
-          width={140}
-          height={40}
-          quality={75}
-          className="h-auth w-auto hidden dark:block"
-        />
+        <a href="/dashboard" className="flex items-center gap-2">
+          <Image
+            src="/hiretrace-horizontal.png"
+            alt="HireTrace"
+            width={140}
+            height={40}
+            quality={75}
+            className="h-auth w-auto dark:hidden"
+          />
+        </a>
+        <a href="/dashboard" className="flex items-center gap-2">
+          <Image
+            src="/hiretrace-horizontal-dark.png"
+            alt="HireTrace"
+            width={140}
+            height={40}
+            quality={75}
+            className="h-auth w-auto hidden dark:block"
+          />
+        </a>
       </div>
 
       {/* Nav */}

@@ -56,11 +56,14 @@ export const authOptions: AuthOptions = {
             },
           });
           user.id = created.id;
-          // carry avatarUrl forward into jwt
           user.avatarUrl = created.avatarUrl;
         } else {
           user.id = existing.id;
-          // update avatarUrl if Google provides a newer image
+
+          // No more 'as any'! TypeScript naturally understands this now.
+          user.firstName = existing.firstName ?? null;
+          user.lastName = existing.lastName ?? null;
+
           if (user.image && user.image !== existing.avatarUrl) {
             await prisma.user.update({
               where: { id: existing.id },
@@ -77,14 +80,14 @@ export const authOptions: AuthOptions = {
       if (user) {
         token.userId = user.id;
         token.avatarUrl = user.avatarUrl ?? null;
+        // Clean mapping directly from NextAuth's typed user model
         token.firstName = user.firstName ?? null;
         token.lastName = user.lastName ?? null;
       }
 
-      // Re-read from DB whenever the client calls updateSession()
       if (trigger === "update" && token.userId) {
         const fresh = await prisma.user.findUnique({
-          where: { id: token.userId as string },
+          where: { id: token.userId },
           select: { avatarUrl: true, firstName: true, lastName: true },
         });
         if (fresh) {
@@ -99,7 +102,7 @@ export const authOptions: AuthOptions = {
 
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.userId as string;
+        session.user.id = token.userId ?? "";
         session.user.avatarUrl = token.avatarUrl ?? null;
         session.user.firstName = token.firstName ?? null;
         session.user.lastName = token.lastName ?? null;
