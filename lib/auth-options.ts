@@ -33,8 +33,8 @@ export const authOptions: AuthOptions = {
           email: user.email,
           name: user.email,
           avatarUrl: user.avatarUrl ?? null,
-          firstName: user.firstName ?? null, // Pulls updated profile data on login
-          lastName: user.lastName ?? null, // Pulls updated profile data on login
+          firstName: user.firstName ?? null,
+          lastName: user.lastName ?? null,
         };
       },
     }),
@@ -53,7 +53,6 @@ export const authOptions: AuthOptions = {
               email: user.email,
               password: "",
               avatarUrl: user.image ?? null,
-              // firstName and lastName naturally default to null/empty here
             },
           });
           user.id = created.id;
@@ -61,10 +60,9 @@ export const authOptions: AuthOptions = {
         } else {
           user.id = existing.id;
 
-          // 🔥 FIX: Pull the user's updated profile details from the DB
-          // and attach them to the 'user' object so the 'jwt' callback can see them!
-          (user as any).firstName = existing.firstName ?? null;
-          (user as any).lastName = existing.lastName ?? null;
+          // No more 'as any'! TypeScript naturally understands this now.
+          user.firstName = existing.firstName ?? null;
+          user.lastName = existing.lastName ?? null;
 
           if (user.image && user.image !== existing.avatarUrl) {
             await prisma.user.update({
@@ -79,18 +77,17 @@ export const authOptions: AuthOptions = {
     },
 
     async jwt({ token, user, trigger }) {
-      // Runs on initial sign in
       if (user) {
         token.userId = user.id;
         token.avatarUrl = user.avatarUrl ?? null;
-        token.firstName = (user as any).firstName ?? null;
-        token.lastName = (user as any).lastName ?? null;
+        // Clean mapping directly from NextAuth's typed user model
+        token.firstName = user.firstName ?? null;
+        token.lastName = user.lastName ?? null;
       }
 
-      // Automatically updates the client side session without requiring a logout/login!
       if (trigger === "update" && token.userId) {
         const fresh = await prisma.user.findUnique({
-          where: { id: token.userId as string },
+          where: { id: token.userId },
           select: { avatarUrl: true, firstName: true, lastName: true },
         });
         if (fresh) {
@@ -105,7 +102,7 @@ export const authOptions: AuthOptions = {
 
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.userId as string;
+        session.user.id = token.userId ?? "";
         session.user.avatarUrl = token.avatarUrl ?? null;
         session.user.firstName = token.firstName ?? null;
         session.user.lastName = token.lastName ?? null;
