@@ -1,4 +1,4 @@
-# HireTrace — Tasks Document
+# HireFlow — Tasks Document
 
 **Document Type:** Developer Task Artifact
 **Version:** 1.0 — Sprint 1 Slice
@@ -42,7 +42,7 @@ Each feature from `features.md` is broken into atomic tasks. A task is the small
 
 | Task ID      | Task                                                                   | Status |
 | ------------ | ---------------------------------------------------------------------- | ------ |
-| T-F007-01-01 | Create public GitHub repository named `hiretrace`                      | [x]    |
+| T-F007-01-01 | Create public GitHub repository named `hireflow-track`                 | [x]    |
 | T-F007-01-02 | Add Node.js `.gitignore` (include `.env`, `.env.local`, `.next`)       | [x]    |
 | T-F007-01-03 | Add `README.md` placeholder with project name and one-line description | [x]    |
 
@@ -83,7 +83,7 @@ Each feature from `features.md` is broken into atomic tasks. A task is the small
 | ------------ | ----------------------------------------------------------------------------------------------- | ------ |
 | T-F001-01-01 | Run: `npx create-next-app@latest . --typescript --tailwind --eslint --app --import-alias "@/*"` | [ ]    |
 | T-F001-01-02 | Delete default boilerplate content from `app/page.tsx`                                          | [ ]    |
-| T-F001-01-03 | Replace with minimal placeholder: `<main><h1>HireTrace</h1></main>`                             | [ ]    |
+| T-F001-01-03 | Replace with minimal placeholder: `<main><h1>HireFlow</h1></main>`                              | [ ]    |
 | T-F001-01-04 | Run `npm run dev` — confirm starts on `localhost:3000` with no errors                           | [ ]    |
 | T-F001-01-05 | Run `npm run build` — confirm build completes with no errors                                    | [ ]    |
 
@@ -119,12 +119,12 @@ Each feature from `features.md` is broken into atomic tasks. A task is the small
 
 #### F-002-01 — Neon Database Provisioning
 
-| Task ID      | Task                                                             | Status |
-| ------------ | ---------------------------------------------------------------- | ------ |
-| T-F002-01-01 | Log into neon.tech — create new project named `hiretrace`        | [ ]    |
-| T-F002-01-02 | Navigate to Connection Details — locate pooled connection string | [ ]    |
-| T-F002-01-03 | Navigate to Connection Details — locate direct connection string | [ ]    |
-| T-F002-01-04 | Confirm database status shows Active in Neon dashboard           | [ ]    |
+| Task ID      | Task                                                                 | Status |
+| ------------ | -------------------------------------------------------------------- | ------ |
+| T-F002-01-01 | Log into neon.tech — create new project named `hireflow-track-token` | [ ]    |
+| T-F002-01-02 | Navigate to Connection Details — locate pooled connection string     | [ ]    |
+| T-F002-01-03 | Navigate to Connection Details — locate direct connection string     | [ ]    |
+| T-F002-01-04 | Confirm database status shows Active in Neon dashboard               | [ ]    |
 
 #### F-002-02 — Connection String Configuration
 
@@ -276,19 +276,19 @@ Each feature from `features.md` is broken into atomic tasks. A task is the small
 | T-F005-01-05 | Query DB for user by email — return 401 (generic) if not found                              | [ ]    |
 | T-F005-01-06 | Compare password with `bcrypt.compare()` — return 401 (generic) if mismatch                 | [ ]    |
 | T-F005-01-07 | Sign JWT with `jose` SignJWT — payload: `userId`, `email`; expiry: `7d`; algorithm: `HS256` | [ ]    |
-| T-F005-01-08 | Set `hiretrace-token` cookie: HttpOnly, Secure, SameSite=Lax, Path=/, Max-Age=604800        | [ ]    |
+| T-F005-01-08 | Set `hireflow-track-token` cookie: HttpOnly, Secure, SameSite=Lax, Path=/, Max-Age=604800   | [ ]    |
 | T-F005-01-09 | Return 200 `{ message: "Login successful" }`                                                | [ ]    |
 | T-F005-01-10 | Add try/catch — return 500 on unexpected error                                              | [ ]    |
 | T-F005-01-11 | Test route manually — confirm cookie is set and is HTTP-only                                | [ ]    |
 
 #### F-005-02 — Logout API Route
 
-| Task ID      | Task                                                  | Status |
-| ------------ | ----------------------------------------------------- | ------ |
-| T-F005-02-01 | Create `app/api/auth/logout/route.ts`                 | [ ]    |
-| T-F005-02-02 | Clear `hiretrace-token` cookie by setting Max-Age=0   | [ ]    |
-| T-F005-02-03 | Return 200 `{ message: "Logged out" }`                | [ ]    |
-| T-F005-02-04 | Test manually — confirm cookie is absent after logout | [ ]    |
+| Task ID      | Task                                                     | Status |
+| ------------ | -------------------------------------------------------- | ------ |
+| T-F005-02-01 | Create `app/api/auth/logout/route.ts`                    | [ ]    |
+| T-F005-02-02 | Clear `hireflow-track-token` cookie by setting Max-Age=0 | [ ]    |
+| T-F005-02-03 | Return 200 `{ message: "Logged out" }`                   | [ ]    |
+| T-F005-02-04 | Test manually — confirm cookie is absent after logout    | [ ]    |
 
 #### F-005-03 — Login Page and Form
 
@@ -318,7 +318,7 @@ Each feature from `features.md` is broken into atomic tasks. A task is the small
 | ------------ | ----------------------------------------------------------------------------------- | ------ |
 | T-F006-01-01 | Create `middleware.ts` at project root                                              | [ ]    |
 | T-F006-01-02 | Add `matcher` config: `['/dashboard/:path*', '/api/:path*']`                        | [ ]    |
-| T-F006-01-03 | Read `hiretrace-token` from request cookies                                         | [ ]    |
+| T-F006-01-03 | Read `hireflow-track-token` from request cookies                                    | [ ]    |
 | T-F006-01-04 | If no token: redirect to `/login` (page routes) or return 401 JSON (API routes)     | [ ]    |
 | T-F006-01-05 | Verify JWT with `jose` jwtVerify using `JWT_SECRET`                                 | [ ]    |
 | T-F006-01-06 | If valid: `NextResponse.next()`                                                     | [ ]    |
@@ -335,12 +335,12 @@ Each feature from `features.md` is broken into atomic tasks. A task is the small
 
 #### F-008-01 — Vercel Project Configuration
 
-| Task ID      | Task                                                                          | Status |
-| ------------ | ----------------------------------------------------------------------------- | ------ |
-| T-F008-01-01 | Log into vercel.com — confirm `hiretrace` project is connected to GitHub repo | [x]    |
-| T-F008-01-02 | Confirm framework preset is set to Next.js                                    | [x]    |
-| T-F008-01-03 | Push a test commit to `develop` — confirm automatic deployment triggers       | [ ]    |
-| T-F008-01-04 | Confirm deployment completes successfully and preview URL is accessible       | [ ]    |
+| Task ID      | Task                                                                               | Status |
+| ------------ | ---------------------------------------------------------------------------------- | ------ |
+| T-F008-01-01 | Log into vercel.com — confirm `hireflow-track` project is connected to GitHub repo | [x]    |
+| T-F008-01-02 | Confirm framework preset is set to Next.js                                         | [x]    |
+| T-F008-01-03 | Push a test commit to `develop` — confirm automatic deployment triggers            | [ ]    |
+| T-F008-01-04 | Confirm deployment completes successfully and preview URL is accessible            | [ ]    |
 
 #### F-008-02 — Environment Variables on Vercel
 
@@ -384,5 +384,5 @@ Sprint 2 tasks (PBI-009 to PBI-016, PBI-040) will be authored during Sprint 1 an
 
 ---
 
-_tasks.md v1.0 — Sprint 1 Slice — April 17, 2026 — HireTrace_
+_tasks.md v1.0 — Sprint 1 Slice — April 17, 2026 — HireFlow_
 _This is your daily working document during Sprint 1. Open it at the start of every session. Pick the next `[ ]` task. Complete it. Mark it `[x]`. Close the session._

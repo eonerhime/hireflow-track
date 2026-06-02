@@ -1,4 +1,4 @@
-# HireTrace — Sprint 6B Implementation Guide (Part 2 of 2)
+# HireFlow — Sprint 6B Implementation Guide (Part 2 of 2)
 
 **Document Type:** Developer Implementation Reference
 **Sprint:** 6B — UI/UX Upgrade
@@ -969,8 +969,8 @@ const NAV_ITEMS = [
       >
         {/* Light mode logo */}
         <Image
-          src="/hiretrace-horizontal.png"
-          alt="HireTrace"
+          src="/hireflow-horizontal.png"
+          alt="HireFlow"
           width={140}
           height={40}
           quality={100}
@@ -978,8 +978,8 @@ const NAV_ITEMS = [
         />
         {/* Dark mode logo */}
         <Image
-          src="/hiretrace-horizontal-dark.png"
-          alt="HireTrace"
+          src="/hireflow-horizontal-dark.png"
+          alt="HireFlow"
           width={140}
           height={40}
           quality={100}
@@ -1136,7 +1136,7 @@ git push origin feat/sprint-06b-ui-ux-ugrade
 
 PR title:
 
-> **Sprint 6B: HireTrace UI/UX upgrade — dark mode, activity feed, notification bell, date range filtering, and dashboard redesign matching the mock-up.**
+> **Sprint 6B: HireFlow UI/UX upgrade — dark mode, activity feed, notification bell, date range filtering, and dashboard redesign matching the mock-up.**
 
 ---
 
@@ -1154,5 +1154,5 @@ After PR merges to `develop`:
 
 ---
 
-_sprint-06b-implementation-part2.md — 26 May 2026 — HireTrace_
+_sprint-06b-implementation-part2.md — 26 May 2026 — HireFlow_
 _Branch: `feature/sprint-06b-ui-upgrade`. Build PBIs in dependency order. Run `npm run build` locally before every push._

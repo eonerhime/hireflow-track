@@ -1,4 +1,4 @@
-# HireTrace — Sprint 02
+# HireFlow — Sprint 02
 
 **Document Type:** Sprint Artifact
 **Version:** 1.0
@@ -7,7 +7,7 @@
 **Start Date:** 21 April 2026
 **End Date:** 22 April 2026
 **Author:** Scrum Master / Developer
-**Repository:** https://github.com/eonerhime/hiretrace
+**Repository:** https://github.com/eonerhime/hireflow-track
 
 ---
 
@@ -228,5 +228,5 @@ The biggest friction in Sprint 2 wasn't the code — it was the gap between writ
 
 ---
 
-_sprint-02.md v1.0 — 21 April 2026 — HireTrace_
+_sprint-02.md v1.0 — 21 April 2026 — HireFlow_
 _Active sprint document. Update daily. Source of truth for Sprint 2 progress, blocks, and retrospective output._

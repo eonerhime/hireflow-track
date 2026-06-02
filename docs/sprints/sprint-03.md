@@ -1,4 +1,4 @@
-# HireTrace — Sprint 03
+# HireFlow — Sprint 03
 
 **Document Type:** Sprint Artifact
 **Version:** 1.0
@@ -7,7 +7,7 @@
 **Start Date:** 23 April 2026
 **End Date:** 29 April 2026
 **Author:** Scrum Master / Developer
-**Repository:** https://github.com/eonerhime/hiretrace
+**Repository:** https://github.com/eonerhime/hireflow-track
 
 ---
 
@@ -239,5 +239,5 @@ Verification PBIs look like free points until they stack up on the last day. Spr
 
 ---
 
-_sprint-03.md v1.0 — 23 April 2026 — HireTrace_
+_sprint-03.md v1.0 — 23 April 2026 — HireFlow_
 _Active sprint document. Update daily. Source of truth for Sprint 3 progress, blocks, and retrospective output._

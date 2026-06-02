@@ -1,4 +1,4 @@
-# HireTrace — Sprint 5 Implementation Guide
+# HireFlow — Sprint 5 Implementation Guide
 
 **Document Type:** Developer Implementation Reference
 **Sprint:** 5 of 6
@@ -72,7 +72,7 @@ Open `docs/implementation.md`. In the ADR section, add the entry from the **ADR*
 New files and directories this sprint creates (additions to the Sprint 4 structure):
 
 ```
-hiretrace/
+hireFlow/
 ├── app/
 │   ├── api/
 │   │   ├── reminders/
@@ -317,10 +317,10 @@ import ReminderList from "@/components/ReminderList";
 
 async function getReminders() {
   const cookieStore = await cookies();
-  const token = cookieStore.get("hiretrace-token")?.value;
+  const token = cookieStore.get("hireFlow-token")?.value;
 
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/reminders`, {
-    headers: { Cookie: `hiretrace-token=${token}` },
+    headers: { Cookie: `hireFlow-token=${token}` },
     cache: "no-store",
   });
 
@@ -1182,10 +1182,10 @@ import ResumeList from "@/components/ResumeList";
 
 async function getResumes() {
   const cookieStore = await cookies();
-  const token = cookieStore.get("hiretrace-token")?.value;
+  const token = cookieStore.get("hireFlow-token")?.value;
 
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/resumes`, {
-    headers: { Cookie: `hiretrace-token=${token}` },
+    headers: { Cookie: `hireFlow-token=${token}` },
     cache: "no-store",
   });
 
@@ -1622,10 +1622,10 @@ In `app/dashboard/applications/[id]/page.tsx`, fetch the user's resumes alongsid
 ```typescript
 // At the top of the page function, alongside fetching the application:
 const cookieStore = await cookies();
-const token = cookieStore.get("hiretrace-token")?.value;
+const token = cookieStore.get("hireFlow-token")?.value;
 
 const resumesRes = await fetch(`${process.env.NEXTAUTH_URL}/api/resumes`, {
-  headers: { Cookie: `hiretrace-token=${token}` },
+  headers: { Cookie: `hireFlow-token=${token}` },
   cache: "no-store",
 });
 const resumes = resumesRes.ok ? await resumesRes.json() : [];
@@ -1801,11 +1801,11 @@ function buildEmailBody(
   return [
     "Hi,",
     "",
-    "You have the following follow-ups due today in HireTrace:",
+    "You have the following follow-ups due today in HireFlow:",
     "",
     ...lines,
     "",
-    "Log in to HireTrace to take action.",
+    "Log in to HireFlow to take action.",
   ].join("\n");
 }
 
@@ -1853,9 +1853,9 @@ export async function POST(request: NextRequest) {
       const count = userApps.length;
       try {
         await resend.emails.send({
-          from: "HireTrace <reminders@yourdomain.com>",
+          from: "HireFlow <reminders@yourdomain.com>",
           to: email,
-          subject: `You have ${count} follow-up${count === 1 ? "" : "s"} due today — HireTrace`,
+          subject: `You have ${count} follow-up${count === 1 ? "" : "s"} due today — HireFlow`,
           text: buildEmailBody(
             userApps.map((a) => ({
               company: a.company,
@@ -1974,7 +1974,7 @@ describe("POST /api/reminders/send", () => {
 Test the cron route from the terminal against your Vercel preview URL:
 
 ```bash
-curl -k -X POST "https://hiretrace-ten.vercel.app/api/reminders/send" \
+curl -k -X POST "https://hireFlow-ten.vercel.app/api/reminders/send" \
       -H "Authorization: Bearer QPxva5bH6eIAlvSfKdeGoNSmX19sar2BTcyIQPtC8t0=" \
       -H "x-vercel-protection-bypass: kYK9QYZ2OvcGOejvmTePMFf3Wv4wNrfu"
 ```
@@ -2152,5 +2152,5 @@ After the PR is merged to `develop`:
 
 ---
 
-_sprint-05-implementation.md — 26 May 2026 — HireTrace_
+_sprint-05-implementation.md — 26 May 2026 — HireFlow_
 _Branch: `feature/sprint-05-resume-reminders`. Follow PBIs in dependency order. Run `npm run build` locally before every push. Pin all packages._

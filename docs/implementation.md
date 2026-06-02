@@ -1,11 +1,11 @@
-# HireTrace — Implementation Document
+# HireFlow — Implementation Document
 
 **Document Type:** Technical Reference Artifact
 **Version:** 1.0
 **Date:** April 17, 2026
 **Status:** Active
 **Author:** Developer
-**Repository:** _(to be added)_
+**Repository:** [https://github.com/eonerhime/hireflow-track](https://github.com/eonerhime/hireflow-track)
 
 ---
 
@@ -114,7 +114,7 @@ Logout:
 ## 3. Directory Structure
 
 ```
-hiretrace/
+hireflow-track/
 ├── app/
 │   ├── api/
 │   │   └── auth/
@@ -230,7 +230,7 @@ datasource db {
 
 ### Repository — GitHub
 
-**Repository:** `github.com/[username]/hiretrace`
+**Repository:** `github.com/[username]/hireflow-track`
 **Visibility:** Public
 **Default branch:** `main` (protected)
 **Integration branch:** `develop`
@@ -392,7 +392,7 @@ Each ADR records a decision made, the options considered, and the rationale. ADR
 
 **Rationale:** Neon's free tier has no time limit and no monthly cost. Serverless PostgreSQL with connection pooling built in. Native Prisma support via `directUrl` for migrations. Compute pauses on inactivity but resumes in under 1 second — acceptable for a portfolio project.
 
-**Trade-off:** Neon free tier has 0.5GB storage limit. Sufficient for HireTrace's data model. Cold start on resume adds latency to the first request after inactivity — acceptable for a portfolio context.
+**Trade-off:** Neon free tier has 0.5GB storage limit. Sufficient for HireFlow's data model. Cold start on resume adds latency to the first request after inactivity — acceptable for a portfolio context.
 
 ---
 
@@ -616,7 +616,7 @@ Project is on React 19.2.4. npm install fails with ERESOLVE.
 
 #### Context
 
-HireTrace uses a custom JWT implementation with `jose` for session management.
+HireFlow uses a custom JWT implementation with `jose` for session management.
 PBI-036 requires adding Google OAuth login alongside the existing email/password
 flow. A decision is needed on which OAuth library to adopt.
 
@@ -664,7 +664,7 @@ Use **NextAuth.js v4** with Google + Credentials providers.
 
 | ID    | Area       | Constraint                                                                                                                   | Impact                                                            | Sprint to Revisit               |
 | ----- | ---------- | ---------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------------------------- |
-| C-001 | Database   | Neon free tier: 0.5GB storage limit                                                                                          | Low — HireTrace data model is lightweight                         | —                               |
+| C-001 | Database   | Neon free tier: 0.5GB storage limit                                                                                          | Low — HireFlow data model is lightweight                          | —                               |
 | C-002 | Database   | Neon compute pauses on inactivity — cold start ~1s                                                                           | Low — acceptable for portfolio                                    | —                               |
 | C-003 | Database   | Single Neon instance used for both dev and production                                                                        | Medium — no environment isolation                                 | Sprint 4 if budget allows       |
 | C-004 | Security   | CSP allows `unsafe-eval` and `unsafe-inline`                                                                                 | Medium — reduced XSS protection                                   | Sprint 4                        |
@@ -692,7 +692,7 @@ Record every significant technical change, decision, or milestone here. One entr
 
 **Infrastructure established:**
 
-- GitHub repository `hiretrace` created — public, Node.js `.gitignore`
+- GitHub repository `hireflow-track` created — public, Node.js `.gitignore`
 - `README.md` placeholder committed to `main` at repo creation
 - `develop` branch created from `main` immediately — before any SDD document commits
 - `main` branch protected (PR required before merge)
@@ -757,7 +757,7 @@ Record every significant technical change, decision, or milestone here. One entr
 - Never use `@latest` when installing packages — pin versions explicitly
 - `globals.css` uses `@import "tailwindcss"` — not `@tailwind` directives
 
-https://hiretrace-k1n5ipufc-e1rhyme.vercel.app/
+https://hireflow-track.vercel.app/
 
 ---
 
@@ -860,5 +860,5 @@ _(to be completed at sprint close)_
 
 ---
 
-_implementation.md v1.0 — April 17, 2026 — HireTrace_
+_implementation.md v1.0 — April 17, 2026 — HireFlow_
 _This is the single source of truth for all technical decisions. Every ADR is permanent — superseded decisions are marked, not deleted. Update the changelog at every sprint close._

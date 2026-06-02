@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { loginSchema } from "@/lib/schemas/auth";
 import { signJWT } from "@/lib/jwt";
 
-const COOKIE_NAME = "hiretrace-token";
+const COOKIE_NAME = "hireflow-track-token";
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days in seconds
 
 /**
@@ -19,7 +19,7 @@ const COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days in seconds
  *   { email: string, password: string }
  *
  * Responses:
- *   200 — { message: "Login successful" } + sets hiretrace-token cookie
+ *   200 — { message: "Login successful" } + sets hireflow-track-token cookie
  *   400 — Validation failed { error, details }
  *   401 — Invalid credentials { error }
  *   500 — Internal server error { error }

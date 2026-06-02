@@ -1,4 +1,4 @@
-# HireTrace — Sprint 04
+# HireFlow — Sprint 04
 
 **Document Type:** Sprint Artifact
 **Version:** 1.1
@@ -7,7 +7,7 @@
 **Start Date:** 30 April 2026
 **End Date:** 03 May 2026
 **Author:** Scrum Master / Developer
-**Repository:** https://github.com/eonerhime/hiretrace
+**Repository:** https://github.com/eonerhime/hireflow-track
 
 ---
 
@@ -215,5 +215,5 @@ Writing a schema transform feels like a small decision — until TypeScript remi
 
 ---
 
-_sprint-04.md v1.1 — 03 May 2026 — HireTrace_
+_sprint-04.md v1.1 — 03 May 2026 — HireFlow_
 _Sprint closed ahead of schedule. All 8 PBIs delivered. 80 tests passing. No overflow._

@@ -1,11 +1,11 @@
-# HireTrace — Features Document
+# HireFlow — Features Document
 
 **Document Type:** Feature Breakdown Artifact
 **Version:** 1.0 — Sprint 1 Slice
 **Date:** April 17, 2026
 **Status:** Active
 **Author:** Product Owner / Developer
-**Repository:** _(to be added)_
+**Repository:** [https://github.com/eonerhime/hireflow-track](https://github.com/eonerhime/hireflow-track)
 
 ---
 
@@ -46,9 +46,9 @@ Each PBI from `product.md` is decomposed into one or more named **features**. A 
 
 #### F-007-01 — Repository Initialisation
 
-**Behaviour:** A public GitHub repository named `hiretrace` exists with a Node.js `.gitignore`, a `README.md` placeholder, and the correct visibility setting. This is the single source of truth for all project code and documentation.
+**Behaviour:** A public GitHub repository named `HireFlow` exists with a Node.js `.gitignore`, a `README.md` placeholder, and the correct visibility setting. This is the single source of truth for all project code and documentation.
 
-**Completion signal:** Repository is accessible at `github.com/eonerhime/hiretrace` with no private flag.
+**Completion signal:** Repository is accessible at `github.com/eonerhime/HireFlow` with no private flag.
 
 ---
 
@@ -83,7 +83,7 @@ Each PBI from `product.md` is decomposed into one or more named **features**. A 
 
 **Behaviour:** A Next.js 15 application using the App Router is initialised in the repository root. It starts without errors on `localhost:3000` and builds without errors via `npm run build`. Default boilerplate content is removed and replaced with a minimal placeholder.
 
-**Completion signal:** `npm run dev` starts clean; `npm run build` completes clean; browser shows `HireTrace` heading at `localhost:3000`.
+**Completion signal:** `npm run dev` starts clean; `npm run build` completes clean; browser shows `HireFlow` heading at `localhost:3000`.
 
 ---
 
@@ -122,7 +122,7 @@ Each PBI from `product.md` is decomposed into one or more named **features**. A 
 
 #### F-002-01 — Neon Database Provisioning
 
-**Behaviour:** A PostgreSQL database is provisioned on Neon under a project named `hiretrace`. The database is active and reachable. Both the pooled connection string (for runtime) and the direct connection string (for migrations) are available in the Neon dashboard.
+**Behaviour:** A PostgreSQL database is provisioned on Neon under a project named `HireFlow`. The database is active and reachable. Both the pooled connection string (for runtime) and the direct connection string (for migrations) are available in the Neon dashboard.
 
 **Completion signal:** Neon dashboard shows database status as Active; both connection strings are visible in the Connection Details panel.
 
@@ -163,7 +163,7 @@ Each PBI from `product.md` is decomposed into one or more named **features**. A 
 
 #### F-046-01 — Notion Workspace Creation
 
-**Behaviour:** The HireTrace Notion workspace contains four pages — Home, Documents Index, Sprint Board, and Changelog — populated with the content defined in `notion-setup.md`. The Sprint Board is accurate at creation date. The Documents Index links to all committed SDD files on GitHub.
+**Behaviour:** The HireFlow Notion workspace contains four pages — Home, Documents Index, Sprint Board, and Changelog — populated with the content defined in `notion-setup.md`. The Sprint Board is accurate at creation date. The Documents Index links to all committed SDD files on GitHub.
 
 **Completion signal:** All four pages exist and are navigable from the Home page; Sprint Board shows correct statuses; all GitHub links resolve correctly.
 
@@ -273,17 +273,17 @@ Each PBI from `product.md` is decomposed into one or more named **features**. A 
 
 #### F-005-01 — Login API Route
 
-**Behaviour:** `POST /api/auth/login` validates credentials with `loginSchema`, retrieves the user by email, compares the password hash with bcrypt, signs a JWT using `jose` (payload: `userId`, `email`, `exp: 7d`), sets it as an HTTP-only cookie (`hiretrace-token`), and returns 200. Returns 400 on validation failure, 401 on invalid credentials (generic message — does not specify which field). Cookie is HTTP-only, Secure, SameSite=Lax, Path=/, Max-Age=604800.
+**Behaviour:** `POST /api/auth/login` validates credentials with `loginSchema`, retrieves the user by email, compares the password hash with bcrypt, signs a JWT using `jose` (payload: `userId`, `email`, `exp: 7d`), sets it as an HTTP-only cookie (`HireFlow-token`), and returns 200. Returns 400 on validation failure, 401 on invalid credentials (generic message — does not specify which field). Cookie is HTTP-only, Secure, SameSite=Lax, Path=/, Max-Age=604800.
 
-**Completion signal:** All AC from `spec.md` PBI-005 API Contract met; `document.cookie` in browser console does not expose `hiretrace-token`.
+**Completion signal:** All AC from `spec.md` PBI-005 API Contract met; `document.cookie` in browser console does not expose `HireFlow-token`.
 
 ---
 
 #### F-005-02 — Logout API Route
 
-**Behaviour:** `POST /api/auth/logout` clears the `hiretrace-token` cookie by setting its Max-Age to 0 and returns 200. Client redirects to `/login` after receiving the response.
+**Behaviour:** `POST /api/auth/logout` clears the `HireFlow-token` cookie by setting its Max-Age to 0 and returns 200. Client redirects to `/login` after receiving the response.
 
-**Completion signal:** After logout, `hiretrace-token` cookie is absent; navigating to `/dashboard` redirects to `/login`.
+**Completion signal:** After logout, `HireFlow-token` cookie is absent; navigating to `/dashboard` redirects to `/login`.
 
 ---
 
@@ -305,7 +305,7 @@ Each PBI from `product.md` is decomposed into one or more named **features**. A 
 
 #### F-006-01 — Next.js Middleware with JWT Verification
 
-**Behaviour:** `middleware.ts` at the project root intercepts all requests matching `/dashboard/:path*` and `/api/:path*` (excluding auth routes). It reads the `hiretrace-token` cookie, verifies the JWT using `jose`. Valid token → `NextResponse.next()`. Missing or expired token → redirect to `/login` for page routes; 401 JSON response for API routes. Public routes (`/`, `/login`, `/register`, `/api/auth/*`) are never intercepted.
+**Behaviour:** `middleware.ts` at the project root intercepts all requests matching `/dashboard/:path*` and `/api/:path*` (excluding auth routes). It reads the `HireFlow-token` cookie, verifies the JWT using `jose`. Valid token → `NextResponse.next()`. Missing or expired token → redirect to `/login` for page routes; 401 JSON response for API routes. Public routes (`/`, `/login`, `/register`, `/api/auth/*`) are never intercepted.
 
 **Completion signal:** All AC from `spec.md` PBI-006 met; unauthenticated request to `/dashboard` redirects; unauthenticated API request returns 401.
 
@@ -322,7 +322,7 @@ Each PBI from `product.md` is decomposed into one or more named **features**. A 
 
 #### F-008-01 — Vercel Project Configuration
 
-**Behaviour:** The Vercel project is connected to the `hiretrace` GitHub repository. Pushes to `develop` trigger automatic preview deployments. The Next.js framework is auto-detected. Build settings are default.
+**Behaviour:** The Vercel project is connected to the `HireFlow` GitHub repository. Pushes to `develop` trigger automatic preview deployments. The Next.js framework is auto-detected. Build settings are default.
 
 **Completion signal:** Push to `develop` triggers a Vercel deployment that completes successfully; preview URL is accessible.
 
@@ -342,5 +342,5 @@ Sprint 2 features (PBI-009 to PBI-016, PBI-040) will be authored during Sprint 1
 
 ---
 
-_features.md v1.0 — Sprint 1 Slice — April 17, 2026 — HireTrace_
+_features.md v1.0 — Sprint 1 Slice — April 17, 2026 — HireFlow_
 _Features are the bridge between PBIs (what to build) and tasks (how to build it). Every feature here has a corresponding task breakdown in `tasks.md`._

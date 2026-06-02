@@ -1,4 +1,4 @@
-# HireTrace — Sprint 6 Implementation Guide (Part 2 of 2)
+# HireFlow — Sprint 6 Implementation Guide (Part 2 of 2)
 
 **Document Type:** Developer Implementation Reference
 **Sprint:** 6 of 6
@@ -487,7 +487,9 @@ test("edit application → updated value displayed", async ({ page }) => {
   // Wait for the edit URL to be gone and detail page to load
   await page.waitForURL(`**/applications/${appId}`);
   await page.waitForLoadState("networkidle");
-  await expect(page.getByText("Senior Product Manager")).toBeVisible({ timeout: 10_000 });
+  await expect(page.getByText("Senior Product Manager")).toBeVisible({
+    timeout: 10_000,
+  });
 });
 
 test("delete application → removed from list", async ({ page }) => {
@@ -539,7 +541,9 @@ test("drag application to new Kanban stage → stage updates", async ({
 
   await page.getByRole("button", { name: "Kanban" }).click();
   await expect(
-    page.locator('[data-rfd-droppable-id="SCREENING"]').getByText("Drag Tester"),
+    page
+      .locator('[data-rfd-droppable-id="SCREENING"]')
+      .getByText("Drag Tester"),
   ).toBeVisible();
 });
 ```
@@ -607,7 +611,7 @@ Expected output: all journeys pass. If drag-and-drop (T-042-13) is flaky, increa
 
 ## PBI-045 — LinkedIn Post (Final)
 
-**Goal:** Publish the final LinkedIn post in the HireTrace build-in-public series. Close the portfolio showcase with a project completion summary.
+**Goal:** Publish the final LinkedIn post in the HireFlow build-in-public series. Close the portfolio showcase with a project completion summary.
 
 ### Step 1 — Draft the post
 
@@ -625,7 +629,7 @@ This post should:
 ```
 [Hook — retro insight or surprising moment from the sprint]
 
-6 sprints. 7 weeks. 46 product backlog items. HireTrace is shipped.
+6 sprints. 7 weeks. 46 product backlog items. HireFlow is shipped.
 
 Here's what we built:
 → Email/password + Google OAuth
@@ -724,5 +728,5 @@ These rules apply from this sprint forward (and to any future developer maintain
 
 ---
 
-_sprint-06-implementation-part2.md — 26 May 2026 — HireTrace_
+_sprint-06-implementation-part2.md — 26 May 2026 — HireFlow_
 _This document covers PBI-035, PBI-042, and PBI-045. See Part 1 for PBI-040 and PBI-036._

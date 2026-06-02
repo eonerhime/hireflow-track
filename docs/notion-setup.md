@@ -1,4 +1,4 @@
-# HireTrace — Notion Workspace Setup Guide
+# HireFlow — Notion Workspace Setup Guide
 
 **Document Type:** Setup & Operations Guide
 **Version:** 1.0
@@ -32,7 +32,7 @@
 
 ## 1. What You Are Building
 
-The HireTrace Notion workspace is a **public-facing project hub** — not a task management system. Its purpose is to give LinkedIn followers one link where they can see the full shape of the project: what's being built, how it's structured, and where it stands right now.
+The HireFlow Notion workspace is a **public-facing project hub** — not a task management system. Its purpose is to give LinkedIn followers one link where they can see the full shape of the project: what's being built, how it's structured, and where it stands right now.
 
 It is not where you do your work. Your work lives in GitHub (code), VS Code (implementation), and your SDD markdown files (documentation). Notion is where you **display** that work to an audience.
 
@@ -86,7 +86,7 @@ That's all you need to know to build this workspace.
 ## 3. Workspace Structure
 
 ```
-HireTrace (Home Page)
+HireFlow (Home Page)
 ├── Documents Index
 ├── Sprint Board
 └── Changelog
@@ -98,17 +98,17 @@ All four pages live at the top level of your Notion sidebar. The Home Page links
 
 ## 4. Page-by-Page Build Guide
 
-### Page 1 — Home (HireTrace)
+### Page 1 — Home (HireFlow)
 
 This is the page whose link you will share publicly on LinkedIn.
 
 **Step 1 — Create the page**
 
-In the left sidebar, click **+ New page**. Title it: `HireTrace`
+In the left sidebar, click **+ New page**. Title it: `HireFlow`
 
 **Step 2 — Add a cover image**
 
-At the top of the page, hover over the title area until you see **Add cover** appear. Click it. Notion will add a default cover image. Click **Change cover** → **Gallery** → pick any solid-colour or minimal abstract image. Alternatively, click **Upload** and upload a simple banner you make in Canva using your brand colour `#0A2342` (Deep Navy). Size: 1500 × 600px, solid fill, white text: _HireTrace_.
+At the top of the page, hover over the title area until you see **Add cover** appear. Click it. Notion will add a default cover image. Click **Change cover** → **Gallery** → pick any solid-colour or minimal abstract image. Alternatively, click **Upload** and upload a simple banner you make in Canva using your brand colour `#0A2342` (Deep Navy). Size: 1500 × 600px, solid fill, white text: _HireFlow_.
 
 **Step 3 — Add a page icon**
 
@@ -121,7 +121,7 @@ Copy and paste the content below into the page body, then fill in the bracketed 
 ---
 
 ```
-HireTrace
+HireFlow
 
 A job application pipeline tracker — built for job seekers who need
 clarity, control, and confidence over their search.
@@ -138,7 +138,7 @@ Built in public using Spec-Driven Development.
 
 About This Project
 
-HireTrace is a structured job search management tool that gives job
+HireFlow is a structured job search management tool that gives job
 seekers a purpose-built pipeline tracker — not a spreadsheet.
 
 This workspace documents the full build process: the product decisions,
@@ -171,7 +171,7 @@ Target MVP date: 16 June 2026
 
 **How to format it in Notion:**
 
-- `HireTrace` at the top → this is already your H1 page title, delete the duplicate
+- `HireFlow` at the top → this is already your H1 page title, delete the duplicate
 - The tagline → `/text` block
 - The links section → use `/callout` block for the three links box — it gives it a visual highlight
 - _About This Project_ → `/heading2`
@@ -191,7 +191,7 @@ From the Home page body, type `/page` and name it `Documents Index`. This create
 ```
 Documents Index
 
-Every SDD document for HireTrace lives in the GitHub repository.
+Every SDD document for HireFlow lives in the GitHub repository.
 Links below go directly to each file.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -320,7 +320,7 @@ The Changelog is intentionally sparse. One entry, five lines maximum, every two 
 
 Once your four pages are built:
 
-1. Open the **Home (HireTrace)** page
+1. Open the **Home (HireFlow)** page
 2. Click **Share** in the top-right corner
 3. Toggle **Share to web** → ON
 4. Leave all other options as default (Comments off, Editing off)
@@ -356,7 +356,7 @@ Complete in order. Tick each item when done.
 ### One-time setup (do before April 22)
 
 - [ ] Notion account created at notion.so
-- [ ] Home page created and titled `HireTrace`
+- [ ] Home page created and titled `HireFlow`
 - [ ] Cover image added to Home page
 - [ ] Page icon added to Home page
 - [ ] Home page body content added (tagline, links section, About, Navigate, Status)
@@ -381,5 +381,5 @@ Complete in order. Tick each item when done.
 
 ---
 
-_notion-setup.md v1.0 — April 17, 2026 — HireTrace_
-_This document is the authoritative guide for the HireTrace Notion workspace. It is a setup and operations reference — not a living document. Update only if the workspace structure changes._
+_notion-setup.md v1.0 — April 17, 2026 — HireFlow_
+_This document is the authoritative guide for the HireFlow Notion workspace. It is a setup and operations reference — not a living document. Update only if the workspace structure changes._

@@ -1,4 +1,4 @@
-# HireTrace — Sprint 6B
+# HireFlow — Sprint 6B
 
 **Document Type:** Scrum Master Artifact
 **Sprint:** 6B — UI/UX Upgrade (Dashboard Redesign + Dark Mode)
@@ -6,7 +6,7 @@
 **Status:** 🔲 Not started
 **Branch:** `feature/sprint-06b-ui-upgrade`
 **Author:** Scrum Master
-**Repository:** https://github.com/eonerhime/hiretrace
+**Repository:** https://github.com/eonerhime/hireflow-track
 
 ---
 
@@ -24,7 +24,7 @@
 
 ## Sprint Goal
 
-Deliver a production-quality UI/UX upgrade that makes HireTrace feel like a real product people want to use every day. The redesigned dashboard gives users an at-a-glance view of their full job search — recent activity, upcoming follow-ups, pipeline analytics, and a date range filter — all in a dark-mode-capable interface that matches the design mock-up.
+Deliver a production-quality UI/UX upgrade that makes HireFlow feel like a real product people want to use every day. The redesigned dashboard gives users an at-a-glance view of their full job search — recent activity, upcoming follow-ups, pipeline analytics, and a date range filter — all in a dark-mode-capable interface that matches the design mock-up.
 
 ---
 
@@ -378,5 +378,5 @@ _Complete at sprint close._
 
 ---
 
-_sprint-06b.md v1.0 — 26 May 2026 — HireTrace_
+_sprint-06b.md v1.0 — 26 May 2026 — HireFlow_
 _Drafted at Sprint 6B planning. Update status markers daily. Complete Review and Retro sections at sprint close._

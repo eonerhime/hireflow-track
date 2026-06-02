@@ -1,4 +1,4 @@
-# HireTrace — Sprint 2 Implementation Guide
+# HireFlow — Sprint 2 Implementation Guide
 
 **Document Type:** Developer Implementation Reference
 **Sprint:** 2 of 6
@@ -73,7 +73,7 @@ These bit you in Sprint 1. Do not repeat them.
 New files and directories this sprint creates (additions to the Sprint 1 structure):
 
 ```
-hiretrace/
+hireFlow/
 ├── app/
 │   ├── api/
 │   │   └── applications/
@@ -353,7 +353,7 @@ interface JWTPayload {
 export async function getUserFromRequest(
   request: NextRequest,
 ): Promise<JWTPayload | null> {
-  const token = request.cookies.get("hiretrace-token")?.value;
+  const token = request.cookies.get("hireFlow-token")?.value;
   if (!token) return null;
 
   try {
@@ -763,7 +763,7 @@ import Link from "next/link";
 
 async function getCurrentUserId(): Promise<string> {
   const cookieStore = await cookies();
-  const token = cookieStore.get("hiretrace-token")?.value;
+  const token = cookieStore.get("hireFlow-token")?.value;
   if (!token) redirect("/login");
 
   try {
@@ -974,7 +974,7 @@ export default async function EditApplicationPage({ params }: EditPageProps) {
 
   // Get userId from cookie
   const cookieStore = await cookies();
-  const token = cookieStore.get("hiretrace-token")?.value;
+  const token = cookieStore.get("hireFlow-token")?.value;
   if (!token) redirect("/login");
 
   let userId: string;
@@ -1208,7 +1208,7 @@ export default async function ApplicationDetailPage({ params }: DetailPageProps)
   const { id } = await params;
 
   const cookieStore = await cookies();
-  const token = cookieStore.get("hiretrace-token")?.value;
+  const token = cookieStore.get("hireFlow-token")?.value;
   if (!token) redirect("/login");
 
   let userId: string;
@@ -1598,7 +1598,7 @@ import DashboardClient from "@/components/DashboardClient";
 
 async function getCurrentUserId(): Promise<string> {
   const cookieStore = await cookies();
-  const token = cookieStore.get("hiretrace-token")?.value;
+  const token = cookieStore.get("hireFlow-token")?.value;
   if (!token) redirect("/login");
   try {
     const secret = new TextEncoder().encode(process.env.JWT_SECRET);
@@ -2057,5 +2057,5 @@ After the PR is merged to `develop`:
 
 ---
 
-_sprint-02-implementation.md — 22 April 2026 — HireTrace_
+_sprint-02-implementation.md — 22 April 2026 — HireFlow_
 _Branch: `feature/sprint-02-pipeline`. Follow PBIs in dependency order. Run `npm run build` locally before every push. Pin all packages._

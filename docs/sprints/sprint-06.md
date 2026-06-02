@@ -1,4 +1,4 @@
-# HireTrace — Sprint 6
+# HireFlow — Sprint 6
 
 **Document Type:** Scrum Master Artifact
 **Sprint:** 6 — Analytics + Export + OAuth + E2E
@@ -6,7 +6,7 @@
 **Status:** 🔲 Not started
 **Branch:** `feature/sprint-06-analytics-export-oauth`
 **Author:** Scrum Master
-**Repository:** https://github.com/eonerhime/hiretrace
+**Repository:** https://github.com/eonerhime/hireflow-track
 
 ---
 
@@ -409,5 +409,5 @@ _Gate target: 02 Jun 2026_
 
 ---
 
-_sprint-06.md v1.0 — 26 May 2026 — HireTrace_
+_sprint-06.md v1.0 — 26 May 2026 — HireFlow_
 _Drafted at Sprint 6 start. Update status markers daily. Complete Review and Retro sections at sprint close._

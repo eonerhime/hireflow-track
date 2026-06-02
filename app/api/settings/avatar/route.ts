@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
   const dataUri = `data:${file.type};base64,${base64}`;
 
   const result = await cloudinary.uploader.upload(dataUri, {
-    folder: "hiretrace/avatars",
+    folder: "hireflow-track/avatars",
     public_id: `user_${session.user.id}`,
     overwrite: true,
     transformation: [

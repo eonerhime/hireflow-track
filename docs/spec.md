@@ -1,11 +1,11 @@
-# HireTrace — Specification Document
+# HireFlow — Specification Document
 
 **Document Type:** Specification Artifact
 **Version:** 1.0 — Sprint 1 Slice
 **Date:** April 17, 2026
 **Status:** Active
 **Author:** Product Owner / Developer
-**Repository:** https://github.com/eonerhime/hiretrace
+**Repository:** https://github.com/eonerhime/hireflow-track
 
 ---
 
@@ -78,7 +78,7 @@ Establish the GitHub repository that will house all project code and SDD documen
 
 - Given the developer navigates to the GitHub repository URL
 - When the page loads
-- Then the repository is public, named `hiretrace`, contains a `README.md`, and has a `.gitignore` configured for Node.js
+- Then the repository is public, named `hireflow-track`, contains a `README.md`, and has a `.gitignore` configured for Node.js
 
 **AC-007-02 — Branch strategy is in place**
 
@@ -101,7 +101,7 @@ Establish the GitHub repository that will house all project code and SDD documen
 
 #### Implementation Notes
 
-- Repository name: `hiretrace` (lowercase, no spaces)
+- Repository name: `hireflow-track` (lowercase, no spaces)
 - Visibility: Public — required for portfolio showcase
 - **First action sequence — do in this exact order:**
   1. Create repository on GitHub
@@ -123,7 +123,7 @@ Establish the GitHub repository that will house all project code and SDD documen
 
 #### DoD Checklist
 
-- [ ] Repository exists, is public, and is named `hiretrace`
+- [ ] Repository exists, is public, and is named `hireflow-track`
 - [ ] `main` and `develop` branches exist
 - [ ] Branch protection enabled on `main`
 - [ ] `.gitignore` excludes `.env`, `node_modules`, `.next`
@@ -178,7 +178,7 @@ Initialise the Next.js 15 application with TypeScript strict mode and Tailwind C
 
 #### Implementation Notes
 
-- Initialise with: `npx create-next-app@latest hiretrace --typescript --tailwind --eslint --app --src-dir no --import-alias "@/*"`
+- Initialise with: `npx create-next-app@latest hireflow-track --typescript --tailwind --eslint --app --src-dir no --import-alias "@/*"`
 - Use Next.js **App Router** (not Pages Router) — required for Next.js 15
 - `tsconfig.json` — confirm `"strict": true` is set; do not modify other compiler options at scaffold stage
 - Tailwind: confirm `tailwind.config.ts` content paths include `./app/**/*.{ts,tsx}` and `./components/**/*.{ts,tsx}`
@@ -190,7 +190,7 @@ Initialise the Next.js 15 application with TypeScript strict mode and Tailwind C
   NEXTAUTH_SECRET=
   ```
 - ESLint config: use default Next.js config; do not customise at scaffold stage
-- Delete the default Next.js boilerplate content from `app/page.tsx` — replace with a minimal placeholder: `<main><h1>HireTrace</h1></main>`
+- Delete the default Next.js boilerplate content from `app/page.tsx` — replace with a minimal placeholder: `<main><h1>HireFlow</h1></main>`
 
 #### DoD Checklist
 
@@ -223,7 +223,7 @@ Provision a PostgreSQL database on Neon that the application connects to. This i
 **AC-002-01 — Database is provisioned on Neon**
 
 - Given the developer logs into Neon
-- When they view the HireTrace project
+- When they view the HireFlow project
 - Then a PostgreSQL service is running with status _Active_
 
 **AC-002-02 — Local connection is verified**
@@ -372,7 +372,7 @@ export default nextConfig;
 
 #### Overview
 
-Create and publish the HireTrace Notion workspace so that LinkedIn followers have a single public link to the project hub from Week 1 onward. The workspace does not need to be complete at Sprint 1 — it needs to be live, credible, and navigable.
+Create and publish the HireFlow Notion workspace so that LinkedIn followers have a single public link to the project hub from Week 1 onward. The workspace does not need to be complete at Sprint 1 — it needs to be live, credible, and navigable.
 
 #### Acceptance Criteria
 
@@ -380,7 +380,7 @@ Create and publish the HireTrace Notion workspace so that LinkedIn followers hav
 
 - Given a visitor has the public Notion link
 - When they open it in a browser without a Notion account
-- Then the HireTrace Home page loads with no login prompt
+- Then the HireFlow Home page loads with no login prompt
 
 **AC-046-02 — All four pages exist and are navigable**
 
@@ -696,7 +696,7 @@ Allow a registered user to log in with their email and password. On success, iss
 
 - Given a registered user exists
 - When they submit correct credentials
-- Then the server responds with a 200, sets an HTTP-only cookie named `hiretrace-token`, and the user is redirected to `/dashboard`
+- Then the server responds with a 200, sets an HTTP-only cookie named `hireflow-track-token`, and the user is redirected to `/dashboard`
 
 **AC-005-03 — Incorrect credentials are rejected**
 
@@ -720,13 +720,13 @@ Allow a registered user to log in with their email and password. On success, iss
 
 - Given a user is logged in
 - When they trigger logout (POST to `/api/auth/logout`)
-- Then the `hiretrace-token` cookie is cleared and the user is redirected to `/login`
+- Then the `hireflow-track-token` cookie is cleared and the user is redirected to `/login`
 
 **AC-005-07 — Cookie is HTTP-only and not accessible via JavaScript**
 
 - Given a user is logged in
 - When the developer opens the browser console and runs `document.cookie`
-- Then `hiretrace-token` is not visible in the output
+- Then `hireflow-track-token` is not visible in the output
 
 #### API Contract
 
@@ -749,7 +749,7 @@ Allow a registered user to log in with their email and password. On success, iss
 }
 ```
 
-Sets cookie: `hiretrace-token=<jwt>; HttpOnly; Path=/; Max-Age=604800; SameSite=Lax`
+Sets cookie: `hireflow-track-token=<jwt>; HttpOnly; Path=/; Max-Age=604800; SameSite=Lax`
 
 **Error responses:**
 
@@ -773,7 +773,7 @@ Sets cookie: `hiretrace-token=<jwt>; HttpOnly; Path=/; Max-Age=604800; SameSite=
 }
 ```
 
-Clears cookie: `hiretrace-token`; redirects client to `/login`
+Clears cookie: `hireflow-track-token`; redirects client to `/login`
 
 #### Implementation Notes
 
@@ -799,7 +799,7 @@ Clears cookie: `hiretrace-token`; redirects client to `/login`
 - [ ] `POST /api/auth/logout` route clears cookie and redirects
 - [ ] JWT signed with `jose`, contains `userId`, `email`, `exp`
 - [ ] Cookie set as HTTP-only, Secure, SameSite=Lax, 7-day expiry
-- [ ] `document.cookie` in browser console does not expose `hiretrace-token`
+- [ ] `document.cookie` in browser console does not expose `hireflow-track-token`
 - [ ] Invalid credentials return 401 with generic message
 - [ ] Redirect to `/dashboard` on successful login
 - [ ] RTL test: form renders, error message on bad credentials, cookie set on success
@@ -830,13 +830,13 @@ Protect all application routes behind authentication. Any request to a protected
 
 **AC-006-02 — Authenticated user accesses protected routes**
 
-- Given a valid `hiretrace-token` cookie exists
+- Given a valid `hireflow-track-token` cookie exists
 - When the user navigates to `/dashboard`
 - Then the page renders normally
 
 **AC-006-03 — Expired JWT redirects to login**
 
-- Given a `hiretrace-token` cookie exists but the JWT is expired
+- Given a `hireflow-track-token` cookie exists but the JWT is expired
 - When the user navigates to any protected route
 - Then they are redirected to `/login` and the expired cookie is cleared
 
@@ -1042,7 +1042,7 @@ Connect the GitHub repository to Vercel and deploy the application to a developm
 #### Implementation Notes
 
 - Vercel account: create at vercel.com — free Hobby plan is sufficient
-- Connect via: New Project → Import Git Repository → select `hiretrace`
+- Connect via: New Project → Import Git Repository → select `hireflow-track`
 - Framework preset: **Next.js** (auto-detected)
 - Build settings: leave as default (`next build`)
 - Environment variables: add all `.env.example` keys under Settings → Environment Variables → select **Preview** scope for `develop` branch deployments, **Production** scope for `main`
@@ -1069,5 +1069,5 @@ Sprint 2 specifications (PBI-009 to PBI-016, PBI-040) will be authored during Sp
 
 ---
 
-_spec.md v1.0 — Sprint 1 Slice — April 17, 2026 — HireTrace_
+_spec.md v1.0 — Sprint 1 Slice — April 17, 2026 — HireFlow_
 _This document is the authoritative specification source for all implementation work. No PBI enters development without an approved spec section. Acceptance criteria here are the exact criteria used in `testing.md`._

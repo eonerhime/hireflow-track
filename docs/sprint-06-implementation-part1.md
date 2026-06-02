@@ -1,4 +1,4 @@
-# HireTrace — Sprint 6 Implementation Guide (Part 1 of 2)
+# HireFlow — Sprint 6 Implementation Guide (Part 1 of 2)
 
 **Document Type:** Developer Implementation Reference
 **Sprint:** 6 of 6
@@ -53,7 +53,7 @@ You're right. Here's the ADR entry to add to `docs/implementation.md`:
 
 ### Context
 
-HireTrace uses a custom JWT implementation with `jose` for session management.
+HireFlow uses a custom JWT implementation with `jose` for session management.
 PBI-036 requires adding Google OAuth login alongside the existing email/password
 flow. A decision is needed on which OAuth library to adopt.
 
@@ -126,7 +126,7 @@ Use **NextAuth.js v4** with Google + Credentials providers.
 New files this sprint creates (additions to the Sprint 5 structure):
 
 ```
-hiretrace/
+hireflow-track/
 ├── app/
 │   ├── api/
 │   │   ├── auth/
@@ -436,7 +436,7 @@ npm test   # full suite — 95 + new tests must all pass
 ### Step 1 — Google Cloud setup
 
 1. Go to [console.cloud.google.com](https://console.cloud.google.com)
-2. Create a new project named `hiretrace` (or use existing)
+2. Create a new project named `hireflow-track` (or use existing)
 3. Navigate to APIs & Services → Credentials → Create Credentials → OAuth 2.0 Client ID
 4. Application type: Web application
 5. Authorised redirect URIs — add both:
@@ -828,5 +828,5 @@ api.dashboard.metrics.test.ts
 
 ---
 
-_sprint-06-implementation-part1.md — 26 May 2026 — HireTrace_
+_sprint-06-implementation-part1.md — 26 May 2026 — HireFlow_
 _Continue in Part 2: PBI-035 (CSV Export), PBI-042 (E2E), PBI-045 (LinkedIn)._

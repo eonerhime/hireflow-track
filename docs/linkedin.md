@@ -1,4 +1,4 @@
-# HireTrace — LinkedIn Content Plan
+# HireFlow — LinkedIn Content Plan
 
 **Document Type:** Portfolio Communication Artefact
 **Version:** 5.0
@@ -22,7 +22,7 @@
 
 ## How This File Works
 
-This file contains **every LinkedIn post for the HireTrace project**, written and ready to publish. Each post is tied to a specific project milestone and a specific date slot.
+This file contains **every LinkedIn post for the HireFlow project**, written and ready to publish. Each post is tied to a specific project milestone and a specific date slot.
 
 **Your workflow per post:**
 
@@ -51,36 +51,36 @@ Brand kit, carousel template (1080×1350px), and screenshot frame (1080×1080px)
 
 ## Content Cadence Overview
 
-| Date        | Day      | Post    | Topic                        | Asset      |
-| ----------- | -------- | ------- | ---------------------------- | ---------- |
-| 21 Apr 2026 | Tuesday  | Post 01 | Project Announcement         | Text only  |
-| 23 Apr 2026 | Thursday | Post 02 | The Problem HireTrace Solves | Screenshot |
-| 25 Apr 2026 | Saturday | Post 03 | What is SDD                  | Text only  |
-| 28 Apr 2026 | Tuesday  | Post 04 | product.md explained         | Screenshot |
-| 30 Apr 2026 | Thursday | Post 05 | Building the Backlog         | Text only  |
-| 02 May 2026 | Saturday | Post 06 | The 6 Strategies             | Screenshot |
-| 05 May 2026 | Tuesday  | Post 07 | Sprint 1 Goal                | Screenshot |
-| 07 May 2026 | Thursday | Post 08 | First Commit                 | Screenshot |
-| 09 May 2026 | Saturday | Post 09 | Auth is Live                 | Screenshot |
-| 12 May 2026 | Tuesday  | Post 10 | Sprint 1 Retro Insight       | Text only  |
-| 14 May 2026 | Thursday | Post 11 | Sprint 1 Carousel            | Carousel   |
-| 16 May 2026 | Saturday | Post 12 | implementation.md            | Screenshot |
-| 19 May 2026 | Tuesday  | Post 13 | First Feature Shipped        | Screenshot |
-| 21 May 2026 | Thursday | Post 14 | Writing Tests First          | Screenshot |
-| 23 May 2026 | Saturday | Post 15 | Kanban Pipeline              | Screenshot |
-| 26 May 2026 | Tuesday  | Post 16 | Sprint 2 Retro Insight       | Text only  |
-| 28 May 2026 | Thursday | Post 17 | Sprint 2 Carousel            | Carousel   |
-| 30 May 2026 | Saturday | Post 18 | What the Spec Drove          | Screenshot |
-| 02 Jun 2026 | Tuesday  | Post 19 | Contact Tracking             | Screenshot |
-| 04 Jun 2026 | Thursday | Post 20 | Dashboard Metrics            | Screenshot |
-| 06 Jun 2026 | Saturday | Post 21 | Reminder System              | Screenshot |
-| 09 Jun 2026 | Tuesday  | Post 22 | MVP is Live                  | Screenshot |
-| 11 Jun 2026 | Thursday | Post 23 | Sprint 3 Carousel            | Carousel   |
-| 13 Jun 2026 | Saturday | Post 24 | Phase 1 Retro                | Text only  |
+| Date        | Day      | Post    | Topic                       | Asset      |
+| ----------- | -------- | ------- | --------------------------- | ---------- |
+| 21 Apr 2026 | Tuesday  | Post 01 | Project Announcement        | Text only  |
+| 23 Apr 2026 | Thursday | Post 02 | The Problem HireFlow Solves | Screenshot |
+| 25 Apr 2026 | Saturday | Post 03 | What is SDD                 | Text only  |
+| 28 Apr 2026 | Tuesday  | Post 04 | product.md explained        | Screenshot |
+| 30 Apr 2026 | Thursday | Post 05 | Building the Backlog        | Text only  |
+| 02 May 2026 | Saturday | Post 06 | The 6 Strategies            | Screenshot |
+| 05 May 2026 | Tuesday  | Post 07 | Sprint 1 Goal               | Screenshot |
+| 07 May 2026 | Thursday | Post 08 | First Commit                | Screenshot |
+| 09 May 2026 | Saturday | Post 09 | Auth is Live                | Screenshot |
+| 12 May 2026 | Tuesday  | Post 10 | Sprint 1 Retro Insight      | Text only  |
+| 14 May 2026 | Thursday | Post 11 | Sprint 1 Carousel           | Carousel   |
+| 16 May 2026 | Saturday | Post 12 | implementation.md           | Screenshot |
+| 19 May 2026 | Tuesday  | Post 13 | First Feature Shipped       | Screenshot |
+| 21 May 2026 | Thursday | Post 14 | Writing Tests First         | Screenshot |
+| 23 May 2026 | Saturday | Post 15 | Kanban Pipeline             | Screenshot |
+| 26 May 2026 | Tuesday  | Post 16 | Sprint 2 Retro Insight      | Text only  |
+| 28 May 2026 | Thursday | Post 17 | Sprint 2 Carousel           | Carousel   |
+| 30 May 2026 | Saturday | Post 18 | What the Spec Drove         | Screenshot |
+| 02 Jun 2026 | Tuesday  | Post 19 | Contact Tracking            | Screenshot |
+| 04 Jun 2026 | Thursday | Post 20 | Dashboard Metrics           | Screenshot |
+| 06 Jun 2026 | Saturday | Post 21 | Reminder System             | Screenshot |
+| 09 Jun 2026 | Tuesday  | Post 22 | MVP is Live                 | Screenshot |
+| 11 Jun 2026 | Thursday | Post 23 | Sprint 3 Carousel           | Carousel   |
+| 13 Jun 2026 | Saturday | Post 24 | Phase 1 Retro               | Text only  |
 
-**Note on schedule:** 24 posts total. Posting runs 3x/week from 21 April to 13 June 2026 — the day the HireTrace MVP story closes. The narrative ends cleanly at Phase 1 complete. LinkedIn presence is then free for the next project.
+**Note on schedule:** 24 posts total. Posting runs 3x/week from 21 April to 13 June 2026 — the day the HireFlow MVP story closes. The narrative ends cleanly at Phase 1 complete. LinkedIn presence is then free for the next project.
 
-**Note on schedule:** 24 posts total. Posting runs 3x/week from 21 April to 13 June 2026 — the day the HireTrace MVP story closes. The narrative ends cleanly at Phase 1 complete. LinkedIn presence is then free for the next project.
+**Note on schedule:** 24 posts total. Posting runs 3x/week from 21 April to 13 June 2026 — the day the HireFlow MVP story closes. The narrative ends cleanly at Phase 1 complete. LinkedIn presence is then free for the next project.
 
 ---
 
@@ -109,7 +109,7 @@ Post these while Sprint 2 coding is underway. They establish your voice, your pr
 ```
 I'm building something. And I'm doing it in public.
 
-HireTrace is a job application pipeline tracker — built for
+HireFlow is a job application pipeline tracker — built for
 job seekers who are tired of managing their search in a
 spreadsheet that was never designed for the job.
 
@@ -133,15 +133,15 @@ software the right way, from the ground up.
 
 Sprint 1 is already underway.
 
-#HireTrace #BuildInPublic #ScrumMaster #ProductOwner #NextJS #SpecDrivenDevelopment
+#HireFlow #BuildInPublic #ScrumMaster #ProductOwner #NextJS #SpecDrivenDevelopment
 ```
 
 ---
 
-### POST 02 — The Problem HireTrace Solves
+### POST 02 — The Problem HireFlow Solves
 
 **23 April 2026 · Thursday · Text + Screenshot**
-**Asset:** Screenshot of product.md Problem Statement section in GitHub → HireTrace Screenshot Frame
+**Asset:** Screenshot of product.md Problem Statement section in GitHub → HireFlow Screenshot Frame
 **Status:** `[x]` Posted
 
 ```
@@ -162,7 +162,7 @@ The result:
 → Candidates lose track of which resume went where
 → Rejection compounds because there's no structure to hold it
 
-HireTrace is opinionated about this. It enforces a 6-stage
+HireFlow is opinionated about this. It enforces a 6-stage
 pipeline: Applied → Screening → Interview → Assessment →
 Offer → Closed.
 
@@ -174,7 +174,7 @@ document I wrote before touching any code.
 
 Full doc in the GitHub repo. Link in comments.
 
-#HireTrace #BuildInPublic #ProductOwner #JobSearch #SoftwareEngineering
+#HireFlow #BuildInPublic #ProductOwner #JobSearch #SoftwareEngineering
 
 
 
@@ -208,7 +208,7 @@ to confirm what they accidentally made.
 SDD flips this. The spec is the contract. The code is the
 fulfilment of that contract. The test is the proof.
 
-For HireTrace, every one of the 46 backlog items has a spec
+For HireFlow, every one of the 46 backlog items has a spec
 before it has a commit.
 
 The upfront cost is real.
@@ -216,7 +216,7 @@ The downstream cost of not doing it is higher.
 
 What does your pre-build process look like?
 
-#HireTrace #BuildInPublic #SpecDrivenDevelopment #SoftwareEngineering #Agile
+#HireFlow #BuildInPublic #SpecDrivenDevelopment #SoftwareEngineering #Agile
 ```
 
 ---
@@ -224,21 +224,21 @@ What does your pre-build process look like?
 ### POST 04 — The product.md File Explained
 
 **28 April 2026 · Tuesday · Text + Screenshot**
-**Asset:** Screenshot of product.md Table of Contents in GitHub → HireTrace Screenshot Frame
+**Asset:** Screenshot of product.md Table of Contents in GitHub → HireFlow Screenshot Frame
 **Status:** `[x]` Posted
 
 ```
 I wrote 600 words before opening my code editor.
 
 That document is product.md — the Product Owner artefact
-that drives every downstream decision on HireTrace.
+that drives every downstream decision on HireFlow.
 
 It contains:
 → Mission — why this product exists
 → Problem statement — what it solves and for whom
 → 3 user personas with named, specific pain points
 → Success metrics — product AND portfolio
-→ Scope boundaries — what HireTrace is and is not
+→ Scope boundaries — what HireFlow is and is not
 → 6 backlog derivation strategies (enumerated, not assumed)
 → 46 prioritised backlog items across 10 epics
 → A 3-phase, 6-sprint release plan
@@ -251,9 +251,9 @@ evidence, not instinct.
 
 Full document in the GitHub repo. Link in comments.
 
-#HireTrace #BuildInPublic #ProductOwner #Agile #ScrumMaster #SpecDrivenDevelopment
+#HireFlow #BuildInPublic #ProductOwner #Agile #ScrumMaster #SpecDrivenDevelopment
 
-https://github.com/eonerhime/hiretrace/blob/develop/docs/product.md
+https://github.com/eonerhime/hireflow-track/blob/develop/docs/product.md
 ```
 
 ---
@@ -273,7 +273,7 @@ brainstorms features until the whiteboard is full.
 A backlog is derived — from evidence, from user behaviour,
 from pain points, from competitive gaps, from delivery constraints.
 
-For HireTrace, I used 6 strategies to build the backlog.
+For HireFlow, I used 6 strategies to build the backlog.
 None of them started with "what features should we build?"
 
 Tomorrow I'll walk through all 6.
@@ -286,7 +286,7 @@ Zero guessing. Full traceability.
 That's the difference between a Product Owner and someone
 who makes lists.
 
-#HireTrace #BuildInPublic #ProductOwner #ProductManagement #Agile
+#HireFlow #BuildInPublic #ProductOwner #ProductManagement #Agile
 ```
 
 ---
@@ -294,11 +294,11 @@ who makes lists.
 ### POST 06 — The 6 Backlog Derivation Strategies
 
 **02 May 2026 · Saturday · Text + Screenshot**
-**Asset:** Screenshot of Backlog Derivation Strategies section in product.md → HireTrace Screenshot Frame
+**Asset:** Screenshot of Backlog Derivation Strategies section in product.md → HireFlow Screenshot Frame
 **Status:** `[x]` Posted
 
 ```
-Here are the 6 strategies I used to build the HireTrace
+Here are the 6 strategies I used to build the HireFlow
 product backlog — without a single brainstorm session.
 
 1. Persona Journey Mapping
@@ -330,9 +330,9 @@ Result: 46 items. 28 Must Have. 7 Should Have. 10 Could Have.
 
 All in product.md — link in comments.
 
-#HireTrace #BuildInPublic #ProductOwner #ProductManagement #Agile #ScrumMaster
+#HireFlow #BuildInPublic #ProductOwner #ProductManagement #Agile #ScrumMaster
 
-https://github.com/eonerhime/hiretrace/blob/develop/docs/product.md#6-backlog-derivation-strategies
+https://github.com/eonerhime/hireflow-track/blob/develop/docs/product.md#6-backlog-derivation-strategies
 ```
 
 ---
@@ -346,7 +346,7 @@ Sprint 1 ran 20–21 April 2026 (compressed). Screenshots are already captured. 
 ### POST 07 — Sprint 1 Goal and Plan
 
 **05 May 2026 · Tuesday · Text + Screenshot**
-**Asset:** Screenshot of Notion Sprint Board showing Sprint 1 → HireTrace Screenshot Frame
+**Asset:** Screenshot of Notion Sprint Board showing Sprint 1 → HireFlow Screenshot Frame
 **Status:** `[x]` Posted
 
 ```
@@ -363,7 +363,7 @@ configure deployment." That's a task list. Not a goal.
 
 A sprint goal describes the value delivered when the sprint
 is done. "Users can securely register and log in to
-HireTrace" — that's a goal. It has a clear definition of
+HireFlow" — that's a goal. It has a clear definition of
 done the whole team can rally behind.
 
 (Yes, I am the whole team. The discipline still applies.)
@@ -378,7 +378,7 @@ Notion board is live and public. Link in comments.
 How do you decide what goes into a sprint — gut feel or a system?
 Tell me what works for you 👇
 
-#HireTrace #BuildInPublic #ScrumMaster #Agile #Sprint #NextJS
+#HireFlow #BuildInPublic #ScrumMaster #Agile #Sprint #NextJS
 ```
 
 ---
@@ -386,7 +386,7 @@ Tell me what works for you 👇
 ### POST 08 — First Commit
 
 **07 May 2026 · Thursday · Text + Screenshot**
-**Asset:** Screenshot of GitHub commit history showing first meaningful feature commit → HireTrace Screenshot Frame
+**Asset:** Screenshot of GitHub commit history showing first meaningful feature commit → HireFlow Screenshot Frame
 **Status:** `[x]` Posted
 
 ```
@@ -421,7 +421,7 @@ Repo is public. Link in comments.
 What's the hardest part of setting up auth from scratch?
 Share your war stories below 👇
 
-#HireTrace #BuildInPublic #NextJS #TypeScript #Prisma #PostgreSQL
+#HireFlow #BuildInPublic #NextJS #TypeScript #Prisma #PostgreSQL
 ```
 
 ---
@@ -429,11 +429,11 @@ Share your war stories below 👇
 ### POST 09 — Auth is Live
 
 **09 May 2026 · Saturday · Text + Screenshot**
-**Asset:** Screenshot of HireTrace login page on Vercel → HireTrace Screenshot Frame
+**Asset:** Screenshot of HireFlow login page on Vercel → HireFlow Screenshot Frame
 **Status:** `[x]` Posted
 
 ```
-Authentication is live on HireTrace.
+Authentication is live on HireFlow.
 
 Email + password registration. bcrypt hashing.
 JWT session management. Protected route middleware.
@@ -442,7 +442,7 @@ Here's what most tutorials get wrong about auth:
 
 They treat it as a feature. It's not. It's infrastructure.
 
-Every user-scoped feature in HireTrace — applications,
+Every user-scoped feature in HireFlow — applications,
 contacts, reminders, analytics — depends on knowing who
 the user is. Auth isn't first because it's most interesting.
 It's first because nothing else works without it.
@@ -462,7 +462,7 @@ Spec drives test. Test drives code. That's SDD.
 What feature do you always build first in a new app — and why?
 Let me know below 👇
 
-#HireTrace #BuildInPublic #Auth #NextJS #SpecDrivenDevelopment #ReactTestingLibrary
+#HireFlow #BuildInPublic #Auth #NextJS #SpecDrivenDevelopment #ReactTestingLibrary
 ```
 
 ---
@@ -499,7 +499,7 @@ That's the other thing SDD is for.
 At what point does a side project start feeling like a real product to you?
 Share your moment below 👇
 
-#HireTrace #BuildInPublic #ScrumMaster #Agile #Retrospective #SoftwareEngineering
+#HireFlow #BuildInPublic #ScrumMaster #Agile #Retrospective #SoftwareEngineering
 ```
 
 ---
@@ -507,7 +507,7 @@ Share your moment below 👇
 ### POST 11 — Sprint 1 Carousel
 
 **14 May 2026 · Thursday · Carousel PDF**
-**Asset:** Build carousel in Canva using HireTrace Carousel Template. Export as PDF.
+**Asset:** Build carousel in Canva using HireFlow Carousel Template. Export as PDF.
 **Status:** `[x]` Posted
 
 **Slide content:**
@@ -518,7 +518,7 @@ Sprint 1 is done.
 Here's everything that happened — and one thing I'd change.
 
 SLIDE 2 — Context
-HireTrace | Sprint 1
+HireFlow | Sprint 1
 Goal: Working auth on a deployed Next.js app
 Duration: 3 days (planned: 2 weeks)
 Items committed: 11 | Completed: 11 | Carried over: 0
@@ -549,7 +549,7 @@ SLIDE 6 — The retro
 → npm run build locally before every Vercel push
 
 SLIDE 7 — The result
-HireTrace is live on Vercel.
+HireFlow is live on Vercel.
 Register. Log in. See the dashboard.
 The foundation is solid.
 [Screenshot of live login page]
@@ -578,14 +578,14 @@ Sprint 1 closed. Foundation and auth — done.
 Swipe to see what was built, what the retro surfaced,
 and the one thing I'm changing in Sprint 2.
 
-GitHub: https://github.com/eonerhime/hiretrace
-Live app: https://hiretrace-git-develop-e1rhyme.vercel.app/register
-Notion: https://dull-grain-172.notion.site/
+GitHub: https://github.com/eonerhime/hireflow-track
+Live app: https://hireflow-track.vercel.app/register
+Notion: https://dull-grain-172.notion.site/HireFLow-3463cecb82d08016a90be8bf80a5c6ce
 
 What metric would you add to a job tracker that no tool currently shows?
 I'm listening 👇
 
-#HireTrace #BuildInPublic #ScrumMaster #NextJS #Agile #Sprint
+#HireFlow #BuildInPublic #ScrumMaster #NextJS #Agile #Sprint
 ```
 
 ---
@@ -593,13 +593,13 @@ I'm listening 👇
 ### POST 12 — The implementation.md File
 
 **16 May 2026 · Saturday · Text + Screenshot**
-**Asset:** Screenshot of implementation.md ADR section open in GitHub → HireTrace Screenshot Frame
+**Asset:** Screenshot of implementation.md ADR section open in GitHub → HireFlow Screenshot Frame
 **Status:** `[x]` Posted
 
 ```
 This one file runs the entire project.
 
-implementation.md is the single source of truth for HireTrace.
+implementation.md is the single source of truth for HireFlow.
 
 It contains:
 → The canonical tech stack — pinned versions, not @latest
@@ -623,7 +623,7 @@ who touches the codebase.
 
 Full file in the GitHub repo. Link in comments.
 
-#HireTrace #BuildInPublic #SoftwareEngineering #Documentation #SpecDrivenDevelopment
+#HireFlow #BuildInPublic #SoftwareEngineering #Documentation #SpecDrivenDevelopment
 ```
 
 ---
@@ -635,11 +635,11 @@ Full file in the GitHub repo. Link in comments.
 ### POST 13 — First Feature Shipped
 
 **19 May 2026 · Tuesday · Text + Screenshot**
-**Asset:** Screenshot of Add Application form in HireTrace → HireTrace Screenshot Frame
+**Asset:** Screenshot of Add Application form in HireFlow → HireFlow Screenshot Frame
 **Status:** `[x]` Posted
 
 ```
-The first real feature is live on HireTrace.
+The first real feature is live on HireFlow.
 
 You can now add a job application — company, role,
 location, salary, and job URL.
@@ -663,7 +663,7 @@ what you meant to build.
 
 Different questions. Different answers.
 
-#HireTrace #BuildInPublic #NextJS #ReactTestingLibrary #SpecDrivenDevelopment
+#HireFlow #BuildInPublic #NextJS #ReactTestingLibrary #SpecDrivenDevelopment
 ```
 
 ---
@@ -671,7 +671,7 @@ Different questions. Different answers.
 ### POST 14 — Writing Tests First
 
 **21 May 2026 · Thursday · Text + Screenshot**
-**Asset:** Screenshot of RTL test file — use carbon.now.sh for clean code screenshot → HireTrace Screenshot Frame
+**Asset:** Screenshot of RTL test file — use carbon.now.sh for clean code screenshot → HireFlow Screenshot Frame
 **Status:** `[x]` Posted
 
 ```
@@ -700,7 +700,7 @@ with — not internal component state.
 That alignment between how users experience the app and how
 tests verify it is what makes the test suite valuable.
 
-#HireTrace #BuildInPublic #ReactTestingLibrary #Testing #SpecDrivenDevelopment
+#HireFlow #BuildInPublic #ReactTestingLibrary #Testing #SpecDrivenDevelopment
 ```
 
 ---
@@ -708,7 +708,7 @@ tests verify it is what makes the test suite valuable.
 ### POST 15 — The Kanban Pipeline
 
 **23 May 2026 · Saturday · Text + Screenshot**
-**Asset:** Screenshot of HireTrace Kanban board → HireTrace Screenshot Frame
+**Asset:** Screenshot of HireFlow Kanban board → HireFlow Screenshot Frame
 **Status:** `[x]` Posted
 
 ```
@@ -729,14 +729,14 @@ When you're in a stressful job search, the last thing you
 need is to design your own workflow. You need a sensible
 default that matches how hiring actually works.
 
-HireTrace is opinionated. These 6 stages cover 95% of
+HireFlow is opinionated. These 6 stages cover 95% of
 hiring processes. If your process is unusual, you'll know
 which stage to use anyway.
 
 Opinionated tools get used.
 Infinitely flexible tools become configuration projects.
 
-#HireTrace #BuildInPublic #ProductOwner #NextJS #UX #JobSearch
+#HireFlow #BuildInPublic #ProductOwner #NextJS #UX #JobSearch
 ```
 
 ---
@@ -768,7 +768,7 @@ you're done and you're not.
 The spec template is updated. The DoD format is fixed.
 Retros are only useful if they change something.
 
-#HireTrace #BuildInPublic #ScrumMaster #Retrospective #Agile #SpecDrivenDevelopment
+#HireFlow #BuildInPublic #ScrumMaster #Retrospective #Agile #SpecDrivenDevelopment
 ```
 
 ---
@@ -776,7 +776,7 @@ Retros are only useful if they change something.
 ### POST 17 — Sprint 2 Carousel
 
 **28 May 2026 · Thursday · Carousel PDF**
-**Asset:** Build in Canva using HireTrace Carousel Template. Export as PDF.
+**Asset:** Build in Canva using HireFlow Carousel Template. Export as PDF.
 **Status:** `[x]` Posted
 
 **Slide content:**
@@ -787,7 +787,7 @@ Sprint 2 done. The product now exists.
 Here's what it took — and what the retro changed.
 
 SLIDE 2 — Context
-HireTrace | Sprint 2
+HireFlow | Sprint 2
 Goal: Core application pipeline — CRUD + Kanban board
 Duration: 1 week
 Items committed: [5] | Completed: [5]
@@ -838,12 +838,12 @@ GitHub · Notion · live app in comments.
 **Caption:**
 
 ```
-Sprint 2 closed. HireTrace now has a working Kanban pipeline.
+Sprint 2 closed. HireFlow now has a working Kanban pipeline.
 
 Swipe to see what shipped, what the retro changed about
 the spec template, and what's next.
 
-#HireTrace #BuildInPublic #ScrumMaster #NextJS #Agile
+#HireFlow #BuildInPublic #ScrumMaster #NextJS #Agile
 ```
 
 ---
@@ -851,7 +851,7 @@ the spec template, and what's next.
 ### POST 18 — What the Spec Drove
 
 **30 May 2026 · Saturday · Text + Screenshot**
-**Asset:** Screenshot of spec.md showing AC for the application pipeline → HireTrace Screenshot Frame
+**Asset:** Screenshot of spec.md showing AC for the application pipeline → HireFlow Screenshot Frame
 **Status:** `[x]` Posted
 
 ```
@@ -859,7 +859,7 @@ Here's what a feature spec looks like before the code exists.
 
 [Screenshot of spec.md acceptance criteria section]
 
-Every feature in HireTrace has:
+Every feature in HireFlow has:
 → A plain-language description
 → Numbered, testable acceptance criteria
 → Edge cases — what happens when things go wrong
@@ -880,7 +880,7 @@ One document. Three audiences. Zero ambiguity.
 
 Full spec.md in the GitHub repo. Link in comments.
 
-#HireTrace #BuildInPublic #SpecDrivenDevelopment #SoftwareEngineering #Documentation
+#HireFlow #BuildInPublic #SpecDrivenDevelopment #SoftwareEngineering #Documentation
 ```
 
 ---
@@ -892,19 +892,19 @@ Full spec.md in the GitHub repo. Link in comments.
 ### POST 19 — Contact Tracking Built
 
 **02 June 2026 · Tuesday · Text + Screenshot**
-**Asset:** Screenshot of contact section on application detail page → HireTrace Screenshot Frame
-**Status:** `[ ]` Not posted
+**Asset:** Screenshot of contact section on application detail page → HireFlow Screenshot Frame
+**Status:** `[x]` Posted
 
 ```
 You now know who to follow up with.
 
-HireTrace tracks contacts per application — recruiter name,
+HireFlow tracks contacts per application — recruiter name,
 role, email, LinkedIn, and notes.
 
 This was a deliberate product decision made in the spec phase.
 
 Most job trackers treat the application as the unit.
-HireTrace treats the relationship as the unit.
+HireFlow treats the relationship as the unit.
 
 Because the application doesn't make a decision.
 A person does. And knowing who that person is — with their
@@ -919,7 +919,9 @@ That constraint was in the spec before the schema was written.
 Constraints are decisions. Decisions need reasons.
 The reason is in product.md.
 
-#HireTrace #BuildInPublic #NextJS #ProductOwner #SpecDrivenDevelopment
+What's your biggest takeaway from building product spec-first? 👇
+
+#HireFlow #BuildInPublic #NextJS #ProductOwner #SpecDrivenDevelopment
 ```
 
 ---
@@ -927,7 +929,7 @@ The reason is in product.md.
 ### POST 20 — Dashboard Metrics
 
 **04 June 2026 · Thursday · Text + Screenshot**
-**Asset:** Screenshot of HireTrace dashboard summary stats bar → HireTrace Screenshot Frame
+**Asset:** Screenshot of HireFlow dashboard summary stats bar → HireFlow Screenshot Frame
 **Status:** `[ ]` Not posted
 
 ```
@@ -955,7 +957,7 @@ A vanity metric. Volume without conversion is noise.
 Good metrics drive action.
 Interesting metrics drive dashboards nobody uses.
 
-#HireTrace #BuildInPublic #ProductOwner #UX #Metrics #JobSearch
+#HireFlow #BuildInPublic #ProductOwner #UX #Metrics #JobSearch
 ```
 
 ---
@@ -963,12 +965,12 @@ Interesting metrics drive dashboards nobody uses.
 ### POST 21 — Reminder System
 
 **06 June 2026 · Saturday · Text + Screenshot**
-**Asset:** Screenshot of overdue follow-up indicator on dashboard → HireTrace Screenshot Frame
+**Asset:** Screenshot of overdue follow-up indicator on dashboard → HireFlow Screenshot Frame
 **Status:** `[ ]` Not posted
 
 ```
 The follow-up reminder is the feature that makes
-HireTrace actually useful.
+HireFlow actually useful.
 
 Every application has a follow-up date. When that date
 passes without a status update, the application is flagged
@@ -989,7 +991,7 @@ Friction reduction, not notification spam.
 
 That's a product decision. It's in the spec. It has a reason.
 
-#HireTrace #BuildInPublic #ProductOwner #UX #JobSearch #NextJS
+#HireFlow #BuildInPublic #ProductOwner #UX #JobSearch #NextJS
 ```
 
 ---
@@ -997,11 +999,11 @@ That's a product decision. It's in the spec. It has a reason.
 ### POST 22 — MVP is Live
 
 **09 June 2026 · Tuesday · Text + Screenshot**
-**Asset:** Screenshot of live HireTrace app on Vercel — full dashboard view → HireTrace Screenshot Frame
+**Asset:** Screenshot of live HireFlow app on Vercel — full dashboard view → HireFlow Screenshot Frame
 **Status:** `[ ]` Not posted
 
 ```
-HireTrace MVP is live.
+HireFlow MVP is live.
 
 3 sprints. 28 Must Have items. All done.
 
@@ -1027,7 +1029,7 @@ Live app: [link]
 GitHub: [link]
 Notion: [link]
 
-#HireTrace #BuildInPublic #MVP #NextJS #ScrumMaster #ProductOwner #FullStack
+#HireFlow #BuildInPublic #MVP #NextJS #ScrumMaster #ProductOwner #FullStack
 ```
 
 ---
@@ -1035,7 +1037,7 @@ Notion: [link]
 ### POST 23 — Sprint 3 Carousel
 
 **11 June 2026 · Thursday · Carousel PDF**
-**Asset:** Build in Canva using HireTrace Carousel Template. Export as PDF.
+**Asset:** Build in Canva using HireFlow Carousel Template. Export as PDF.
 **Status:** `[ ]` Not posted
 
 **Slide content:**
@@ -1046,7 +1048,7 @@ Sprint 3 done. MVP shipped.
 Here's the full story.
 
 SLIDE 2 — Context
-HireTrace | Sprint 3
+HireFlow | Sprint 3
 Goal: Contacts + Reminders + Dashboard = MVP complete
 Duration: 1 week | Phase 1 of 3 closed
 
@@ -1084,7 +1086,7 @@ It means minimum scope to deliver maximum learning.
 We learned a lot. Sprint 4 is better for it.
 
 SLIDE 10 — CTA
-HireTrace is live. Try it.
+HireFlow is live. Try it.
 Link in comments. Follow for Phase 2.
 ```
 
@@ -1100,7 +1102,7 @@ Live app: [link]
 GitHub: [link]
 Notion: [link]
 
-#HireTrace #BuildInPublic #MVP #ScrumMaster #NextJS #Agile
+#HireFlow #BuildInPublic #MVP #ScrumMaster #NextJS #Agile
 ```
 
 ---
@@ -1112,7 +1114,7 @@ Notion: [link]
 **Status:** `[ ]` Not posted
 
 ```
-HireTrace Phase 1 is done. Here's the full picture.
+HireFlow Phase 1 is done. Here's the full picture.
 
 The numbers:
 → 3 sprints. 8 weeks planned. Compressed to 3 weeks.
@@ -1156,14 +1158,14 @@ explain every decision made me make better decisions.
 That accountability was the most underrated part of the
 whole process.
 
-HireTrace is live. The repo is public. The spec docs are
+HireFlow is live. The repo is public. The spec docs are
 all there. If anything in these 24 posts was useful —
 the methodology, the decisions, the trade-offs — it's all
 in the GitHub repo to read, fork, or steal from.
 
 Link in comments.
 
-#HireTrace #BuildInPublic #ScrumMaster #ProductOwner #FullStack #Retrospective #SpecDrivenDevelopment
+#HireFlow #BuildInPublic #ScrumMaster #ProductOwner #FullStack #Retrospective #SpecDrivenDevelopment
 ```
 
 ---
@@ -1203,5 +1205,5 @@ Record impressions 48 hours after each post.
 
 ---
 
-_linkedin.md v5.0 — 27 April 2026 — HireTrace_
+_linkedin.md v5.0 — 27 April 2026 — HireFlow_
 _Revised from v4.0: Sprint actual dates updated (Pre-Sprint: 18 Apr, Sprint 1: 20 Apr, Sprint 2: 22–27 Apr). Post 16 retro insight updated to reflect actual Sprint 2 retro. Post 17 Slides 5 and 6 filled with actual test results. Notion Sprint Board corrected to actual dates._

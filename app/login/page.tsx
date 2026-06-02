@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginInput } from "@/lib/schemas/auth";
 import { Suspense } from "react";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -58,16 +59,17 @@ function LoginForm() {
     dark:focus:border-blue-400 dark:focus:ring-blue-400`;
 
   return (
+    // ↓ Changed: flex-col so footer sits below the card
     <main
-      className="flex min-h-screen items-center justify-center
-                     bg-gray-50 dark:bg-gray-950 px-4"
+      className="flex min-h-screen flex-col items-center justify-center
+                     bg-gray-50 dark:bg-gray-950 px-4 gap-6"
     >
       <div
         className="w-full max-w-md rounded-lg bg-white p-8 shadow-sm
                       dark:bg-gray-800 dark:border dark:border-gray-700"
       >
         <h1 className="mb-2 text-2xl font-bold text-gray-900 dark:text-gray-100">
-          Log in to HireTrace
+          Log in to HireFlow
         </h1>
 
         {justRegistered && (
@@ -217,6 +219,28 @@ function LoginForm() {
           </button>
         </div>
       </div>
+
+      {/* ↓ NEW: Legal footer */}
+      <footer className="flex gap-5 text-xs text-gray-400 dark:text-gray-500">
+        <Link
+          href="/privacy"
+          className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+        >
+          Privacy Policy
+        </Link>
+        <Link
+          href="/terms"
+          className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+        >
+          Terms of Service
+        </Link>
+        <Link
+          href="/cookies"
+          className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+        >
+          Cookie Policy
+        </Link>
+      </footer>
     </main>
   );
 }

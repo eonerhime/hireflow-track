@@ -1,4 +1,4 @@
-# HireTrace — Sprint 4 Implementation Guide
+# HireFlow — Sprint 4 Implementation Guide
 
 **Document Type:** Developer Implementation Reference
 **Sprint:** 4 of 6
@@ -54,7 +54,7 @@ If any of the three fail, fix before starting Sprint 4 work.
 ## Directory Structure After Sprint 4
 
 New files and directories this sprint creates (additions to the Sprint 3 structure):
-hiretrace/
+hireflow-track/
 ├── app/
 │ ├── api/
 │ │ └── applications/
@@ -111,7 +111,7 @@ No new environment variables required for Sprint 4. All existing variables carry
 ```typescript
 import { NextRequest, NextResponse } from "next/server";
 
-const COOKIE_NAME = "hiretrace-token";
+const COOKIE_NAME = "hireflow-track-token";
 
 const PUBLIC_ROUTES = ["/", "/login", "/register"];
 const PUBLIC_API_ROUTES = ["/api/auth/login", "/api/auth/register"];
@@ -1768,7 +1768,7 @@ app/api/auth/login/route.ts
  *   { email: string, password: string }
  *
  * Responses:
- *   200 — { message: "Login successful" } + sets hiretrace-token cookie
+ *   200 — { message: "Login successful" } + sets hireflow-track-token cookie
  *   400 — Validation failed { error, details }
  *   401 — Invalid credentials { error }
  *   500 — Internal server error { error }
@@ -1781,7 +1781,7 @@ app/api/auth/logout/route.ts
  * POST /api/auth/logout
  * Auth: None required (clears the cookie regardless of validity)
  *
- * Clears the hiretrace-token cookie by overwriting it with an empty value
+ * Clears the hireflow-track-token cookie by overwriting it with an empty value
  * and maxAge: 0.
  *
  * Responses:
@@ -1872,5 +1872,5 @@ After the PR is merged to `develop`:
 
 ---
 
-_sprint-04-implementation.md — 30 April 2026 — HireTrace_
+_sprint-04-implementation.md — 30 April 2026 — HireFlow_
 _Branch: `feature/sprint-04-notes-metrics`. Follow PBIs in dependency order. Run `npm run build` locally before every push. Pin all packages._

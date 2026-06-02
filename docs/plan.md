@@ -1,11 +1,11 @@
-# HireTrace — Plan Document
+# HireFlow — Plan Document
 
 **Document Type:** Scrum Master Artifact
 **Version:** 2.0
 **Date:** April 20, 2026
 **Status:** Active
 **Author:** Scrum Master
-**Repository:** https://github.com/eonerhime/hiretrace
+**Repository:** https://github.com/eonerhime/hireflow-track
 
 ---
 
@@ -65,18 +65,18 @@
 
 #### Pre-Sprint — Weeks 1 & 2
 
-| Date        | Day      | Activity                                       | LinkedIn Post |
-| ----------- | -------- | ---------------------------------------------- | ------------- |
-| 22 Apr 2026 | Tuesday  | Publish Post 01 — Project Announcement         | Post 01       |
-| 24 Apr 2026 | Thursday | Publish Post 02 — The Problem HireTrace Solves | Post 02       |
-| 25 Apr 2026 | Saturday | Publish Post 03 — What is SDD                  | Post 03       |
-| 28 Apr 2026 | Tuesday  | Publish Post 04 — product.md explained         | Post 04       |
-| 29 Apr 2026 | Thursday | Publish Post 05 — Building the Backlog         | Post 05       |
-| 02 May 2026 | Saturday | Publish Post 06 — The 6 Strategies             | Post 06       |
+| Date        | Day      | Activity                                      | LinkedIn Post |
+| ----------- | -------- | --------------------------------------------- | ------------- |
+| 22 Apr 2026 | Tuesday  | Publish Post 01 — Project Announcement        | Post 01       |
+| 24 Apr 2026 | Thursday | Publish Post 02 — The Problem HireFlow Solves | Post 02       |
+| 25 Apr 2026 | Saturday | Publish Post 03 — What is SDD                 | Post 03       |
+| 28 Apr 2026 | Tuesday  | Publish Post 04 — product.md explained        | Post 04       |
+| 29 Apr 2026 | Thursday | Publish Post 05 — Building the Backlog        | Post 05       |
+| 02 May 2026 | Saturday | Publish Post 06 — The 6 Strategies            | Post 06       |
 
 **Pre-sprint deliverables (before Sprint 1 kickoff):**
 
-- [ ] GitHub repository created (`hiretrace`, public, Node.js `.gitignore`)
+- [ ] GitHub repository created (`hireflow-track`, public, Node.js `.gitignore`)
 - [ ] `README.md` placeholder committed to `main` (GitHub requires this at repo creation)
 - [ ] `develop` branch created from `main` immediately — before any further commits
 - [ ] Branch protection enabled on `main` (Settings → Branches → Require PR before merging)
@@ -179,7 +179,7 @@
 | 28 Jul 2026 | Tuesday   | **Sprint 6 Review + Retro** — close sprint · FULL RELEASE GATE | —             |
 | 28 Jul 2026 | Tuesday   | Publish Post 35 — Sprint 6 Retro Insight                       | Post 35       |
 | 30 Jul 2026 | Thursday  | Publish Post 36 — Sprint 6 Carousel (Full Release)             | Post 36       |
-| 01 Aug 2026 | Saturday  | Publish Post 37 — The Complete HireTrace Build Story           | Post 37       |
+| 01 Aug 2026 | Saturday  | Publish Post 37 — The Complete HireFlow Build Story            | Post 37       |
 
 ---
 
@@ -187,7 +187,7 @@
 
 ### Assumptions
 
-HireTrace is a solo project. The developer is also Product Owner, Scrum Master, Tester, and Documenter. Capacity must account for all five roles, not just implementation time.
+HireFlow is a solo project. The developer is also Product Owner, Scrum Master, Tester, and Documenter. Capacity must account for all five roles, not just implementation time.
 
 **Available hours per week:** 10 hours
 **Sprint duration:** 2 weeks
@@ -428,11 +428,11 @@ Before a sprint is marked Closed in `sprint-XX.md`:
 Track sprint status here. Update at each sprint close.
 
 | Sprint   | Dates              | Goal                                   | PBI Count | Status         | Close Date  | Notes                       |
-| -------- | ------------------ | -------------------------------------- | --------- | -------------- | ----------- | --------------------------- | --- |
+| -------- | ------------------ | -------------------------------------- | --------- | -------------- | ----------- | --------------------------- |
 | Sprint 1 | 18–20 Apr 2026     | Foundation + Auth                      | 11        | ✅ Closed      | 20 Apr 2026 | Completed ahead of schedule |
 | Sprint 2 | 21–27 Apr 2026     | Core Pipeline                          | 9         | ✅ Closed      | 22 Apr 2026 | Completed ahead of schedule |
 | Sprint 3 | 28 Apr–04 May 2026 | Contacts + Reminders + Dashboard (MVP) | 9         | ✅ Closed      | 24 Apr 2026 | Completed ahead of schedule |
-| Sprint 4 | 05–11 May 2026     | Notes + Metrics + API Hardening        | 7         | ✅ Closed      | 03 May 2026 | Completed ahead of schedule |  
+| Sprint 4 | 05–11 May 2026     | Notes + Metrics + API Hardening        | 7         | ✅ Closed      | 03 May 2026 | Completed ahead of schedule |
 | Sprint 5 | 12–18 May 2026     | Resume Management + Email Reminders    | 5         | ✅ Closed      | 26 May 2026 | Completed behind schedule   |
 | Sprint 6 | 19–25 May 2026     | Analytics + Export + OAuth + E2E       | 4         | 🔲 Not started | —           |                             |
 
@@ -470,7 +470,6 @@ Phase gates are hard checkpoints. The next phase does not begin until the gate i
 | Notion workspace updated                                       | [x]    |
 | Sprint 5 retro completed and documented                        | [x]    |
 
-
 **Sprint 4 progress:** 6 of 7 Should Have PBIs complete (PBI-022 — Reminder list view — remains; scheduled for Sprint 5). Integration tests and API docs delivered in Sprint 4.
 
 **Gate cleared: 26 May 2026**
@@ -507,5 +506,5 @@ Phase gates are hard checkpoints. The next phase does not begin until the gate i
 
 ---
 
-_plan.md v2.1 — 03 May 2026 — HireTrace_
+_plan.md v2.1 — 03 May 2026 — HireFlow_
 _Sprint 4 closed 03 May 2026 ahead of schedule. Sprint Summary Table and Phase 2 gate updated._

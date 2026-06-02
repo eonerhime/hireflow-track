@@ -1,4 +1,4 @@
-# HireTrace — Sprint 5
+# HireFlow — Sprint 5
 
 **Document Type:** Scrum Master Artifact
 **Sprint:** 5 — Resume Management + Email Reminders
@@ -6,7 +6,7 @@
 **Status:** ✅ Closed
 **Branch:** `feature/sprint-05-resume-reminders`
 **Author:** Scrum Master
-**Repository:** https://github.com/eonerhime/hiretrace
+**Repository:** https://github.com/eonerhime/hireflow-track
 
 ---
 
@@ -293,15 +293,15 @@ Log the decision in `implementation.md` before the first task is started.
 
 #### API
 
-| Task     | Description                                                                                               | Status |
-| -------- | --------------------------------------------------------------------------------------------------------- | ------ |
-| T-023-05 | Create `POST /api/reminders/send` — internal route (secured with cron secret header)                      | [x]    |
-| T-023-06 | Query all applications where `followUpAt` is today or earlier and `stage` is not Closed                   | [x]    |
-| T-023-07 | Group by user — send one email per user listing all due reminders                                         | [x]    |
-| T-023-08 | Email content: subject "You have [N] follow-ups due today — HireTrace", body lists company + role + stage | [x]    |
-| T-023-09 | Use Resend SDK to send — log send errors but do not throw (non-blocking)                                  | [x]    |
-| T-023-10 | Return 200 `{ sent: N }`                                                                                  | [x]    |
-| T-023-11 | Validate cron secret header — return 401 if missing or wrong                                              | [x]    |
+| Task     | Description                                                                                              | Status |
+| -------- | -------------------------------------------------------------------------------------------------------- | ------ |
+| T-023-05 | Create `POST /api/reminders/send` — internal route (secured with cron secret header)                     | [x]    |
+| T-023-06 | Query all applications where `followUpAt` is today or earlier and `stage` is not Closed                  | [x]    |
+| T-023-07 | Group by user — send one email per user listing all due reminders                                        | [x]    |
+| T-023-08 | Email content: subject "You have [N] follow-ups due today — HireFlow", body lists company + role + stage | [x]    |
+| T-023-09 | Use Resend SDK to send — log send errors but do not throw (non-blocking)                                 | [x]    |
+| T-023-10 | Return 200 `{ sent: N }`                                                                                 | [x]    |
+| T-023-11 | Validate cron secret header — return 401 if missing or wrong                                             | [x]    |
 
 #### Vercel Cron
 
@@ -366,13 +366,13 @@ Before marking any PBI `[x]`:
 
 ### PBI Completion
 
-| PBI     | Item                                        | Done? | Notes                                                                                                                              |
-| ------- | ------------------------------------------- | ----- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| PBI-022 | Reminder list / upcoming actions view       | [x]   | GET /api/reminders route, ReminderList component, overdue indicator, back navigation with ?from=reminders param wired through      |
-| PBI-023 | Email notification for due reminders        | [x]   | Resend SDK integrated, POST /api/reminders/send secured with Authorization header, Vercel cron configured at 0 8 * * *             |
+| PBI     | Item                                        | Done? | Notes                                                                                                                             |
+| ------- | ------------------------------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------------- |
+| PBI-022 | Reminder list / upcoming actions view       | [x]   | GET /api/reminders route, ReminderList component, overdue indicator, back navigation with ?from=reminders param wired through     |
+| PBI-023 | Email notification for due reminders        | [x]   | Resend SDK integrated, POST /api/reminders/send secured with Authorization header, Vercel cron configured at 0 8 \* \* \*         |
 | PBI-032 | Resume version label field per application  | [x]   | resumeVersionLabel added to schema, ApplicationForm, edit page defaultValues, and application detail page                         |
-| PBI-033 | Resume file upload and storage              | [x]   | Cloudinary ADR logged, server-side upload route, ResumeUploadForm, ResumeList with inline delete confirm, /dashboard/resumes page  |
-| PBI-034 | Link specific resume version to application | [x]   | ResumePicker component, ownership check in PATCH handler, resume relation included in GET, linked resume label and download link   |
+| PBI-033 | Resume file upload and storage              | [x]   | Cloudinary ADR logged, server-side upload route, ResumeUploadForm, ResumeList with inline delete confirm, /dashboard/resumes page |
+| PBI-034 | Link specific resume version to application | [x]   | ResumePicker component, ownership check in PATCH handler, resume relation included in GET, linked resume label and download link  |
 
 ### Sprint Goal Met?
 
@@ -450,5 +450,5 @@ _Gate cleared: 26 May 2026_
 
 ---
 
-_sprint-05.md v1.0 — 03 May 2026 — HireTrace_
+_sprint-05.md v1.0 — 03 May 2026 — HireFlow_
 _Drafted at Sprint 5 start. Update status markers daily. Complete Review and Retro sections at sprint close._

@@ -1,11 +1,11 @@
-# HireTrace — Product Document
+# HireFlow — Product Document
 
 **Document Type:** Product Owner Artifact
 **Version:** 1.0
 **Date:** April 16, 2026
 **Status:** Active
 **Author:** Product Owner
-**Repository:** https://github.com/eonerhime/hiretrace
+**Repository:** https://github.com/eonerhime/hireflow-track
 
 ---
 
@@ -38,11 +38,11 @@
 
 ## 1. Mission
 
-HireTrace is a structured job search management tool that gives job seekers clarity, control, and confidence over their application pipeline.
+HireFlow is a structured job search management tool that gives job seekers clarity, control, and confidence over their application pipeline.
 
-Most job seekers manage their search in spreadsheets, notebooks, or memory — tools that were never designed for the non-linear, relationship-driven, emotionally charged process of finding work. HireTrace replaces that friction with a purpose-built pipeline tracker that surfaces what matters: where you stand, what needs attention, and what's working.
+Most job seekers manage their search in spreadsheets, notebooks, or memory — tools that were never designed for the non-linear, relationship-driven, emotionally charged process of finding work. HireFlow replaces that friction with a purpose-built pipeline tracker that surfaces what matters: where you stand, what needs attention, and what's working.
 
-Built in public using Spec-Driven Development, HireTrace also serves as a live demonstration of product ownership, agile execution, full-stack development, testing discipline, and technical documentation — across a single, coherent project.
+Built in public using Spec-Driven Development, HireFlow also serves as a live demonstration of product ownership, agile execution, full-stack development, testing discipline, and technical documentation — across a single, coherent project.
 
 ---
 
@@ -84,7 +84,7 @@ A focused, opinionated pipeline tracker — one that enforces a sensible workflo
 **Situation:** Mid-level marketing professional actively seeking a new role. Applying to 3–5 positions per week across multiple industries.
 **Pain points:** Loses track of where she is with each company. Misses follow-up windows. Cannot remember which recruiter she spoke to. Feels overwhelmed rather than in control.
 **Goal:** A clear view of her pipeline at all times so she can act with intention rather than react to chaos.
-**How HireTrace helps:** Kanban pipeline view, contact CRM per application, follow-up reminders, status history.
+**How HireFlow helps:** Kanban pipeline view, contact CRM per application, follow-up reminders, status history.
 
 ---
 
@@ -94,7 +94,7 @@ A focused, opinionated pipeline tracker — one that enforces a sensible workflo
 **Situation:** Transitioning from operations management into product management. Applying selectively — fewer applications, higher stakes. Research-intensive process.
 **Pain points:** Needs to track different resume versions per role type. Wants to log interview notes and link them to specific applications. Needs to measure which channels (referrals, cold apply, LinkedIn) are yielding results.
 **Goal:** Structured intelligence gathering on his own search so he can refine his strategy over time.
-**How HireTrace helps:** Resume version linking, interview notes per stage, outcome analytics, source tracking.
+**How HireFlow helps:** Resume version linking, interview notes per stage, outcome analytics, source tracking.
 
 ---
 
@@ -104,7 +104,7 @@ A focused, opinionated pipeline tracker — one that enforces a sensible workflo
 **Situation:** Final-year student applying for first professional roles. High volume, low conversion. Unfamiliar with professional job search norms.
 **Pain points:** Does not know what a healthy pipeline looks like. Gets discouraged without visibility into progress. No sense of what follow-up is appropriate or when.
 **Goal:** Structure and guidance, not just storage.
-**How HireTrace helps:** Stage pipeline enforces a process; reminders surface next actions; analytics show conversion rate as a motivating metric, not just a count of rejections.
+**How HireFlow helps:** Stage pipeline enforces a process; reminders surface next actions; analytics show conversion rate as a motivating metric, not just a count of rejections.
 
 ---
 
@@ -155,7 +155,7 @@ A focused, opinionated pipeline tracker — one that enforces a sensible workflo
 
 ### Explicitly Out of Scope
 
-- Job discovery / job board integration (HireTrace tracks applications, not sources)
+- Job discovery / job board integration (HireFlow tracks applications, not sources)
 - AI-generated cover letters or resume suggestions
 - Team or shared pipeline features (single-user only at this stage)
 - Mobile native app (web-first, mobile-responsive)
@@ -438,5 +438,5 @@ Items are ordered by priority within each epic. Status reflects current state at
 
 ---
 
-_product.md v1.2 — 03 May 2026 — HireTrace_
+_product.md v1.2 — 03 May 2026 — HireFlow_
 _This document is the upstream source for all downstream SDD artefacts. Changes here must be reflected in plan.md and communicated to sprint-XX.md at the next sprint planning session._

@@ -1,4 +1,4 @@
-# HireTrace — Sprint 6B Implementation Guide (Part 1 of 2)
+# HireFlow — Sprint 6B Implementation Guide (Part 1 of 2)
 
 **Document Type:** Developer Implementation Reference
 **Sprint:** 6B — UI/UX Upgrade
@@ -205,7 +205,7 @@ The sidebar is the highest-impact component. Apply the pattern here first, then 
   // Logo area
   <div className="p-6 border-b border-gray-200 dark:border-gray-700">
     <span className="text-xl font-bold text-blue-600 dark:text-blue-400">
-      HireTrace
+      HireFlow
     </span>
   </div>
 
@@ -682,5 +682,5 @@ describe("ActivityFeed", () => {
 
 ---
 
-_sprint-06b-implementation-part1.md — 26 May 2026 — HireTrace_
+_sprint-06b-implementation-part1.md — 26 May 2026 — HireFlow_
 _Continue in Part 2: PBI-049 (Notification Bell), PBI-050 (Date Range Filter), PBI-051 (Dashboard Restructure)._

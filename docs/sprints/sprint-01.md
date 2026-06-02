@@ -1,4 +1,4 @@
-# HireTrace — Sprint 01
+# HireFlow — Sprint 01
 
 **Document Type:** Sprint Artifact
 **Version:** 1.1
@@ -8,7 +8,7 @@
 **End Date:** 20 April 2026
 **Closed Date:** 20 April 2026
 **Author:** Scrum Master / Developer
-**Repository:** https://github.com/eonerhime/hiretrace
+**Repository:** https://github.com/eonerhime/hireflow-track
 
 ---
 
@@ -225,5 +225,5 @@ Complete before marking this sprint Closed in `plan.md`.
 
 ---
 
-_sprint-01.md v1.1 — 20 April 2026 — HireTrace_
+_sprint-01.md v1.1 — 20 April 2026 — HireFlow_
 _Sprint 1 closed 20 April 2026. All 11 PBIs complete. 0 carried over. Stack locked and documented. Sprint 2 starts 21 April 2026._

@@ -1,4 +1,4 @@
-# HireTrace — Sprint 3 Implementation Guide
+# HireFlow — Sprint 3 Implementation Guide
 
 **Document Type:** Developer Implementation Reference
 **Sprint:** 3 of 6
@@ -49,7 +49,7 @@ All Sprint 3 dependencies are already installed. No `npm install` needed.
 New files and directories this sprint creates (additions to the Sprint 2 structure):
 
 ```
-hiretrace/
+hireflow-track/
 ├── app/
 │   ├── api/
 │   │   └── contacts/
@@ -1029,13 +1029,13 @@ describe("PipelineChart", () => {
 ### Create `README.md` at project root
 
 ````markdown
-# HireTrace
+# HireFlow
 
 A job application pipeline tracker built in public using Spec-Driven Development.
 
 Track applications, contacts, and follow-up reminders across a 6-stage Kanban pipeline.
 
-**Live:** [hiretrace.vercel.app](https://hiretrace.vercel.app) _(update with production URL)_
+**Live:** [hireflow-track.vercel.app](https://hireflow-track.vercel.app) _(update with production URL)_
 **LinkedIn build series:** [Posts 01–24](https://linkedin.com/in/yourprofile) _(update with profile URL)_
 
 ---
@@ -1068,8 +1068,8 @@ Track applications, contacts, and follow-up reminders across a 6-stage Kanban pi
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/eonerhime/hiretrace.git
-cd hiretrace
+git clone https://github.com/eonerhime/hireflow-track.git
+cd hireflow-track
 
 # 2. Install dependencies
 npm install
@@ -1149,13 +1149,13 @@ _Built in public. Documented with Spec-Driven Development._
 
 ### DoD check
 
-| Confirmed | How                                                                                                                           | Item                                |
-| --------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
-| [x]       | File tree — confirm `README.md` exists at project root                                                                        | README.md committed at project root |
-| [x]       | Browser — open `https://github.com/eonerhime/hiretrace` on GitHub, confirm README renders correctly with all sections visible | README renders correctly on GitHub  |
-| [x]       | Read-through — confirm tech stack table matches actual installed versions                                                     | Tech stack versions are accurate    |
-| [x]       | Read-through — confirm setup steps work end-to-end on a clean clone                                                           | Setup instructions are accurate     |
-| [x]       | `npx tsc --noEmit` passes clean in terminal                                                                                   | TypeScript clean                    |
+| Confirmed | How                                                                                                                                | Item                                |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| [x]       | File tree — confirm `README.md` exists at project root                                                                             | README.md committed at project root |
+| [x]       | Browser — open `https://github.com/eonerhime/hireflow-track` on GitHub, confirm README renders correctly with all sections visible | README renders correctly on GitHub  |
+| [x]       | Read-through — confirm tech stack table matches actual installed versions                                                          | Tech stack versions are accurate    |
+| [x]       | Read-through — confirm setup steps work end-to-end on a clean clone                                                                | Setup instructions are accurate     |
+| [x]       | `npx tsc --noEmit` passes clean in terminal                                                                                        | TypeScript clean                    |
 
 ---
 
@@ -1210,5 +1210,5 @@ After the PR is merged to `develop`:
 
 ---
 
-_sprint-03-implementation.md — 23 April 2026 — HireTrace_
+_sprint-03-implementation.md — 23 April 2026 — HireFlow_
 _Branch: `feature/sprint-03-contacts`. Follow PBIs in dependency order. Run `npm run build` locally before every push. Pin all packages._

@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 
-const COOKIE_NAME = "hiretrace-token";
+const COOKIE_NAME = "hireflow-track-token";
 
 /**
  * POST /api/auth/logout
  * Auth: None required (clears the cookie regardless of validity)
  *
- * Clears the hiretrace-token cookie by overwriting it with an empty value
+ * Clears the hireflow-track-token cookie by overwriting it with an empty value
  * and maxAge: 0.
  *
  * Responses:

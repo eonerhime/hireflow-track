@@ -1,11 +1,11 @@
-# HireTrace — Setup Guide
+# HireFlow — Setup Guide
 
 **Document Type:** Developer Setup Artifact
 **Version:** 1.0 — Sprint 1
 **Date:** April 18, 2026
 **Status:** Active
 **Author:** Developer
-**Repository:** https://github.com/eonerhime/hiretrace
+**Repository:** https://github.com/eonerhime/hireflow-track
 
 ---
 
@@ -71,7 +71,7 @@ git --version
 
 | Service | URL        | Status                                               |
 | ------- | ---------- | ---------------------------------------------------- |
-| GitHub  | github.com | ✅ Done — `hiretrace` repo exists                    |
+| GitHub  | github.com | ✅ Done — `hireflow-track` repo exists               |
 | Neon    | neon.tech  | ✅ Done — account exists, DB to be provisioned in §5 |
 | Vercel  | vercel.com | ✅ Done — connected to GitHub repo                   |
 | Notion  | notion.so  | ✅ Done — workspace live                             |
@@ -96,7 +96,7 @@ git status
 
 ### Step 2.1 — Initialise the Next.js application
 
-You are in the root of the cloned `hiretrace` repository. Run:
+You are in the root of the cloned `hireflow-track` repository. Run:
 
 ```bash
 npx create-next-app@latest . --typescript --tailwind --eslint --app --import-alias "@/*"
@@ -137,7 +137,7 @@ Open `app/page.tsx` and replace the entire contents with:
 export default function Home() {
   return (
     <main className="flex min-h-screen items-center justify-center">
-      <h1 className="text-2xl font-bold">HireTrace</h1>
+      <h1 className="text-2xl font-bold">HireFlow</h1>
     </main>
   )
 }
@@ -155,7 +155,7 @@ Open `app/globals.css` and replace the entire contents with:
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). You should see **HireTrace** centred on the page in bold. Press `Ctrl+C`.
+Open [http://localhost:3000](http://localhost:3000). You should see **HireFlow** centred on the page in bold. Press `Ctrl+C`.
 
 ```bash
 # Confirm build passes
@@ -347,7 +347,7 @@ git push origin develop
 
 1. Go to [neon.tech](https://neon.tech) and log in
 2. Click **New Project**
-3. Set project name: `hiretrace`
+3. Set project name: `hireflow-track`
 4. Region: choose the closest to you
 5. PostgreSQL version: leave as default (16)
 6. Click **Create Project**
@@ -950,7 +950,7 @@ import { prisma } from "@/lib/prisma";
 import { loginSchema } from "@/lib/schemas/auth";
 import { signJWT } from "@/lib/jwt";
 
-const COOKIE_NAME = "hiretrace-token";
+const COOKIE_NAME = "hireflow-track-token";
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days in seconds
 
 export async function POST(request: NextRequest) {
@@ -1033,7 +1033,7 @@ Open `app/api/auth/logout/route.ts` and add:
 ```typescript
 import { NextResponse } from "next/server";
 
-const COOKIE_NAME = "hiretrace-token";
+const COOKIE_NAME = "hireflow-track-token";
 
 export async function POST() {
   const response = NextResponse.json(
@@ -1117,7 +1117,7 @@ function LoginForm() {
     <main className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-sm">
         <h1 className="mb-2 text-2xl font-bold text-gray-900">
-          Log in to HireTrace
+          Log in to HireFlow
         </h1>
 
         {justRegistered && (
@@ -1218,7 +1218,7 @@ npm run dev
 2. Submit empty form → validation errors appear
 3. Submit wrong credentials → _"Invalid email or password"_ appears
 4. Submit valid credentials (the user you registered in §8) → redirected to `/dashboard` (404 for now — correct, dashboard doesn't exist yet)
-5. Open DevTools → Application → Cookies → `localhost` → confirm `hiretrace-token` is present and **HttpOnly** is checked
+5. Open DevTools → Application → Cookies → `localhost` → confirm `hireflow-track-token` is present and **HttpOnly** is checked
 
 ✅ Login works. Cookie is HTTP-only. Invalid credentials return generic message.
 
@@ -1243,7 +1243,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
 const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-const COOKIE_NAME = "hiretrace-token";
+const COOKIE_NAME = "hireflow-track-token";
 
 // Routes that do not require authentication
 const PUBLIC_ROUTES = ["/", "/login", "/register"];
@@ -1526,17 +1526,17 @@ git push origin develop
 
 ### Step 12.1 — Add environment variables to Vercel
 
-1. Go to [vercel.com](https://vercel.com) → your `hiretrace` project
+1. Go to [vercel.com](https://vercel.com) → your `hireflow-track` project
 2. Click **Settings** → **Environment Variables**
 3. Add each variable below — set scope to **Preview** for all:
 
-| Variable          | Value                                                                              | Scope   |
-| ----------------- | ---------------------------------------------------------------------------------- | ------- |
-| `DATABASE_URL`    | Your Neon pooled connection string                                                 | Preview |
-| `DIRECT_URL`      | Your Neon direct connection string                                                 | Preview |
-| `JWT_SECRET`      | Your generated secret (from `.env.local`)                                          | Preview |
-| `NEXTAUTH_URL`    | Your Vercel preview URL (e.g. `https://hiretrace-git-develop-username.vercel.app`) | Preview |
-| `NEXTAUTH_SECRET` | Your generated secret (from `.env.local`)                                          | Preview |
+| Variable          | Value                                                              | Scope   |
+| ----------------- | ------------------------------------------------------------------ | ------- |
+| `DATABASE_URL`    | Your Neon pooled connection string                                 | Preview |
+| `DIRECT_URL`      | Your Neon direct connection string                                 | Preview |
+| `JWT_SECRET`      | Your generated secret (from `.env.local`)                          | Preview |
+| `NEXTAUTH_URL`    | Your Vercel preview URL (e.g. `https://hireflow-track.vercel.app`) | Preview |
+| `NEXTAUTH_SECRET` | Your generated secret (from `.env.local`)                          | Preview |
 
 > To find your Vercel preview URL: Deployments tab → click the latest deployment → copy the URL shown.
 
@@ -1599,8 +1599,8 @@ Walk through the full auth flow:
 5. _"Account created. Please log in."_ message is visible ✅
 6. Log in with wrong password → _"Invalid email or password"_ appears ✅
 7. Log in with correct credentials → redirected to `/dashboard` ✅
-8. Check DevTools cookies → `hiretrace-token` is present and HttpOnly ✅
-9. Run `document.cookie` in browser console → `hiretrace-token` is NOT visible ✅
+8. Check DevTools cookies → `hireflow-track-token` is present and HttpOnly ✅
+9. Run `document.cookie` in browser console → `hireflow-track-token` is NOT visible ✅
 
 ### Deployed app check
 
@@ -1720,5 +1720,5 @@ in middleware. jose is safe to use in API routes which run on Node.js runtime.
 
 ---
 
-_setup.md v1.0 — Sprint 1 — April 18, 2026 — HireTrace_
+_setup.md v1.0 — Sprint 1 — April 18, 2026 — HireFlow_
 _This is a procedural document. Work top to bottom. Every code block is complete. Replace only values marked `<REPLACE_THIS>`. Update the Observations section when new gotchas are discovered during implementation._
