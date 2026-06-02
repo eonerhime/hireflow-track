@@ -220,8 +220,6 @@ function SidebarContent({
   const pathname = usePathname();
   const { data: session } = useSession();
 
-  console.log("Session in SidebarContent:", session);
-
   // Derive display name
   const displayName =
     session?.user?.firstName && session?.user?.lastName
@@ -230,17 +228,14 @@ function SidebarContent({
         ? session.user.firstName
         : (session?.user?.email ?? "");
 
-  console.log("Display name:", displayName);
-  console.log("first name:", session?.user?.firstName);
-
   return (
     <div className="flex h-full flex-col">
       {/* Logo */}
       <div className="flex items-center border-b border-gray-200 dark:border-gray-700 px-6 h-16 ">
         <a href="/dashboard" className="flex items-center gap-2">
           <Image
-            src="/hiretrace-horizontal.png"
-            alt="HireTrace"
+            src="/hireflow-horizontal.png"
+            alt="HireFlow-Track"
             width={140}
             height={40}
             quality={75}
@@ -249,8 +244,8 @@ function SidebarContent({
         </a>
         <a href="/dashboard" className="flex items-center gap-2">
           <Image
-            src="/hiretrace-horizontal-dark.png"
-            alt="HireTrace"
+            src="/hireflow-horizontal-dark.png"
+            alt="HireFlow-Track"
             width={140}
             height={40}
             quality={75}
@@ -323,6 +318,31 @@ function SidebarContent({
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Legal links */}
+      <div className="mt-2 px-4 py-2 flex flex-wrap gap-x-3 gap-y-1">
+        <Link
+          href="/privacy"
+          className="text-xs text-gray-400 hover:text-gray-600
+                       dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
+        >
+          Privacy
+        </Link>
+        <Link
+          href="/terms"
+          className="text-xs text-gray-400 hover:text-gray-600
+                       dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
+        >
+          Terms
+        </Link>
+        <Link
+          href="/cookies"
+          className="text-xs text-gray-400 hover:text-gray-600
+                       dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
+        >
+          Cookies
+        </Link>
       </div>
     </div>
   );

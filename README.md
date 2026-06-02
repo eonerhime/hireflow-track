@@ -1,10 +1,10 @@
-# HireTrace
+# HireFlow
 
 A job application pipeline tracker built in public using Spec-Driven Development.
 
 Track applications, contacts, and follow-up reminders across a 6-stage Kanban pipeline.
 
-**Live:** [hiretrace-7lt5ilepl-e1rhyme.vercel.app](https://hiretrace-7lt5ilepl-e1rhyme.vercel.app)
+**Live:** [hireflow-track.vercel.app](https://hireflow-track.vercel.app)
 **LinkedIn build series:** [Posts 01–24](https://linkedin.com/in/emoonerhime)
 
 ---
@@ -37,8 +37,8 @@ Track applications, contacts, and follow-up reminders across a 6-stage Kanban pi
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/eonerhime/hiretrace.git
-cd hiretrace
+git clone https://github.com/eonerhime/hireflow-track.git
+cd hireflow-track
 
 # 2. Install dependencies
 npm install

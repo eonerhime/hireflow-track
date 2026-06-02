@@ -19,7 +19,7 @@ export async function getUserFromRequest(
   }
 
   // Fall back to legacy jose cookie (transition period)
-  const token = _request.cookies.get("hiretrace-token")?.value;
+  const token = _request.cookies.get("hireflow-track-token")?.value;
   if (!token) return null;
 
   try {

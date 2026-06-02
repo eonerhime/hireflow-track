@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema, type RegisterInput } from "@/lib/schemas/auth";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -62,8 +63,8 @@ export default function RegisterPage() {
 
   return (
     <main
-      className="flex min-h-screen items-center justify-center
-                     bg-gray-50 dark:bg-gray-950 px-4"
+      className="flex min-h-screen flex-col items-center justify-center
+                 bg-gray-50 dark:bg-gray-950 px-4 gap-6"
     >
       <div
         className="w-full max-w-md rounded-lg bg-white p-8 shadow-sm
@@ -233,6 +234,26 @@ export default function RegisterPage() {
           </button>
         </div>
       </div>
+      <footer className="flex gap-5 text-xs text-gray-400 dark:text-gray-500">
+        <Link
+          href="/privacy"
+          className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+        >
+          Privacy Policy
+        </Link>
+        <Link
+          href="/terms"
+          className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+        >
+          Terms of Service
+        </Link>
+        <Link
+          href="/cookies"
+          className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+        >
+          Cookie Policy
+        </Link>
+      </footer>
     </main>
   );
 }

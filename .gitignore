@@ -46,3 +46,4 @@ next-env.d.ts
 docs/linkedin-posts-files/
 /lib/generated/prisma
 /design board/
+.env*

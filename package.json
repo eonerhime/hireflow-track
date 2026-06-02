@@ -1,5 +1,5 @@
 {
-  "name": "hiretrace",
+  "name": "hireflow-track",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -17,6 +17,7 @@
     "@hello-pangea/dnd": "^18.0.1",
     "@hookform/resolvers": "^5.2.2",
     "@prisma/client": "^5.22.0",
+    "@tailwindcss/typography": "^0.5.19",
     "bcryptjs": "^3.0.3",
     "cloudinary": "^2.5.1",
     "date-fns": "^3.6.0",
