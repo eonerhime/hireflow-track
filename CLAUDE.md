@@ -1,4 +1,4 @@
-# CLAUDE.md — HireTrace
+# CLAUDE.md — HireFlow
 
 This file is the persistent project context for Claude Code. Read it at the start of every session. It tells you what this project is, how it is built, and the rules that govern all code you write or modify.
 
@@ -6,13 +6,13 @@ This file is the persistent project context for Claude Code. Read it at the star
 
 ## Project Overview
 
-**HireTrace** is a job application pipeline tracker — a full-stack web application that gives job seekers a structured, opinionated 6-stage pipeline (Applied → Screening → Interview → Assessment → Offer → Closed) instead of a spreadsheet.
+**HireFlow** is a job application pipeline tracker — a full-stack web application that gives job seekers a structured, opinionated 6-stage pipeline (Applied → Screening → Interview → Assessment → Offer → Closed) instead of a spreadsheet.
 
 **Methodology:** Specification-Driven Development (SDD). Every feature starts as a spec before it becomes code. No PBI enters development without an approved spec in `docs/spec.md`.
 
 **Author:** Emo Onerhime (`github.com/eonerhime`)
-**Repository:** `github.com/eonerhime/hiretrace` (public)
-**Notion workspace:** `https://dull-grain-172.notion.site/HireTrace-3463cecb82d08016a90be8bf80a5c6ce`
+**Repository:** `github.com/eonerhime/hireflow` (public)
+**Notion workspace:** `https://dull-grain-172.notion.site/Hireflow-3463cecb82d08016a90be8bf80a5c6ce`
 
 ---
 
@@ -39,7 +39,7 @@ This file is the persistent project context for Claude Code. Read it at the star
 ## Directory Structure
 
 ```
-hiretrace/
+hireFlow/
 ├── app/
 │   ├── api/
 │   │   └── auth/
@@ -166,7 +166,7 @@ Logout:
   Client → POST /api/auth/logout → Clear cookie (Max-Age=0) → 200 → client redirects to /login
 ```
 
-**Cookie name:** `hiretrace-token`
+**Cookie name:** `hireFlow-token`
 **Cookie settings:** `HttpOnly: true`, `Secure: process.env.NODE_ENV === 'production'`, `SameSite: 'lax'`, `Path: '/'`, `Max-Age: 604800` (7 days)
 
 **Public routes (never intercepted by middleware):**
@@ -345,5 +345,5 @@ These are documented lessons from setup — do not repeat these mistakes:
 
 ---
 
-_CLAUDE.md — HireTrace — Generated April 18, 2026_
+_CLAUDE.md — HireFlow — Generated April 18, 2026_
 _Update this file at each sprint close. Keep it accurate — this is what Claude Code reads at the start of every session._
