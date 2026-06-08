@@ -28,7 +28,7 @@ export default async function DashboardLayout({
         <header
           className="flex h-16 shrink-0 items-center justify-end gap-3
                            border-b border-gray-200 dark:border-gray-700
-                           bg-white dark:bg-gray-900 lg:px-8 px-6"
+                           bg-white dark:bg-gray-900 lg:px-12 px-6"
         >
           {/* Spacer on mobile so hamburger (fixed) doesn't overlap content */}
           <div className="flex-1 lg:hidden" />
