@@ -996,7 +996,9 @@ That's a product decision. It's in the spec. It has a reason.
 
 ---
 
-### POST 22 — MVP is Live
+---
+
+### POST 22 — HireTrace is Live
 
 **09 June 2026 · Tuesday · Text + Screenshot**
 **Asset:** Screenshot of live HireFlow app on Vercel — full dashboard view → HireFlow Screenshot Frame
@@ -1005,109 +1007,101 @@ That's a product decision. It's in the spec. It has a reason.
 ```
 HireFlow MVP is live.
 
-3 sprints. 28 Must Have items. All done.
+Here's what shipped across 7 sprints:
 
-You can now:
-→ Register and log in securely
-→ Add and manage job applications
-→ Move them through a 6-stage Kanban pipeline
-→ Track contacts per application
-→ Set follow-up reminders
-→ See your pipeline at a glance on the dashboard
+→ Email + Google OAuth authentication
+→ 6-stage Kanban pipeline with drag-and-drop
+→ Contact tracking per application
+→ Interview notes with timeline view
+→ Conversion, time-in-stage, and source metrics
+→ Resume upload and version linking
+→ Email reminders via cron job
+→ Dark mode, activity log, notification bell
+→ Analytics with date range filtering
+→ Legal pages — Privacy Policy, Terms of Service, Cookie Policy
+→ 120 RTL tests + 9 Playwright E2E tests. All passing.
 
-Built with Next.js 15, TypeScript, Tailwind CSS,
-PostgreSQL on Neon, deployed on Vercel.
+Built with Next.js 15, TypeScript strict mode, Tailwind CSS v4,
+PostgreSQL on Neon, Prisma, NextAuth.js, Cloudinary, Resend.
+Deployed on Vercel. Repo is public.
 
 Spec-driven from the first document to the last commit.
 
 Every feature has a spec. Every spec has acceptance criteria.
 Every AC has a test. Every test is passing.
 
-3 more sprints to the full release. Follow along.
-
-Live app: [link]
-GitHub: [link]
-Notion: [link]
+Live app: https://hiretrace-ten.vercel.app
+GitHub: https://github.com/eonerhime/hiretrace
 
 #HireFlow #BuildInPublic #MVP #NextJS #ScrumMaster #ProductOwner #FullStack
 ```
 
 ---
 
-### POST 23 — Sprint 3 Carousel
+### POST 23 — The Numbers (SDD + Agentic Coding vs Solo Dev)
 
 **11 June 2026 · Thursday · Carousel PDF**
 **Asset:** Build in Canva using HireFlow Carousel Template. Export as PDF.
 **Status:** `[ ]` Not posted
 
-**Slide content:**
-
 ```
-SLIDE 1 — Hook
-Sprint 3 done. MVP shipped.
-Here's the full story.
+HireTrace took 7 weeks to build. Here's what that actually means.
 
 SLIDE 2 — Context
 HireFlow | Sprint 3
 Goal: Contacts + Reminders + Dashboard = MVP complete
 Duration: 1 week | Phase 1 of 3 closed
 
-SLIDE 3 — What shipped
-✓ Contact tracking per application
-✓ Follow-up reminder with overdue flagging
-✓ Dashboard — 5 key metrics
-✓ README.md complete
-✓ Notion workspace fully updated
+→ 56 PBIs defined before a single line of code was written
+→ 7 sprints. All closed.
+→ 13+ Architectural Decision Records logged
+→ 120 RTL unit/integration tests
+→ 9 Playwright E2E tests
+→ 0 features built without acceptance criteria
+→ Full-stack: auth, pipeline, contacts, notes, metrics,
+  file upload, email, dark mode, legal pages, E2E tests
 
-SLIDE 4 — The product decision
-12 metrics considered for the dashboard. 5 made the cut.
-Filter: "Does knowing this change what the user does next?"
-Vanity metrics cut. Action metrics kept.
+Now the comparison most people don't talk about.
 
-SLIDE 5 — Test coverage
-[Fill at sprint close]
+A solo developer building this without SDD or agentic tooling
+would conservatively spend:
 
-SLIDE 6 — The retro
-[Fill at sprint close]
+→ Requirements and design: 2–3 weeks
+→ Development: 10–14 weeks
+→ Testing: 3–4 weeks
+→ Documentation: 1–2 weeks
+→ Total: 16–23 weeks
 
-SLIDE 7 — Phase 1 complete
-28 Must Have items. All done.
-The foundation is solid. The product is real.
-[Screenshot of live app]
+HireTrace was built in 7 weeks.
 
-SLIDE 8 — What's next
-Phase 2 — Sprints 4 and 5.
-Notes. Advanced metrics. Resume management. Email reminders.
-The useful tool becomes a compelling one.
-
-SLIDE 9 — Takeaway
-MVP doesn't mean minimum effort.
-It means minimum scope to deliver maximum learning.
-We learned a lot. Sprint 4 is better for it.
+That's not because corners were cut.
+The test suite, the docs, the ADRs, the specs — all there.
 
 SLIDE 10 — CTA
 HireFlow is live. Try it.
 Link in comments. Follow for Phase 2.
 ```
 
-**Caption:**
+When every feature starts as a spec with testable acceptance
+criteria, you never build the wrong thing. You never debate
+what "done" means. You never refactor because requirements
+drifted.
 
-```
-Sprint 3 closed. MVP is live.
+And when agentic tools can execute against a clear spec —
+generating boilerplate, scaffolding test files, implementing
+patterns — the developer becomes a decision-maker, not a typist.
 
-Swipe to see what shipped, what the retro surfaced,
-and what Phase 2 looks like.
+The combination compresses timelines by 60–70% without
+sacrificing quality. The test suite proves it. The repo is public.
 
-Live app: [link]
-GitHub: [link]
-Notion: [link]
+That's the actual case for building spec-first.
 
 #HireFlow #BuildInPublic #MVP #ScrumMaster #NextJS #Agile
 ```
 
 ---
 
-### POST 24 — Phase 1 Retrospective
+### POST 24 — What I Actually Learned
 
 **13 June 2026 · Saturday · Text only**
 **Asset:** None
@@ -1127,48 +1121,47 @@ The numbers:
 What I actually learned — one lesson per hat.
 
 As Product Owner:
-The scope boundary section is the most valuable thing you
-write. Knowing what you're NOT building prevents more wasted
-time than any sprint ceremony ever will. It's also the
-document that lets you say no — with evidence, not instinct.
+The scope boundary section is the most valuable thing you write.
+Knowing what you're NOT building prevents more wasted time than
+any sprint ceremony ever will. It's also the document that lets
+you say no — with evidence, not instinct.
 
 As Scrum Master:
-Sprint goals are not task lists. This seems obvious until
-you're under pressure and start writing tasks and calling
-them a goal. Writing the goal first — then pulling items —
-is a discipline. It takes repetition to become a reflex.
+Sprint goals are not task lists. This seems obvious until you're
+under pressure and start writing tasks and calling them a goal.
+Writing the goal first — then pulling items — is a discipline.
+It takes repetition to become a reflex.
 
 As Developer:
-Pin every package version before you install it. @latest
-cost me 9 Vercel deployments in Sprint 1. The 30 seconds
-it takes to check a version number is always cheaper than
-the hours it takes to debug a breaking change you didn't
-see coming.
+Pin every package version before you install it. @latest cost me
+9 Vercel deployments in Sprint 1. The 30 seconds it takes to
+check a version number is always cheaper than the hours it takes
+to debug a breaking change you didn't see coming.
 
 As Tester:
 Writing the test before the component is uncomfortable —
-until it isn't. Once you've done it consistently, writing
-the test after feels like guessing. You stop testing what
-you built and start testing what you meant to build.
+until it isn't. Once you've done it consistently, writing the
+test after feels like guessing. You stop testing what you built
+and start testing what you meant to build.
 Different question. Better answer.
 
 As a Builder in Public:
-The posts made me more deliberate. Knowing I'd have to
-explain every decision made me make better decisions.
-That accountability was the most underrated part of the
-whole process.
+The posts made me more deliberate. Knowing I'd have to explain
+every decision made me make better decisions. That accountability
+was the most underrated part of the whole process.
 
 HireFlow is live. The repo is public. The spec docs are
 all there. If anything in these 24 posts was useful —
 the methodology, the decisions, the trade-offs — it's all
 in the GitHub repo to read, fork, or steal from.
 
-Link in comments.
+That's what building in public is for.
+
+GitHub: https://github.com/eonerhime/hiretrace
+Live: https://hiretrace-ten.vercel.app
 
 #HireFlow #BuildInPublic #ScrumMaster #ProductOwner #FullStack #Retrospective #SpecDrivenDevelopment
 ```
-
----
 
 ---
 
