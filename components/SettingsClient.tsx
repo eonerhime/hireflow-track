@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Image from "next/image";
+import ApiKeyCard from "./ApiKeyCard";
 
 // ── Schemas ────────────────────────────────────────────────────
 const profileSchema = z.object({
@@ -320,6 +321,9 @@ export default function SettingsClient({
           </button>
         </form>
       </div>
+
+      {/* ── NEW: Browser Extension card ───────────────────── */}
+      <ApiKeyCard />
 
       {/* ── Change Password card ──────────────────────────── */}
       <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
