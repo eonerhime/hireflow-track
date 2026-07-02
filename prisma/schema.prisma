@@ -20,6 +20,7 @@ model User {
   applications Application[]
   resumes      Resume[]
   activityLogs  ActivityLog[]
+  apiKeys ApiKey[]
 }
 
 model Application {
@@ -118,6 +119,9 @@ enum ActivityAction {
   STAGE_CHANGED
   RESUME_LINKED
   NOTE_ADDED
+  API_KEY_GENERATED
+  API_KEY_REVOKED
+  APPLICATION_CREATED_VIA_EXTENSION  
 }
 
 model ActivityLog {
@@ -133,5 +137,16 @@ model ActivityLog {
   @@index([userId, createdAt])
 }
 
+model ApiKey {
+  id         String    @id @default(cuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  keyHash    String    @unique
+  label      String    @default("Browser Extension")
+  lastUsedAt DateTime?
+  createdAt  DateTime  @default(now())
+  revokedAt  DateTime?
 
+  @@index([userId])
+}
 
