@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Settings from "./Settings";
 import CaptureButton from "./CaptureButton";
 import ReviewForm from "./ReviewForm";
-import { getApiKey } from "../lib/storage";
+import { getApiKey, clearApiKey } from "../lib/storage";
 
 interface Draft {
   company: string;
@@ -41,12 +41,22 @@ export default function App() {
   }
 
   return (
-    <div className="p-4 space-y-3 w-90">
+    <div className="p-4 space-y-3">
       <p className="text-sm text-gray-600">
         Open a job posting, then use the button below or the floating capture
         button on LinkedIn.
       </p>
       <CaptureButton onCaptured={setDraft} />
+      <button
+        type="button"
+        onClick={async () => {
+          await clearApiKey();
+          setConnected(false);
+        }}
+        className="text-xs text-gray-400 hover:text-gray-600 hover:underline"
+      >
+        Change API key
+      </button>
     </div>
   );
 }

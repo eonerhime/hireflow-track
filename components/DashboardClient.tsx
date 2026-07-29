@@ -3,6 +3,7 @@
 
 import ActivityFeed from "@/components/ActivityFeed";
 import ExportButton from "@/components/ExportButton";
+import ExtensionPromoCard from "@/components/ExtensionPromoCard";
 import PipelineBar from "@/components/PipelineBar";
 import TasksPanel from "@/components/TasksPanel";
 import UpcomingPanel from "@/components/UpcomingPanel";
@@ -159,6 +160,9 @@ export default function DashboardClient({
             </Link>
           </div>
         </div>
+
+        {/* ── Extension promo ── */}
+        <ExtensionPromoCard />
 
         {/* ── Pipeline Overview ── */}
         <PipelineBar stages={initialStageCounts} />

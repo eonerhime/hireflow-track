@@ -70,7 +70,7 @@ export default function ReviewForm({ draft }: { draft: Draft }) {
   }
 
   return (
-    <div className="p-4 space-y-3 w-90">
+    <div className="p-4 space-y-3">
       <div>
         <label className="block text-xs font-medium text-gray-700">
           Company

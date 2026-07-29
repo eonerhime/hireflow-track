@@ -55,7 +55,7 @@ npx prisma migrate dev
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3002](http://localhost:3002).
 
 ---
 
@@ -93,6 +93,18 @@ main (production) ← develop (integration) ← feature/sprint-XX-desc
 - All application code on feature branches
 - Control docs committed directly to `develop`
 - `develop` → `main` merged at MVP gate only
+
+---
+
+## Browser Extension
+
+`extension/` is a separate Manifest V3 Chrome extension (Vite + React) that captures job postings from LinkedIn Easy Apply or any generic page and pushes them into HireFlow via API key auth. It's a standalone workspace with its own `package.json` — see [`extension/README.md`](extension/README.md) for setup, local development, and testing.
+
+```bash
+npm run ext:build   # build extension/dist
+npm run ext:dev     # Vite dev server for the extension
+npm run ext:test    # Playwright e2e smoke test
+```
 
 ---
 
