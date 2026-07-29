@@ -2,8 +2,14 @@ import { test, expect, chromium } from "@playwright/test";
 import path from "path";
 
 const EXTENSION_PATH = path.join(__dirname, "../dist");
+const TEST_API_KEY = process.env.EXTENSION_TEST_API_KEY;
 
 test("generic capture flow saves an application", async () => {
+  test.skip(
+    !TEST_API_KEY,
+    "EXTENSION_TEST_API_KEY env var not set — this test calls the real API and needs a valid key",
+  );
+
   const context = await chromium.launchPersistentContext("", {
     headless: false,
     args: [
@@ -25,6 +31,14 @@ test("generic capture flow saves an application", async () => {
 
   const popup = await context.newPage();
   await popup.goto(`chrome-extension://${extensionId}/src/popup/index.html`);
+
+  // Seed the stored API key so the popup renders the capture flow
+  // instead of the "connect your account" screen.
+  await popup.evaluate(
+    (key) => chrome.storage.local.set({ apiKey: key }),
+    TEST_API_KEY,
+  );
+  await popup.reload();
 
   await popup.getByRole("button", { name: "Capture current page" }).click();
   await popup.getByLabel("Company").fill("Test Co");
