@@ -317,6 +317,8 @@ These are documented lessons from setup — do not repeat these mistakes:
 
 19. **`jose` cannot be used in `middleware.ts` on Vercel Edge Runtime.** Use `crypto.subtle` instead. jose is safe in API routes only.
 
+20. **Prisma VS Code extension v7.0.0+ falsely flags `url`/`directUrl` in the datasource block.** The extension started assuming Prisma 7 syntax (`prisma.config.ts`) regardless of the actually-installed CLI version, starting with extension release 7.0.0 (2025-11-19). Since this project is pinned to Prisma v5.22.0, `url`/`directUrl` in `schema.prisma`'s datasource block are correct and required — do not move them to `prisma.config.ts` (which doesn't exist in v5, see gotcha #13). Fix: pin the extension to `Prisma.prisma@6.19.0` (`code --install-extension Prisma.prisma@6.19.0`, the last release before the false positive), then disable auto-update for just that extension (Extensions panel → Prisma → gear icon → Auto Update → off) so it doesn't silently update back to 7.x.
+
 ---
 
 ## Rendering Strategy
