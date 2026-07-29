@@ -2,7 +2,9 @@
 
 # dependencies
 /node_modules
-extension
+extension/node_modules
+extension/dist
+extension/.next
 /.pnp
 .pnp.*
 .yarn/*
