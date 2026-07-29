@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "HireFlow Capture",
+  "version": "1.0.0",
+  "description": "Capture job applications directly into HireFlow.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": ["activeTab", "storage", "scripting"],
+  "host_permissions": ["https://hireflow-track.vercel.app/*"],
+  "action": {
+    "default_popup": "src/popup/index.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.linkedin.com/jobs/*"],
+      "js": ["src/content/linkedin.ts"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "src/background/index.ts",
+    "type": "module"
+  }
+}
