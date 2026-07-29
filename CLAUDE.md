@@ -134,13 +134,20 @@ These rules are permanent. Never break them — they were decisions made before 
 
 ## Environment Variables
 
-| Variable          | Purpose                             | Where Set            |
-| ----------------- | ----------------------------------- | -------------------- |
-| `DATABASE_URL`    | Neon pooled connection (runtime)    | `.env.local`, Vercel |
-| `DIRECT_URL`      | Neon direct connection (migrations) | `.env.local`, Vercel |
-| `JWT_SECRET`      | JWT signing key (min 32 chars)      | `.env.local`, Vercel |
-| `NEXTAUTH_URL`    | Base URL of the application         | `.env.local`, Vercel |
-| `NEXTAUTH_SECRET` | Reserved for Sprint 6 Google OAuth  | `.env.local`, Vercel |
+| Variable                | Purpose                                             | Where Set            |
+| ----------------------- | ---------------------------------------------------- | -------------------- |
+| `DATABASE_URL`          | Neon pooled connection (runtime)                    | `.env.local`, Vercel |
+| `DIRECT_URL`            | Neon direct connection (migrations)                 | `.env.local`, Vercel |
+| `JWT_SECRET`            | Legacy JWT signing key — used only by `lib/auth.ts`'s session fallback path | `.env.local`, Vercel |
+| `NEXTAUTH_URL`          | Base URL of the application                         | `.env.local`, Vercel |
+| `NEXTAUTH_SECRET`       | NextAuth JWT session signing key — live since Sprint 6 (email/password + Google OAuth) | `.env.local`, Vercel |
+| `GOOGLE_CLIENT_ID`      | Google OAuth 2.0 client ID (Sprint 6)                | `.env.local`, Vercel |
+| `GOOGLE_CLIENT_SECRET`  | Google OAuth 2.0 client secret (Sprint 6)            | `.env.local`, Vercel |
+| `CLOUDINARY_CLOUD_NAME` | Resume file storage (Sprint 5)                       | `.env.local`, Vercel |
+| `CLOUDINARY_API_KEY`    | Resume file storage (Sprint 5)                       | `.env.local`, Vercel |
+| `CLOUDINARY_API_SECRET` | Resume file storage (Sprint 5)                       | `.env.local`, Vercel |
+| `RESEND_API_KEY`        | Reminder email delivery (Sprint 5)                   | `.env.local`, Vercel |
+| `CRON_SECRET`           | Authenticates the `/api/reminders/send` cron trigger | `.env.local`, Vercel |
 
 **Generate secrets:**
 
@@ -191,28 +198,21 @@ Additional models (Application, Contact, etc.) are added in Sprints 2–3. When 
 
 ---
 
-## Current Sprint
+## Project Status
 
-**Sprint 1 of 6** — Foundation & Auth
-**Dates:** 06 May – 19 May 2026
-**Sprint Goal:** The project infrastructure is live and a user can register and log in securely.
+**Closed — all 8 sprints complete, as of 29 July 2026.** See `docs/product.md` §9 for the full closure summary and `docs/sprints/sprint-08.md` for the final sprint (browser extension). This section is kept for history; there is no active sprint.
 
-| PBI     | Item                                                | Size | Status |
-| ------- | --------------------------------------------------- | ---- | ------ |
-| PBI-007 | GitHub repository + branch strategy                 | S    | [ ]    |
-| PBI-001 | Next.js project scaffold with TypeScript + Tailwind | S    | [ ]    |
-| PBI-002 | PostgreSQL database setup on Neon                   | S    | [ ]    |
-| PBI-039 | HTTPS + security headers (Next.js config)           | S    | [ ]    |
-| PBI-046 | Notion workspace setup and public share             | S    | [ ]    |
-| PBI-003 | Prisma ORM setup + initial schema                   | M    | [ ]    |
-| PBI-037 | Input validation (Zod — server and client)          | M    | [ ]    |
-| PBI-004 | User registration (email/password + bcrypt)         | M    | [ ]    |
-| PBI-005 | User login + JWT session management                 | M    | [ ]    |
-| PBI-006 | Protected route middleware                          | S    | [ ]    |
-| PBI-008 | Vercel deployment (dev environment)                 | S    | [ ]    |
-
-**Week 3 focus (06–12 May):** PBI-001, PBI-002, PBI-003, PBI-039, PBI-037
-**Week 4 focus (13–19 May):** PBI-004, PBI-005, PBI-006, PBI-008
+| Sprint    | Focus                                                                            | Status  |
+| --------- | --------------------------------------------------------------------------------- | ------- |
+| Sprint 1  | Foundation + Auth                                                                | ✅ Done |
+| Sprint 2  | Core Pipeline (CRUD + Kanban)                                                    | ✅ Done |
+| Sprint 3  | Contacts + Reminders + Dashboard (MVP)                                           | ✅ Done |
+| Sprint 4  | Notes + Metrics + API Hardening                                                 | ✅ Done |
+| Sprint 5  | Resume Management + Email Reminders                                             | ✅ Done |
+| Sprint 6  | Analytics + Export + OAuth + E2E (Release)                                      | ✅ Done |
+| Sprint 6B | Dark mode, activity log, notification bell, date range filter, dashboard redesign | ✅ Done |
+| Sprint 7  | Legal pages, OAuth production approval, licence, contributor docs               | ✅ Done |
+| Sprint 8  | Browser extension (API key auth + Chrome extension for LinkedIn/generic capture) | ✅ Done |
 
 ---
 
@@ -332,20 +332,26 @@ These are documented lessons from setup — do not repeat these mistakes:
 
 ---
 
-## Upcoming Sprints (for context)
+## Sprint History (for context)
 
-| Sprint   | Goal                                       | Start Date  |
-| -------- | ------------------------------------------ | ----------- |
-| Sprint 2 | Core Pipeline (CRUD + Kanban)              | 20 May 2026 |
-| Sprint 3 | Contacts + Reminders + Dashboard (MVP)     | 03 Jun 2026 |
-| Sprint 4 | Notes + Metrics + API Hardening            | 17 Jun 2026 |
-| Sprint 5 | Resume Management + Email Reminders        | 01 Jul 2026 |
-| Sprint 6 | Analytics + Export + OAuth + E2E (Release) | 15 Jul 2026 |
+All dates below are actuals, not targets — see the **Project Status** section near the top of this file for the authoritative done/not-done state per sprint.
 
-**MVP target:** 16 June 2026 (Sprint 3 close)
-**Full release target:** 28 July 2026 (Sprint 6 close)
+| Sprint    | Goal                                                                              | Start Date  |
+| --------- | ----------------------------------------------------------------------------------- | ----------- |
+| Sprint 1  | Foundation + Auth                                                                 | 06 May 2026 |
+| Sprint 2  | Core Pipeline (CRUD + Kanban)                                                     | 20 May 2026 |
+| Sprint 3  | Contacts + Reminders + Dashboard (MVP)                                            | 03 Jun 2026 |
+| Sprint 4  | Notes + Metrics + API Hardening                                                   | 17 Jun 2026 |
+| Sprint 5  | Resume Management + Email Reminders                                               | 01 Jul 2026 |
+| Sprint 6  | Analytics + Export + OAuth + E2E (Release)                                        | 15 Jul 2026 |
+| Sprint 6B | Dark mode, activity log, notification bell, date range filter, dashboard redesign | 01 Jun 2026 |
+| Sprint 7  | Legal pages, OAuth production approval, licence, contributor docs                | 02 Jun 2026 |
+| Sprint 8  | Browser extension (API key auth + Chrome extension)                              | 02 Jul 2026 |
+
+**MVP delivered:** Sprint 3 close
+**Full release delivered:** Sprint 6 close
+**Project closed:** Sprint 8 close, 29 July 2026
 
 ---
 
-_CLAUDE.md — HireFlow — Generated April 18, 2026_
-_Update this file at each sprint close. Keep it accurate — this is what Claude Code reads at the start of every session._
+_CLAUDE.md — HireFlow — Project closed 29 July 2026. See `docs/product.md` §9 for the full closure summary._
