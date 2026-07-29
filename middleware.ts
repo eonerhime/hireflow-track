@@ -5,10 +5,14 @@ import { getToken } from "next-auth/jwt";
 const PUBLIC_ROUTES = ["/", "/login", "/register"];
 const PUBLIC_API_ROUTES = [
   "/api/auth",
-  "/api/auth/login",
   "/api/auth/register",
   "/api/reminders/send",
 ];
+// Routes that authenticate via EITHER a NextAuth session or an API key
+// (see lib/auth-helpers.ts's getAuthenticatedUser) — middleware must not
+// enforce a session-only gate ahead of these, or key-only clients like the
+// browser extension can never actually reach them.
+const API_KEY_ELIGIBLE_ROUTES = ["/api/extension"];
 
 // Rate limiting configurations
 const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
@@ -47,6 +51,9 @@ export async function middleware(request: NextRequest) {
   const isPublicApiRoute = PUBLIC_API_ROUTES.some((route) =>
     pathname.startsWith(route),
   );
+  const isApiKeyEligibleRoute = API_KEY_ELIGIBLE_ROUTES.some((route) =>
+    pathname.startsWith(route),
+  );
 
   // 1. CRITICAL: Immediately grant exit execution for public cron paths
   if (isPublicRoute || isPublicApiRoute) {
@@ -67,6 +74,12 @@ export async function middleware(request: NextRequest) {
         },
       );
     }
+  }
+
+  // These routes check for a session OR an API key themselves — don't
+  // reject key-only requests here before they get that chance.
+  if (isApiKeyEligibleRoute) {
+    return NextResponse.next();
   }
 
   const token = await getToken({

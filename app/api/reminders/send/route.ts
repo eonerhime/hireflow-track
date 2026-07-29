@@ -80,14 +80,7 @@ async function handleReminderProcessing(request: NextRequest) {
     type UserMap = Record<string, AppRow[]>;
 
     const byUser = applications.reduce<UserMap>((acc, app) => {
-      // const email = app.user.email;
-      const email = "emo.onerhime@gmail.com";
-      console.log(
-        "Processing app for",
-        email,
-        "with follow-up at",
-        app.followUpAt,
-      );
+      const email = app.user.email;
 
       if (!acc[email]) acc[email] = [];
       acc[email].push(app);
