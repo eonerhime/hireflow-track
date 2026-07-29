@@ -20,6 +20,9 @@ const ACTION_ICONS: Record<ActivityAction, string> = {
   STAGE_CHANGED: "→",
   RESUME_LINKED: "📎",
   NOTE_ADDED: "✎",
+  API_KEY_GENERATED: "🔑",
+  API_KEY_REVOKED: "🔒",
+  APPLICATION_CREATED_VIA_EXTENSION: "🧩",
 };
 
 function describeAction(
@@ -41,6 +44,12 @@ function describeAction(
       return `You linked a resume to ${who}`;
     case "NOTE_ADDED":
       return `You added a note to ${who}`;
+    case "API_KEY_GENERATED":
+      return "You generated an API key";
+    case "API_KEY_REVOKED":
+      return "You revoked an API key";
+    case "APPLICATION_CREATED_VIA_EXTENSION":
+      return `You saved ${who} via the browser extension`;
     default:
       return "Activity recorded";
   }
