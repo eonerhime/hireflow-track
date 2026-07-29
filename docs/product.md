@@ -1,9 +1,9 @@
 # HireFlow — Product Document
 
 **Document Type:** Product Owner Artifact
-**Version:** 1.0
-**Date:** April 16, 2026
-**Status:** Active
+**Version:** 2.0
+**Date:** July 29, 2026
+**Status:** Closed — see §9
 **Author:** Product Owner
 **Repository:** https://github.com/eonerhime/hireflow-track
 
@@ -33,6 +33,7 @@
 6. [Backlog Derivation Strategies](#6-backlog-derivation-strategies)
 7. [Product Backlog](#7-product-backlog)
 8. [Release Plan](#8-release-plan)
+9. [Project Status: Closed](#9-project-status-closed)
 
 ---
 
@@ -353,8 +354,8 @@ Items are ordered by priority within each epic. Status reflects current state at
 
 | ID      | Item                              | Size | Priority | Status |
 | ------- | --------------------------------- | ---- | -------- | ------ |
-| PBI-035 | CSV export of application history | M    | 🟡       | [ ]    |
-| PBI-036 | Google OAuth login                | M    | 🟡       | [ ]    |
+| PBI-035 | CSV export of application history | M    | 🟡       | [x]    |
+| PBI-036 | Google OAuth login                | M    | 🟡       | [x]    |
 
 ---
 
@@ -365,9 +366,9 @@ Items are ordered by priority within each epic. Status reflects current state at
 | PBI-037 | Input validation (Zod — server and client)   | M    | 🔴       | [x]    |
 | PBI-038 | API rate limiting                            | M    | 🟠       | [x]    |
 | PBI-039 | HTTPS + security headers (Next.js config)    | S    | 🔴       | [x]    |
-| PBI-040 | React Testing Library — core component suite | L    | 🔴       | [ ]    |
+| PBI-040 | React Testing Library — core component suite | L    | 🔴       | [x]    |
 | PBI-041 | Integration tests — API routes               | L    | 🟠       | [x]    |
-| PBI-042 | E2E tests — critical user journeys           | L    | 🟡       | [ ]    |
+| PBI-042 | E2E tests — critical user journeys           | L    | 🟡       | [x]    |
 
 ---
 
@@ -377,8 +378,50 @@ Items are ordered by priority within each epic. Status reflects current state at
 | ------- | ------------------------------------------------- | ---- | -------- | ------ |
 | PBI-043 | README.md (project overview, setup, architecture) | M    | 🔴       | [x]    |
 | PBI-044 | API documentation (OpenAPI / inline comments)     | M    | 🟠       | [x]    |
-| PBI-045 | LinkedIn post per sprint (see linkedin.md)        | S    | 🔴       | [ ]    |
+| PBI-045 | LinkedIn post per sprint (see linkedin.md)        | S    | 🔴       | [x]    |
 | PBI-046 | Notion workspace setup and public share           | S    | 🔴       | [x]    |
+
+---
+
+### Epic 11 — UX Enhancements (Sprint 6B)
+
+_Added post-v1.2 — not part of the original MVP/Full Release scope in §5, scoped and delivered as a standalone sprint after Sprint 6._
+
+| ID      | Item                                              | Size | Priority | Status |
+| ------- | -------------------------------------------------- | ---- | -------- | ------ |
+| PBI-047 | Dark mode toggle (system + user preference)       | M    | 🟡       | [x]    |
+| PBI-048 | Activity log — schema + write points + API        | M    | 🟡       | [x]    |
+| PBI-049 | Notification bell wired to existing reminders     | S    | 🟡       | [x]    |
+| PBI-050 | Dashboard date range filter                       | M    | 🟡       | [x]    |
+| PBI-051 | Dashboard layout restructure (mock-up alignment)  | L    | 🟡       | [x]    |
+
+---
+
+### Epic 12 — Legal, Compliance & Contributor Docs (Sprint 7)
+
+| ID      | Item                                              | Size | Priority | Status |
+| ------- | -------------------------------------------------- | ---- | -------- | ------ |
+| PBI-053 | Legal pages (privacy, terms, cookies)             | M    | 🔴       | [x]    |
+| PBI-054 | Auth page footer with legal links                 | S    | 🟠       | [x]    |
+| PBI-055 | Google OAuth production consent screen approval   | S    | 🔴       | [x]    |
+| PBI-056 | MIT licence file                                  | S    | 🟡       | [x]    |
+| PBI-057 | CONTRIBUTING.md + docs/ARCHITECTURE.md            | M    | 🟠       | [x]    |
+
+---
+
+### Epic 13 — Browser Extension (Sprint 8)
+
+_See `docs/sprints/sprint-08.md` for full spec. Extension lives in the separate `extension/` workspace (Manifest V3, Vite + React) — see `extension/README.md` for its own setup/build/test docs._
+
+| ID      | Item                                                | Size | Priority | Status |
+| ------- | ----------------------------------------------------- | ---- | -------- | ------ |
+| PBI-058 | API key authentication for external clients         | M    | 🔴       | [x]    |
+| PBI-059 | Extension-scoped application creation endpoint      | M    | 🔴       | [x]    |
+| PBI-060 | Extension scaffold (Manifest V3)                    | M    | 🔴       | [x]    |
+| PBI-061 | LinkedIn Easy Apply content script                  | L    | 🟠       | [x]    |
+| PBI-062 | Generic fallback capture                            | M    | 🟠       | [x]    |
+| PBI-063 | Review and submit popup                             | M    | 🔴       | [x]    |
+| PBI-064 | Extension E2E smoke test                            | M    | 🟡       | [x]    |
 
 ---
 
@@ -420,23 +463,49 @@ Items are ordered by priority within each epic. Status reflects current state at
 
 ---
 
-### Backlog Summary
+### Phase 4 — Post-Release Extensions (Sprints 6B–8)
 
-| Epic                     | Total PBIs | Must Have 🔴 | Should Have 🟠 | Could Have 🟡 | Post-MVP 🔵 |
-| ------------------------ | ---------- | ------------ | -------------- | ------------- | ----------- |
-| 1 — Foundation & Auth    | 8          | 8            | —              | —             | —           |
-| 2 — Application Pipeline | 8          | 8            | —              | —             | —           |
-| 3 — Contact Tracking     | 3          | 3            | —              | —             | —           |
-| 4 — Reminders            | 4          | 2            | 1              | 1             | —           |
-| 5 — Dashboard & Metrics  | 5          | 1            | 1              | 2             | 1           |
-| 6 — Notes                | 3          | —            | 2              | 1             | —           |
-| 7 — Resume Management    | 3          | —            | —              | 3             | —           |
-| 8 — Data & Export        | 2          | —            | —              | 2             | —           |
-| 9 — Quality & Security   | 6          | 3            | 2              | 1             | —           |
-| 10 — Documentation       | 4          | 3            | 1              | —             | —           |
-| **TOTAL**                | **46**     | **28**       | **7**          | **10**        | **1**       |
+**Goal:** Features identified after the original Full Release plan was scoped — not part of the initial MVP/Full Release boundary in §5, but delivered as standalone sprints once Sprint 6 closed.
+
+| Sprint    | Focus                                          | Key PBIs           |
+| --------- | ----------------------------------------------- | ------------------ |
+| Sprint 6B | Dark mode, activity log, notification bell, date range filter, dashboard redesign | PBI-047 to PBI-051 |
+| Sprint 7  | Legal pages, OAuth production approval, licence, contributor docs | PBI-053 to PBI-057 |
+| Sprint 8  | Browser extension (API key auth + Chrome extension for LinkedIn/generic capture) | PBI-058 to PBI-064 |
 
 ---
 
-_product.md v1.2 — 03 May 2026 — HireFlow_
-_This document is the upstream source for all downstream SDD artefacts. Changes here must be reflected in plan.md and communicated to sprint-XX.md at the next sprint planning session._
+### Backlog Summary
+
+| Epic                                | Total PBIs | Must Have 🔴 | Should Have 🟠 | Could Have 🟡 | Post-MVP 🔵 |
+| ------------------------------------ | ---------- | ------------ | -------------- | ------------- | ----------- |
+| 1 — Foundation & Auth                | 8          | 8            | —              | —             | —           |
+| 2 — Application Pipeline             | 8          | 8            | —              | —             | —           |
+| 3 — Contact Tracking                 | 3          | 3            | —              | —             | —           |
+| 4 — Reminders                        | 4          | 2            | 1              | 1             | —           |
+| 5 — Dashboard & Metrics              | 5          | 1            | 1              | 2             | 1           |
+| 6 — Notes                            | 3          | —            | 2              | 1             | —           |
+| 7 — Resume Management                | 3          | —            | —              | 3             | —           |
+| 8 — Data & Export                    | 2          | —            | —              | 2             | —           |
+| 9 — Quality & Security               | 6          | 3            | 2              | 1             | —           |
+| 10 — Documentation                   | 4          | 3            | 1              | —             | —           |
+| 11 — UX Enhancements (Sprint 6B)     | 5          | —            | —              | 5             | —           |
+| 12 — Legal & Contributor Docs (Sprint 7) | 5      | 2            | 1              | 2             | —           |
+| 13 — Browser Extension (Sprint 8)    | 7          | 4            | 2              | 1             | —           |
+| **TOTAL**                             | **63**     | **34**       | **10**         | **18**        | **1**       |
+
+---
+
+## 9. Project Status: Closed
+
+As of 29 July 2026, all 63 backlog items above are shipped and verified — code-checked against the live repository, not just documentation claims. The project is considered **feature-complete and closed** as a portfolio piece across Sprints 1 through 8.
+
+Known items outside this backlog's original scope, discovered and resolved during closure:
+
+- A hardcoded reminder-email recipient (debug leftover from development) was found and fixed in `app/api/reminders/send/route.ts` — reminders now correctly email the actual application owner.
+- The original Sprint 1 JWT-based login route (`/api/auth/login`), superseded by NextAuth's `signIn()` during the Sprint 6 OAuth migration, was confirmed dead and removed along with its `middleware.ts` allowlist entry.
+
+---
+
+_product.md v2.0 — 29 July 2026 — HireFlow_
+_This document is the upstream source for all downstream SDD artefacts. Project closed as of this version — see §9._
