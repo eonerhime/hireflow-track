@@ -1,6 +1,7 @@
 // components/ReminderList.tsx
 import Link from "next/link";
 import { ApplicationStage } from "@prisma/client";
+import { formatDate } from "@/lib/formatDate";
 
 interface Reminder {
   id: string;
@@ -37,14 +38,6 @@ const STAGE_COLOURS: Record<ApplicationStage, string> = {
   CLOSED:
     "bg-red-100    text-red-700    dark:bg-red-900/40   dark:text-red-300",
 };
-
-function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-}
 
 function isOverdue(iso: string): boolean {
   return new Date(iso) < new Date(new Date().toDateString());

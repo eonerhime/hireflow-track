@@ -3,6 +3,7 @@ import { authOptions } from "@/lib/auth-options";
 import { prisma } from "@/lib/prisma";
 import { createNoteSchema } from "@/lib/schemas/note";
 import { logActivity } from "@/lib/activity";
+import { getOwnedApplication } from "@/lib/ownership";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
@@ -30,9 +31,7 @@ export async function POST(
         { status: 400 },
       );
 
-    const application = await prisma.application.findFirst({
-      where: { id, userId, deletedAt: null },
-    });
+    const application = await getOwnedApplication(userId, id);
     if (!application)
       return NextResponse.json({ error: "Not found" }, { status: 404 });
 
