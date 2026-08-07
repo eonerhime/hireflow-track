@@ -5,14 +5,14 @@
 jest.mock("@/lib/prisma", () => ({
   prisma: {
     user: { findUnique: jest.fn() },
-    pendingRegistration: { upsert: jest.fn() },
+    pendingRegistration: { upsert: jest.fn(), delete: jest.fn() },
   },
 }));
+
+const mockSend = jest.fn();
 jest.mock("resend", () => ({
   Resend: jest.fn().mockImplementation(() => ({
-    emails: {
-      send: jest.fn().mockResolvedValue({ id: "email-1" }),
-    },
+    emails: { send: (...args: unknown[]) => mockSend(...args) },
   })),
 }));
 
@@ -22,6 +22,7 @@ import { prisma } from "@/lib/prisma";
 
 const mockFindUnique = prisma.user.findUnique as jest.Mock;
 const mockUpsert = prisma.pendingRegistration.upsert as jest.Mock;
+const mockPendingDelete = prisma.pendingRegistration.delete as jest.Mock;
 
 function makeRequest(body: unknown) {
   return new NextRequest("http://localhost/api/auth/register", {
@@ -38,6 +39,7 @@ const validBody = {
 
 beforeEach(() => {
   jest.clearAllMocks();
+  mockSend.mockResolvedValue({ data: { id: "email-1" }, error: null });
 });
 
 describe("POST /api/auth/register", () => {
@@ -70,5 +72,23 @@ describe("POST /api/auth/register", () => {
     expect(call.where).toEqual({ email: validBody.email });
     expect(call.create.otpHash).toBeDefined();
     expect(call.create.password).not.toBe(validBody.password); // hashed
+  });
+
+  it("returns 502 and cleans up the pending record when Resend rejects the send", async () => {
+    mockFindUnique.mockResolvedValue(null);
+    mockUpsert.mockResolvedValue({ id: "pending-1" });
+    mockSend.mockResolvedValue({
+      data: null,
+      error: { statusCode: 403, name: "validation_error", message: "..." },
+    });
+
+    const res = await POST(makeRequest(validBody));
+    const json = await res.json();
+
+    expect(res.status).toBe(502);
+    expect(json.error).toMatch(/failed to send/i);
+    expect(mockPendingDelete).toHaveBeenCalledWith({
+      where: { email: validBody.email },
+    });
   });
 });

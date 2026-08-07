@@ -73,12 +73,25 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    await resend.emails.send({
+    const { error: sendError } = await resend.emails.send({
       from: "HireFlow <onboarding@resend.dev>",
       to: email,
       subject: "Your HireFlow verification code",
       text: `Your verification code is ${otp}. It expires in 10 minutes.\n\nIf you didn't request this, you can safely ignore this email.`,
     });
+
+    // The Resend SDK returns { data: null, error } for API-level rejections
+    // (e.g. sandbox domain restrictions) rather than throwing — without this
+    // check the pending registration is created but the user is told the
+    // code was sent when it never left our server.
+    if (sendError) {
+      console.error("[POST /api/auth/register] Resend error:", sendError);
+      await prisma.pendingRegistration.delete({ where: { email } });
+      return NextResponse.json(
+        { error: "Failed to send verification email. Please try again." },
+        { status: 502 },
+      );
+    }
 
     return NextResponse.json(
       { message: "Verification code sent" },

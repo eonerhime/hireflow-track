@@ -7,11 +7,10 @@ jest.mock("@/lib/prisma", () => ({
     application: { findMany: jest.fn() },
   },
 }));
+const mockSend = jest.fn();
 jest.mock("resend", () => ({
   Resend: jest.fn().mockImplementation(() => ({
-    emails: {
-      send: jest.fn().mockResolvedValue({ id: "email-1" }),
-    },
+    emails: { send: (...args: unknown[]) => mockSend(...args) },
   })),
 }));
 
@@ -32,6 +31,7 @@ function makeRequest(withSecret = true) {
 beforeEach(() => {
   jest.clearAllMocks();
   process.env.CRON_SECRET = CRON_SECRET;
+  mockSend.mockResolvedValue({ data: { id: "email-1" }, error: null });
 });
 
 describe("POST /api/reminders/send", () => {
@@ -54,6 +54,39 @@ describe("POST /api/reminders/send", () => {
     const res = await POST(makeRequest());
     expect(res.status).toBe(200);
     const data = await res.json();
+    expect(data.sent).toBe(1);
+  });
+
+  it("excludes a user from the sent count when Resend rejects their email", async () => {
+    mockFindMany.mockResolvedValue([
+      {
+        id: "app-1",
+        company: "Acme",
+        role: "Engineer",
+        stage: "SCREENING",
+        followUpAt: new Date(),
+        user: { email: "rejected@example.com" },
+      },
+      {
+        id: "app-2",
+        company: "Globex",
+        role: "Designer",
+        stage: "APPLIED",
+        followUpAt: new Date(),
+        user: { email: "accepted@example.com" },
+      },
+    ]);
+    mockSend.mockImplementation(async ({ to }) => {
+      if (to === "rejected@example.com") {
+        return { data: null, error: { statusCode: 403, message: "..." } };
+      }
+      return { data: { id: "email-2" }, error: null };
+    });
+
+    const res = await POST(makeRequest());
+    const data = await res.json();
+
+    expect(res.status).toBe(200);
     expect(data.sent).toBe(1);
   });
 });
