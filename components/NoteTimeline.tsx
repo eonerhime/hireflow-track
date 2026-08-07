@@ -3,6 +3,7 @@
 
 import { ApplicationStage } from "@prisma/client";
 import InterviewNoteActions from "@/components/InterviewNoteActions";
+import { formatDate } from "@/lib/formatDate";
 
 interface Note {
   id: string;
@@ -49,11 +50,7 @@ export default function NoteTimeline({
             >
               {stageLabels[note.stage]}
             </span>
-            {new Date(note.createdAt).toLocaleDateString("en-GB", {
-              day: "numeric",
-              month: "short",
-              year: "numeric",
-            })}
+            {formatDate(note.createdAt)}
           </p>
 
           {/* Note content */}

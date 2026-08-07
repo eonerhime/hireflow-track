@@ -2,6 +2,7 @@
 import { authOptions } from "@/lib/auth-options";
 import { prisma } from "@/lib/prisma";
 import { updateContactSchema } from "@/lib/schemas/contact";
+import { getOwnedContact } from "@/lib/ownership";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -37,14 +38,15 @@ export async function PATCH(request: NextRequest, { params }: Params) {
   const result = updateContactSchema.safeParse(body);
   if (!result.success)
     return NextResponse.json(
-      { error: result.error.flatten() },
+      {
+        error: "Validation failed",
+        details: result.error.flatten().fieldErrors,
+      },
       { status: 400 },
     );
 
   // Verify contact belongs to the user via application
-  const contact = await prisma.contact.findFirst({
-    where: { id, application: { userId: userId } },
-  });
+  const contact = await getOwnedContact(userId, id);
   if (!contact)
     return NextResponse.json({ error: "Contact not found" }, { status: 404 });
 
@@ -75,9 +77,7 @@ export async function DELETE(request: NextRequest, { params }: Params) {
 
   const { id } = await params;
 
-  const contact = await prisma.contact.findFirst({
-    where: { id, application: { userId: userId } },
-  });
+  const contact = await getOwnedContact(userId, id);
   if (!contact)
     return NextResponse.json({ error: "Contact not found" }, { status: 404 });
 

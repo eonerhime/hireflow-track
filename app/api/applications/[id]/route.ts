@@ -8,13 +8,7 @@ import {
 import { getUserFromRequest } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 import { logActivity } from "@/lib/activity";
-
-// Shared ownership check
-async function getOwnedApplication(userId: string, id: string) {
-  return prisma.application.findFirst({
-    where: { id, userId, deletedAt: null },
-  });
-}
+import { getOwnedApplication } from "@/lib/ownership";
 
 /**
  * GET /api/applications/[id]
