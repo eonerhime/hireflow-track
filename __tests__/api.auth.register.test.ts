@@ -48,13 +48,16 @@ describe("POST /api/auth/register", () => {
     expect(res.status).toBe(400);
   });
 
-  it("returns 409 when the email is already a real account", async () => {
+  it("returns the same success response for an already-registered email, without sending anything (no enumeration)", async () => {
     mockFindUnique.mockResolvedValue({ id: "user-1" });
 
     const res = await POST(makeRequest(validBody));
+    const json = await res.json();
 
-    expect(res.status).toBe(409);
+    expect(res.status).toBe(200);
+    expect(json.message).toBe("Verification code sent");
     expect(mockUpsert).not.toHaveBeenCalled();
+    expect(mockSend).not.toHaveBeenCalled();
   });
 
   it("stores a pending registration and sends an OTP instead of creating a User", async () => {

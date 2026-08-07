@@ -19,8 +19,9 @@ jest.mock("@/lib/prisma", () => ({
   prisma: {
     interviewNote: {
       findFirst: jest.fn(),
-      update: jest.fn(),
-      delete: jest.fn(),
+      findUniqueOrThrow: jest.fn(),
+      updateMany: jest.fn(),
+      deleteMany: jest.fn(),
     },
   },
 }));
@@ -32,8 +33,9 @@ import { prisma } from "@/lib/prisma";
 
 const mockGetSession = getServerSession as jest.Mock;
 const mockFindFirst = prisma.interviewNote.findFirst as jest.Mock;
-const mockUpdate = prisma.interviewNote.update as jest.Mock;
-const mockDelete = prisma.interviewNote.delete as jest.Mock;
+const mockFindUniqueOrThrow = prisma.interviewNote.findUniqueOrThrow as jest.Mock;
+const mockUpdateMany = prisma.interviewNote.updateMany as jest.Mock;
+const mockDeleteMany = prisma.interviewNote.deleteMany as jest.Mock;
 
 const existingNote = {
   id: "note-1",
@@ -78,13 +80,27 @@ describe("PATCH /api/notes/[id]", () => {
   it("returns 200 and updates the note", async () => {
     mockGetSession.mockResolvedValue({ user: { id: "user-1" } });
     mockFindFirst.mockResolvedValue(existingNote);
-    mockUpdate.mockResolvedValue({ ...existingNote, content: "Updated" });
+    mockUpdateMany.mockResolvedValue({ count: 1 });
+    mockFindUniqueOrThrow.mockResolvedValue({
+      ...existingNote,
+      content: "Updated",
+    });
     const res = await PATCH(makeRequest("PATCH", { content: "Updated" }), {
       params: validParams,
     });
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data.content).toBe("Updated");
+  });
+
+  it("returns 404 if updateMany matches nothing despite the initial ownership check", async () => {
+    mockGetSession.mockResolvedValue({ user: { id: "user-1" } });
+    mockFindFirst.mockResolvedValue(existingNote);
+    mockUpdateMany.mockResolvedValue({ count: 0 });
+    const res = await PATCH(makeRequest("PATCH", { content: "Updated" }), {
+      params: validParams,
+    });
+    expect(res.status).toBe(404);
   });
 });
 
@@ -105,10 +121,18 @@ describe("DELETE /api/notes/[id]", () => {
   it("returns 200 and deletes the note", async () => {
     mockGetSession.mockResolvedValue({ user: { id: "user-1" } });
     mockFindFirst.mockResolvedValue(existingNote);
-    mockDelete.mockResolvedValue(existingNote);
+    mockDeleteMany.mockResolvedValue({ count: 1 });
     const res = await DELETE(makeRequest("DELETE"), { params: validParams });
     expect(res.status).toBe(200);
     const data = await res.json();
     expect(data.message).toBe("Note deleted");
+  });
+
+  it("returns 404 if deleteMany matches nothing despite the initial ownership check", async () => {
+    mockGetSession.mockResolvedValue({ user: { id: "user-1" } });
+    mockFindFirst.mockResolvedValue(existingNote);
+    mockDeleteMany.mockResolvedValue({ count: 0 });
+    const res = await DELETE(makeRequest("DELETE"), { params: validParams });
+    expect(res.status).toBe(404);
   });
 });

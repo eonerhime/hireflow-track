@@ -6,9 +6,3 @@ export const createResumeSchema = z.object({
 });
 
 export type CreateResumeInput = z.infer<typeof createResumeSchema>;
-
-export const linkResumeSchema = z.object({
-  resumeId: z.string().nullable().optional(),
-});
-
-export type LinkResumeInput = z.infer<typeof linkResumeSchema>;

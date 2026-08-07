@@ -21,9 +21,11 @@ const resend = new Resend(process.env.RESEND_API_KEY!);
  *   { email: string, password: string }
  *
  * Responses:
- *   200 — { message: "Verification code sent" }
+ *   200 — { message: "Verification code sent" } — returned identically whether
+ *         or not the email is already registered, to avoid leaking account
+ *         existence (email enumeration). An already-registered email simply
+ *         receives no OTP and no pending registration is created.
  *   400 — Validation failed { error, details }
- *   409 — Email already registered { error }
  *   500 — Internal server error { error }
  */
 export async function POST(request: NextRequest) {
@@ -48,9 +50,11 @@ export async function POST(request: NextRequest) {
     });
 
     if (existingUser) {
+      // Same response as a genuine new registration — don't reveal
+      // whether this email already has an account.
       return NextResponse.json(
-        { error: "An account with this email already exists" },
-        { status: 409 },
+        { message: "Verification code sent" },
+        { status: 200 },
       );
     }
 

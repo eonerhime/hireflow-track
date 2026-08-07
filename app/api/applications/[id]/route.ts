@@ -106,7 +106,7 @@ export async function PATCH(
         );
       }
       const updated = await prisma.application.update({
-        where: { id },
+        where: { id, userId: user.userId },
         data: {
           stage: result.data.stage,
           stageEnteredAt: new Date(),
@@ -171,7 +171,7 @@ export async function PATCH(
     } = result.data;
 
     const updated = await prisma.application.update({
-      where: { id },
+      where: { id, userId: user.userId },
       data: {
         ...(company !== undefined && { company }),
         ...(role !== undefined && { role }),
@@ -259,7 +259,7 @@ export async function DELETE(
     }
 
     await prisma.application.update({
-      where: { id },
+      where: { id, userId: user.userId },
       data: { deletedAt: new Date() },
     });
 
