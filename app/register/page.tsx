@@ -175,12 +175,7 @@ export default function RegisterPage() {
         return;
       }
 
-      if (response.status === 409) {
-        setServerError(json.error);
-        return;
-      }
-
-      setServerError("Something went wrong. Please try again.");
+      setServerError(json.error ?? "Something went wrong. Please try again.");
     } catch {
       setServerError("Something went wrong. Please try again.");
     } finally {

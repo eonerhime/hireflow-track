@@ -57,9 +57,20 @@ export async function PATCH(
         { status: 400 },
       );
 
-    const updated = await prisma.interviewNote.update({
-      where: { id },
+    // InterviewNote has no direct userId — Prisma's unique-where extension
+    // (used elsewhere for `update({ where: { id, userId } })`) doesn't
+    // support relation filters, so updateMany + a count check stands in for
+    // the same defense-in-depth: the update itself re-verifies ownership,
+    // not just the preceding getOwnedNote check.
+    const { count } = await prisma.interviewNote.updateMany({
+      where: { id, application: { userId } },
       data: result.data,
+    });
+    if (count === 0) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+    const updated = await prisma.interviewNote.findUniqueOrThrow({
+      where: { id },
     });
 
     revalidatePath("/dashboard");
@@ -103,7 +114,12 @@ export async function DELETE(
     if (!note)
       return NextResponse.json({ error: "Not found" }, { status: 404 });
 
-    await prisma.interviewNote.delete({ where: { id } });
+    const { count } = await prisma.interviewNote.deleteMany({
+      where: { id, application: { userId } },
+    });
+    if (count === 0) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
 
     revalidatePath("/dashboard");
     revalidatePath(`/dashboard/applications/${note.applicationId}`);

@@ -40,6 +40,23 @@ export const authOptions: AuthOptions = {
     }),
   ],
   session: { strategy: "jwt" },
+  // Explicit rather than relying on NextAuth's implicit defaults — makes the
+  // security posture auditable and independent of NEXTAUTH_URL being set
+  // correctly (NextAuth infers `secure` from it otherwise).
+  cookies: {
+    sessionToken: {
+      name:
+        process.env.NODE_ENV === "production"
+          ? "__Secure-next-auth.session-token"
+          : "next-auth.session-token",
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+      },
+    },
+  },
   callbacks: {
     async signIn({ user, account }) {
       if (account?.provider === "google" && user.email) {
