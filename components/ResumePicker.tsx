@@ -31,9 +31,6 @@ export default function ResumePicker({
     setSaving(true);
     setError(null);
 
-    const payload = { resumeId: value === "" ? null : value };
-    console.log("PATCH payload:", payload);
-
     const res = await fetch(`/api/applications/${applicationId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },

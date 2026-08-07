@@ -10,7 +10,7 @@ describe("registerSchema", () => {
     expect(result.success).toBe(true);
   });
 
-  it("rejects password shorter than 8 characters", () => {
+  it("rejects password shorter than 10 characters", () => {
     const result = registerSchema.safeParse({
       email: "user@example.com",
       password: "short",
@@ -18,7 +18,7 @@ describe("registerSchema", () => {
     });
     expect(result.success).toBe(false);
     expect(result.error?.flatten().fieldErrors.password).toContain(
-      "Password must be at least 8 characters",
+      "Password must be at least 10 characters",
     );
   });
 
