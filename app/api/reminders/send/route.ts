@@ -92,7 +92,11 @@ async function handleReminderProcessing(request: NextRequest) {
     for (const [email, userApps] of Object.entries(byUser)) {
       const count = userApps.length;
       try {
-        await resend.emails.send({
+        // The Resend SDK returns { data: null, error } for API-level
+        // rejections (e.g. sandbox domain restrictions) rather than
+        // throwing — without checking this, a failed send still counts
+        // toward `sent`.
+        const { error: sendError } = await resend.emails.send({
           from: "HireTrace <onboarding@resend.dev>",
           to: email,
           subject: `You have ${count} follow-up${count === 1 ? "" : "s"} due today — HireTrace`,
@@ -105,6 +109,15 @@ async function handleReminderProcessing(request: NextRequest) {
             })),
           ),
         });
+
+        if (sendError) {
+          console.error(
+            `[reminders/send] Failed to send to ${email}:`,
+            sendError,
+          );
+          continue;
+        }
+
         sent += 1;
       } catch (emailError) {
         // Log but do not throw — continue sending to remaining users
