@@ -13,36 +13,47 @@ cloudinary.config({
 export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const formData = await req.formData();
+    const file = formData.get("file") as File | null;
+
+    if (!file) {
+      return NextResponse.json(
+        { error: "No file provided" },
+        { status: 400 },
+      );
+    }
+
+    // Convert File to base64 data URI for Cloudinary
+    const arrayBuffer = await file.arrayBuffer();
+    const base64 = Buffer.from(arrayBuffer).toString("base64");
+    const dataUri = `data:${file.type};base64,${base64}`;
+
+    const result = await cloudinary.uploader.upload(dataUri, {
+      folder: "hireflow-track/avatars",
+      public_id: `user_${session.user.id}`,
+      overwrite: true,
+      transformation: [
+        { width: 200, height: 200, crop: "fill", gravity: "face" },
+      ],
+    });
+
+    await prisma.user.update({
+      where: { id: session.user.id },
+      data: { avatarUrl: result.secure_url },
+    });
+
+    return NextResponse.json({ avatarUrl: result.secure_url });
+  } catch (error) {
+    console.error("[POST /api/settings/avatar]", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }
-
-  const formData = await req.formData();
-  const file = formData.get("file") as File | null;
-
-  if (!file) {
-    return NextResponse.json({ error: "No file provided" }, { status: 400 });
-  }
-
-  // Convert File to base64 data URI for Cloudinary
-  const arrayBuffer = await file.arrayBuffer();
-  const base64 = Buffer.from(arrayBuffer).toString("base64");
-  const dataUri = `data:${file.type};base64,${base64}`;
-
-  const result = await cloudinary.uploader.upload(dataUri, {
-    folder: "hireflow-track/avatars",
-    public_id: `user_${session.user.id}`,
-    overwrite: true,
-    transformation: [
-      { width: 200, height: 200, crop: "fill", gravity: "face" },
-    ],
-  });
-
-  await prisma.user.update({
-    where: { id: session.user.id },
-    data: { avatarUrl: result.secure_url },
-  });
-
-  return NextResponse.json({ avatarUrl: result.secure_url });
 }

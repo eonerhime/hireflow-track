@@ -112,7 +112,7 @@ export async function middleware(request: NextRequest) {
 
   if (!token) {
     if (isApiRoute) {
-      return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
     return NextResponse.redirect(new URL("/login", request.url));
   }

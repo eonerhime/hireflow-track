@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { formatDate } from "@/lib/formatDate";
 
 interface Resume {
   id: string;
@@ -13,14 +14,6 @@ interface Resume {
 
 interface ResumeListProps {
   resumes: Resume[];
-}
-
-function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
 }
 
 export default function ResumeList({ resumes }: ResumeListProps) {

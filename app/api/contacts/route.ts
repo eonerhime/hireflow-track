@@ -2,6 +2,7 @@
 import { authOptions } from "@/lib/auth-options";
 import { prisma } from "@/lib/prisma";
 import { createContactSchema } from "@/lib/schemas/contact";
+import { getOwnedApplication } from "@/lib/ownership";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -34,18 +35,18 @@ export async function POST(request: NextRequest) {
   const result = createContactSchema.safeParse(body);
   if (!result.success)
     return NextResponse.json(
-      { error: result.error.flatten() },
+      {
+        error: "Validation failed",
+        details: result.error.flatten().fieldErrors,
+      },
       { status: 400 },
     );
 
   // Verify the application belongs to the user
-  const application = await prisma.application.findFirst({
-    where: {
-      id: result.data.applicationId,
-      userId: userId,
-      deletedAt: null,
-    },
-  });
+  const application = await getOwnedApplication(
+    userId,
+    result.data.applicationId,
+  );
   if (!application)
     return NextResponse.json(
       { error: "Application not found" },

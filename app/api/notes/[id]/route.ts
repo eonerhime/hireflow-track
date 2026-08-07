@@ -1,16 +1,10 @@
 import { authOptions } from "@/lib/auth-options";
 import { prisma } from "@/lib/prisma";
 import { updateNoteSchema } from "@/lib/schemas/note";
+import { getOwnedNote } from "@/lib/ownership";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
-
-async function getOwnedNote(userId: string, noteId: string) {
-  return prisma.interviewNote.findFirst({
-    where: { id: noteId, application: { userId, deletedAt: null } },
-    include: { application: true },
-  });
-}
 
 /**
  * PATCH /api/notes/[id]

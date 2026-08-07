@@ -6,6 +6,7 @@ import { ApplicationStage } from "@prisma/client";
 import InterviewNoteForm from "@/components/InterviewNoteForm";
 import InterviewNoteActions from "@/components/InterviewNoteActions";
 import NoteTimeline from "@/components/NoteTimeline";
+import { formatDate } from "@/lib/formatDate";
 
 interface Note {
   id: string;
@@ -90,12 +91,7 @@ export default function NoteViewToggle({
                              dark:border-gray-700 dark:bg-gray-700/50"
                 >
                   <p className="mb-1 text-xs font-medium text-gray-500 dark:text-gray-400">
-                    {stageLabels[note.stage]} ·{" "}
-                    {new Date(note.createdAt).toLocaleDateString("en-GB", {
-                      day: "numeric",
-                      month: "short",
-                      year: "numeric",
-                    })}
+                    {stageLabels[note.stage]} · {formatDate(note.createdAt)}
                   </p>
                   <p className="whitespace-pre-wrap text-sm text-gray-900 dark:text-gray-100">
                     {note.content}
