@@ -24,9 +24,11 @@ const inputClass = `mt-1 block w-full rounded-md border border-gray-300 px-3 py-
 
 function OtpStep({
   email,
+  password,
   onBack,
 }: {
   email: string;
+  password: string;
   onBack: () => void;
 }) {
   const router = useRouter();
@@ -56,7 +58,17 @@ function OtpStep({
       const json = await response.json();
 
       if (response.status === 201) {
-        router.push("/login?registered=true");
+        const signInResult = await signIn("credentials", {
+          email,
+          password,
+          redirect: false,
+        });
+
+        if (signInResult?.ok) {
+          router.push("/dashboard");
+        } else {
+          router.push("/login?registered=true");
+        }
         return;
       }
 
@@ -132,7 +144,10 @@ function OtpStep({
 export default function RegisterPage() {
   const [serverError, setServerError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [pendingEmail, setPendingEmail] = useState<string | null>(null);
+  const [pending, setPending] = useState<{
+    email: string;
+    password: string;
+  } | null>(null);
 
   const {
     register,
@@ -156,7 +171,7 @@ export default function RegisterPage() {
       const json = await response.json();
 
       if (response.status === 200) {
-        setPendingEmail(data.email);
+        setPending({ email: data.email, password: data.password });
         return;
       }
 
@@ -183,11 +198,15 @@ export default function RegisterPage() {
                       dark:bg-gray-800 dark:border dark:border-gray-700"
       >
         <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
-          {pendingEmail ? "Verify your email" : "Create your account"}
+          {pending ? "Verify your email" : "Create your account"}
         </h1>
 
-        {pendingEmail ? (
-          <OtpStep email={pendingEmail} onBack={() => setPendingEmail(null)} />
+        {pending ? (
+          <OtpStep
+            email={pending.email}
+            password={pending.password}
+            onBack={() => setPending(null)}
+          />
         ) : (
           <>
             <form
