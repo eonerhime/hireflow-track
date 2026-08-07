@@ -16,6 +16,7 @@ function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const justRegistered = searchParams.get("registered") === "true";
+  const justReset = searchParams.get("reset") === "true";
 
   const [serverError, setServerError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -81,6 +82,15 @@ function LoginForm() {
           </p>
         )}
 
+        {justReset && (
+          <p
+            className="mb-4 rounded-md bg-green-50 px-3 py-2 text-sm text-green-700
+                        dark:bg-green-900/30 dark:text-green-400"
+          >
+            Password updated. Please log in with your new password.
+          </p>
+        )}
+
         <form
           onSubmit={handleSubmit(onSubmit)}
           noValidate
@@ -110,12 +120,20 @@ function LoginForm() {
 
           {/* Password */}
           <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
-              Password
-            </label>
+            <div className="flex items-center justify-between">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
+                Password
+              </label>
+              <a
+                href="/forgot-password"
+                className="text-sm text-blue-600 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
+              >
+                Forgot password?
+              </a>
+            </div>
             <input
               id="password"
               type="password"
