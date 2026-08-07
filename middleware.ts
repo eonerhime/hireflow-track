@@ -8,6 +8,13 @@ const PUBLIC_API_ROUTES = [
   "/api/auth/register",
   "/api/reminders/send",
 ];
+// Exempt from IP rate limiting specifically (trusted cron trigger,
+// authenticated separately via CRON_SECRET) — distinct from
+// PUBLIC_API_ROUTES, which only controls the session-check bypass below.
+// Public routes are NOT rate-limit exempt by default: /api/auth/register
+// and /api/auth/register/verify are public but must still be throttled,
+// since the latter is a brute-forceable 6-digit code check.
+const RATE_LIMIT_EXEMPT_ROUTES = ["/api/reminders/send"];
 // Routes that authenticate via EITHER a NextAuth session or an API key
 // (see lib/auth-helpers.ts's getAuthenticatedUser) — middleware must not
 // enforce a session-only gate ahead of these, or key-only clients like the
@@ -54,14 +61,19 @@ export async function middleware(request: NextRequest) {
   const isApiKeyEligibleRoute = API_KEY_ELIGIBLE_ROUTES.some((route) =>
     pathname.startsWith(route),
   );
+  const isRateLimitExempt = RATE_LIMIT_EXEMPT_ROUTES.some((route) =>
+    pathname.startsWith(route),
+  );
 
-  // 1. CRITICAL: Immediately grant exit execution for public cron paths
-  if (isPublicRoute || isPublicApiRoute) {
-    return NextResponse.next();
-  }
-
-  // Rate limiting — mutating API routes only (safely skipped for /api/reminders/send)
-  if (isApiRoute && MUTATING_METHODS.has(request.method)) {
+  // Rate limiting — mutating API routes only. Runs even for routes that are
+  // public or API-key-eligible below: being reachable without a session
+  // doesn't mean a route should be unthrottled (e.g. the OTP verify
+  // endpoint, which is brute-forceable and must not skip this).
+  if (
+    isApiRoute &&
+    MUTATING_METHODS.has(request.method) &&
+    !isRateLimitExempt
+  ) {
     const ip =
       request.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
     const allowed = checkRateLimit(ip);
@@ -74,6 +86,11 @@ export async function middleware(request: NextRequest) {
         },
       );
     }
+  }
+
+  // 1. CRITICAL: Immediately grant exit execution for public cron paths
+  if (isPublicRoute || isPublicApiRoute) {
+    return NextResponse.next();
   }
 
   // These routes check for a session OR an API key themselves — don't
